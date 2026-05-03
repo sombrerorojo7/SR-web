@@ -18,25 +18,14 @@
 
   /* HEADER */
   .app-header {
-    background: var(--azul); color: #fff; padding: 10px 20px;
+    background: #fff; padding: 8px 20px;
     display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
     border-bottom: 3px solid var(--rojo);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
   }
-  .brand-logo { display: flex; align-items: center; gap: 12px; }
-  .logo-hat { font-size: 32px; }
-  .logo-sombrero {
-    font-family: 'Palatino Linotype', Palatino, Georgia, serif;
-    font-size: 22px; font-weight: bold; color: #fff;
-  }
-  .logo-rojo {
-    font-family: 'Palatino Linotype', Palatino, Georgia, serif;
-    font-size: 22px; font-weight: bold; color: var(--rojo);
-  }
-  .logo-tagline {
-    font-family: 'Bebas Neue', 'Gill Sans MT', 'Gill Sans', sans-serif;
-    font-size: 11px; letter-spacing: 0.15em; color: var(--beige); margin-top: 2px;
-  }
-  .header-info { font-size: 11px; color: rgba(255,255,255,0.45); text-align: right; line-height: 1.5; }
+  .brand-logo { display: flex; align-items: center; }
+  .logo-img { height: 54px; width: auto; display: block; }
+  .header-info { font-size: 11px; color: #888; text-align: right; line-height: 1.6; }
 
   /* NAV TABS */
   .nav-tabs { display: flex; background: #002060; border-bottom: 2px solid rgba(255,255,255,0.08); }
@@ -189,11 +178,7 @@
 <!-- HEADER -->
 <header class="app-header">
   <div class="brand-logo">
-    <span class="logo-hat">🎩</span>
-    <div>
-      <div><span class="logo-sombrero">Sombrero</span><span class="logo-rojo"> Rojo</span></div>
-      <div class="logo-tagline">MARKETING DIGITAL &middot; CUENCA, ECUADOR</div>
-    </div>
+    <img class="logo-img" src="logo.png" alt="Sombrero Rojo Marketing Digital">
   </div>
   <div class="header-info">Sistema de Propuestas Comerciales<br>v3.0 &mdash; 2025</div>
 </header>
@@ -206,7 +191,7 @@
 
 <div class="app">
 
-<!-- PANEL LANDING COMPLETA -->
+<!-- ══════ PANEL LANDING COMPLETA ══════ -->
 <div class="panel active" id="panel-landing">
   <div class="sidebar">
     <div class="sidebar-brand">Genera la landing con los 3 planes para tu prospecto</div>
@@ -275,7 +260,7 @@
   </div>
 </div>
 
-<!-- PANEL GENERADOR DE PROPUESTAS -->
+<!-- ══════ PANEL GENERADOR DE PROPUESTAS ══════ -->
 <div class="panel" id="panel-generador">
   <div class="sidebar">
     <div class="sidebar-brand">Genera propuestas personalizadas por plan</div>
@@ -376,7 +361,7 @@
         <input type="text" id="p_web" placeholder="https://sombrerorojomktg.com" oninput="actualizarGenerador()"></div>
     </div>
 
-    <!-- Botones dinamicos por subtab -->
+    <!-- Botones dinámicos por subtab -->
     <div class="btn-row" id="btns-whatsapp">
       <a id="btn-wa-link" href="#" target="_blank" class="btn-action btn-primary">📱 Abrir en WhatsApp</a>
       <button class="btn-action btn-secondary" onclick="copiarMensaje()">📋 Copiar mensaje</button>
@@ -406,9 +391,9 @@
 </div><!-- /app -->
 
 <script>
-// ===============================================
+// ═══════════════════════════════════════════════
 // DATOS
-// ===============================================
+// ═══════════════════════════════════════════════
 var PLANES = {
   1: {
     nombre: "Captacion Digital", precio: 449, mant_a: 200, mant_t: 60,
@@ -521,9 +506,9 @@ var PLANES = {
 var planActivo = 1;
 var subtabActivo = "whatsapp";
 
-// ===============================================
+// ═══════════════════════════════════════════════
 // NAVEGACION
-// ===============================================
+// ═══════════════════════════════════════════════
 function switchTab(tab) {
   ["landing", "generador"].forEach(function(t) {
     document.getElementById("panel-" + t).classList.toggle("active", t === tab);
@@ -551,9 +536,9 @@ function switchSubtab(st) {
   else if (st === "html") { renderFrame("frame-planland", getPlanLandHTML()); }
 }
 
-// ===============================================
+// ═══════════════════════════════════════════════
 // PLAN SELECTOR
-// ===============================================
+// ═══════════════════════════════════════════════
 function selPlan(n) {
   planActivo = n;
   [1, 2, 3].forEach(function(i) {
@@ -586,9 +571,9 @@ function toggleFounderP() {
   actualizarGenerador();
 }
 
-// ===============================================
+// ═══════════════════════════════════════════════
 // HELPERS
-// ===============================================
+// ═══════════════════════════════════════════════
 function v(id) {
   var el = document.getElementById(id);
   return el ? el.value.trim() : "";
@@ -657,9 +642,9 @@ function copiarMensaje() {
   }
 }
 
-// ===============================================
+// ═══════════════════════════════════════════════
 // WHATSAPP MESSAGE
-// ===============================================
+// ═══════════════════════════════════════════════
 function getWhatsAppMsg() {
   var p = PLANES[planActivo];
   var nombre = v("p_nombre");
@@ -753,9 +738,9 @@ function actualizarWhatsApp() {
     '</div>';
 }
 
-// ===============================================
+// ═══════════════════════════════════════════════
 // CSS COMPARTIDO PARA DOCUMENTOS GENERADOS
-// ===============================================
+// ═══════════════════════════════════════════════
 var CSS_SHARED = "*{box-sizing:border-box;margin:0;padding:0}" +
 "body{font-family:'Gill Sans MT','Gill Sans',Calibri,'Segoe UI',Arial,sans-serif;color:#222;background:#fff}" +
 ".container{max-width:880px;margin:0 auto;padding:0 24px}" +
@@ -807,9 +792,9 @@ var CSS_SHARED = "*{box-sizing:border-box;margin:0;padding:0}" +
 "footer{background:#003880;color:rgba(255,255,255,.4);text-align:center;padding:14px;font-size:11px}" +
 "@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');";
 
-// ===============================================
+// ═══════════════════════════════════════════════
 // LANDING COMPLETA
-// ===============================================
+// ═══════════════════════════════════════════════
 function getLandingHTML() {
   var negocio = v("l_negocio") || "su empresa";
   var contacto = v("l_contacto");
@@ -971,9 +956,9 @@ function getLandingHTML() {
     '</body></html>';
 }
 
-// ===============================================
+// ═══════════════════════════════════════════════
 // PROFORMA FORMAL (PDF tab)
-// ===============================================
+// ═══════════════════════════════════════════════
 function getProformaHTML() {
   var p = PLANES[planActivo];
   var nombre = v("p_nombre") || "Cliente";
@@ -1097,9 +1082,9 @@ function getProformaHTML() {
     '</div></body></html>';
 }
 
-// ===============================================
+// ═══════════════════════════════════════════════
 // LANDING DEL PLAN (HTML tab)
-// ===============================================
+// ═══════════════════════════════════════════════
 function getPlanLandHTML() {
   var p = PLANES[planActivo];
   var nombre = v("p_nombre") || "";
@@ -1216,9 +1201,9 @@ function getPlanLandHTML() {
     '</body></html>';
 }
 
-// ===============================================
+// ═══════════════════════════════════════════════
 // ACTUALIZAR PREVIEWS
-// ===============================================
+// ═══════════════════════════════════════════════
 function actualizarLanding() {
   renderFrame("frame-landing", getLandingHTML());
 }
@@ -1229,9 +1214,9 @@ function actualizarGenerador() {
   else if (subtabActivo === "html") { renderFrame("frame-planland", getPlanLandHTML()); }
 }
 
-// ===============================================
+// ═══════════════════════════════════════════════
 // DESCARGAS
-// ===============================================
+// ═══════════════════════════════════════════════
 function descargarLanding() {
   var neg = slug(v("l_negocio") || "propuesta");
   descargarHTML(getLandingHTML(), "landing-sr-" + neg + ".html");
@@ -1249,9 +1234,9 @@ function descargarPlanLand() {
   descargarHTML(getPlanLandHTML(), "landing-plan" + planActivo + "-sr-" + nc + "-" + em + ".html");
 }
 
-// ===============================================
+// ═══════════════════════════════════════════════
 // INIT
-// ===============================================
+// ═══════════════════════════════════════════════
 window.addEventListener("DOMContentLoaded", function() {
   document.getElementById("p_fecha").value = new Date().toISOString().split("T")[0];
   actualizarLanding();
