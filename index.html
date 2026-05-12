@@ -171,6 +171,20 @@
     .sidebar { width: 100%; min-width: unset; border-right: none; border-bottom: 1px solid var(--gris2); max-height: 60vh; }
     .nav-tab { font-size: 12px; padding: 10px 6px; }
   }
+
+  /* ─── Publicar btn ─── */
+  .btn-publish {
+    width: 100%;
+    background: linear-gradient(135deg, #c0392b 0%, #922b21 100%);
+    color: #fff; border: none; border-radius: 8px;
+    padding: 12px 16px; font-size: 13px; font-weight: 700;
+    cursor: pointer; letter-spacing: .3px; transition: opacity .2s;
+  }
+  .btn-publish:hover { opacity: .88; }
+  .btn-publish:disabled { opacity: .5; cursor: not-allowed; }
+  #pub-status.ok  { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+  #pub-status.err { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+  #pub-status.inf { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
 </style>
 </head>
 <body>
@@ -1177,28 +1191,7 @@ function getPlanLandHTML() {
   return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">' +
     '<title>Plan ' + p.nombre + ' &mdash; Sombrero Rojo</title>' +
     '<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">' +
-    '<style>' + CSS_SHARED + '
-  /* ─── Publicar btn ─── */
-  .btn-publish {
-    width: 100%;
-    background: linear-gradient(135deg, #c0392b 0%, #922b21 100%);
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 16px;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    letter-spacing: .3px;
-    transition: opacity .2s;
-  }
-  .btn-publish:hover { opacity: .88; }
-  .btn-publish:disabled { opacity: .5; cursor: not-allowed; }
-  #pub-status.ok  { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
-  #pub-status.err { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
-  #pub-status.inf { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
-
-</style></head><body>' +
+    '<style>' + CSS_SHARED + '</style></head><body>' +
     '<div class="hero">' +
     '<div class="badge">Plan ' + planActivo + ' &mdash; ' + p.nombre + (empresa ? ' &middot; ' + empresa : '') + '</div>' +
     '<h1>' + p.hero_titulo + '</h1>' +
