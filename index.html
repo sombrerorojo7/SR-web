@@ -255,7 +255,7 @@
       <div class="field-group"><label>WhatsApp (visible)</label>
         <input type="text" id="l_wa_vis" placeholder="+593 99 999 9999" oninput="actualizarLanding()"></div>
       <div class="field-group"><label>Sitio web</label>
-        <input type="text" id="l_web" placeholder="https://sombrerorojomktg.com" oninput="actualizarLanding()"></div>
+        <input type="text" id="l_web" placeholder="https://sombrerorojo.net" oninput="actualizarLanding()"></div>
     </div>
 
     <div class="btn-row">
@@ -374,7 +374,7 @@
       <div class="field-group"><label>WhatsApp (visible)</label>
         <input type="text" id="p_wa_vis" placeholder="+593 99 999 9999" oninput="actualizarGenerador()"></div>
       <div class="field-group"><label>Sitio web</label>
-        <input type="text" id="p_web" placeholder="https://sombrerorojomktg.com" oninput="actualizarGenerador()"></div>
+        <input type="text" id="p_web" placeholder="https://sombrerorojo.net" oninput="actualizarGenerador()"></div>
     </div>
 
     <!-- Botones dinámicos por subtab -->
@@ -853,7 +853,7 @@ function getLandingHTML() {
   var sector = v("l_sector");
   var wa = v("l_wa") || "593999999999";
   var waVis = v("l_wa_vis") || "+593 99 999 9999";
-  var web = v("l_web") || "https://sombrerorojomktg.com";
+  var web = v("l_web") || "https://sombrerorojo.net";
   var founderOn = chk("l_founder_on");
   var descPct = v("l_desc_pct") || "20";
   var cupos = v("l_cupos") || "5";
@@ -1032,7 +1032,7 @@ function getProformaHTML() {
   var mantT = parseFloat(v("p_mant_t")) || p.mant_t;
   var wa = v("p_wa") || "593999999999";
   var waVis = v("p_wa_vis") || "+593 99 999 9999";
-  var web = v("p_web") || "https://sombrerorojomktg.com";
+  var web = v("p_web") || "https://sombrerorojo.net";
   var precioMostrar = founderOn ? pfund : (base - desc);
   var waMsg = encodeURIComponent("Hola, consulto sobre la propuesta #" + ncot + " — Plan " + p.nombre);
   var incItems = p.incluye.map(function(item) { return '<div class="ii">' + item + '</div>'; }).join("");
@@ -1094,7 +1094,7 @@ function getProformaHTML() {
     '<div class="pbar no-print"><button class="bprint" onclick="window.print()">&#128424; Imprimir / Guardar PDF</button></div>' +
     '<div class="doc">' +
     '<div class="dh">' +
-    '<div class="brand"><img src="https://sombrerorojo7.github.io/SR-web/logo.png" alt="Sombrero Rojo" style="height:52px;width:auto;display:block;margin-bottom:4px;filter:brightness(0)invert(1)"><p style="font-size:11px;opacity:.6;margin-top:2px;">Marketing Digital &middot; Cuenca, Ecuador</p></div>' +
+    '<div class="brand"><img src=\"https://sombrerorojo7.github.io/SR-web/logo.png\" alt=\"Sombrero Rojo\" style=\"height:52px;width:auto;display:block;margin-bottom:4px;\"><p style=\"font-size:11px;opacity:.6;margin-top:2px;\">Marketing Digital &middot; Cuenca, Ecuador</p></div>' +
     '<div class="dmeta"><div class="badge">Propuesta Comercial</div><h2>N&deg; ' + ncot + '</h2><p>Fecha: ' + fechaFmt + '</p></div>' +
     '</div>' +
     '<div class="iband">' +
@@ -1154,7 +1154,7 @@ function getPlanLandHTML() {
   var mantT = parseFloat(v("p_mant_t")) || p.mant_t;
   var wa = v("p_wa") || "593999999999";
   var waVis = v("p_wa_vis") || "+593 99 999 9999";
-  var web = v("p_web") || "https://sombrerorojomktg.com";
+  var web = v("p_web") || "https://sombrerorojo.net";
   var precioMostrar = founderOn ? pfund : (base - desc);
   var waMsg = encodeURIComponent("Hola" + (nombre ? " " + nombre : "") + ", me interesa el Plan " + p.nombre + " de Sombrero Rojo. Podemos coordinar?");
 
