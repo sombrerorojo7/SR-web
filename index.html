@@ -820,32 +820,32 @@ var mantA = parseFloat(v("p_mant_a")) || p.mant_a;
 var mantT = parseFloat(v("p_mant_t")) || p.mant_t;
 var precioMostrar = founderOn ? pfund : (base - desc);
 var msg = "";
-msg += "🎩 *Sombrero Rojo Marketing Digital*\n";
-msg += "━━━━━━━━━━━━━━━━━━━\n\n";
+msg += "*Sombrero Rojo Marketing Digital*\n";
+msg += "-----------------------------------\n\n";
 if (nombre) {
-msg += "Hola " + nombre + ", aquí está tu propuesta personalizada:\n\n";
+msg += "Hola " + nombre + ", aqui esta tu propuesta personalizada:\n\n";
 } else {
-msg += "Aquí está tu propuesta personalizada:\n\n";
+msg += "Aqui esta tu propuesta personalizada:\n\n";
 }
-msg += "📋 *Plan " + p.nombre + "*\n";
-if (empresa) { msg += "🏢 " + empresa + (sector ? " · " + sector : "") + "\n"; }
-msg += "📑 Cotización N° " + ncot + "\n\n";
-msg += "💰 *Inversión:*\n";
-msg += "• Setup único: *$" + precioMostrar.toLocaleString() + "*\n";
+msg += "*Plan " + p.nombre + "*\n";
+if (empresa) { msg += empresa + (sector ? " - " + sector : "") + "\n"; }
+msg += "Cotizacion N° " + ncot + "\n\n";
+msg += "*Inversion:*\n";
+msg += "- Setup unico: *$" + precioMostrar.toLocaleString() + "*\n";
 if (founderOn && ahorro > 0) {
-msg += "• ⭐ _Precio Fundador — ahorras $" + ahorro.toLocaleString() + "_\n";
+msg += "- _Precio Fundador — ahorras $" + ahorro.toLocaleString() + "_\n";
 }
-msg += "• 1er año de mantenimiento: *GRATIS* ✅\n";
-msg += "• Mantenimiento año 2: *$" + mantA + "/año* · $" + mantT + "/trim\n\n";
-msg += "✅ *Incluye:*\n";
+msg += "- 1er año de mantenimiento: *GRATIS*\n";
+msg += "- Mantenimiento año 2: *$" + mantA + "/año* - $" + mantT + "/trim\n\n";
+msg += "*Incluye:*\n";
 var items = p.incluye.slice(0, 5);
 for (var i = 0; i < items.length; i++) {
-msg += "• " + items[i] + "\n";
+msg += "- " + items[i] + "\n";
 }
-msg += "• ...y más\n\n";
-msg += "📅 Propuesta válida por *15 días*\n";
-msg += "💳 Pago: 50% inicio · 50% a la entrega\n\n";
-msg += "¿Tienes alguna pregunta? ¡Aquí estamos para ayudarte! 😊";
+msg += "- ...y mas\n\n";
+msg += "Propuesta valida por *15 dias*\n";
+msg += "Pago: 50% inicio - 50% a la entrega\n\n";
+msg += "¿Tienes alguna pregunta? Aqui estamos para ayudarte.";
 return msg;
 }
 function actualizarWhatsApp() {
