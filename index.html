@@ -194,6 +194,11 @@ box-shadow:0 4px 16px rgba(0,0,0,0.15); z-index:200; max-height:300px; overflow-
 .sr-source { font-size:10px; color:#aaa; margin-bottom:2px; }
 .sr-name { font-size:13px; font-weight:700; color:var(--azul); }
 .sr-detail { font-size:11px; color:#888; margin-top:1px; }
+
+.svc-tabs{display:flex;gap:5px;margin-bottom:10px;}
+.svc-tab{flex:1;padding:6px 4px;text-align:center;cursor:pointer;border-radius:6px;font-size:11px;font-weight:700;background:#f0f2f5;color:#555;border:2px solid transparent;transition:all .15s;user-select:none;}
+.svc-tab.active{background:var(--azul);color:#fff;border-color:var(--azul);}
+.svc-tab:hover:not(.active){background:#e0e4f0;color:var(--azul);}
 </style>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script></script>
@@ -412,6 +417,15 @@ if (el) el.style.display = 'none';
 <div class="subtab" id="st-pdf" onclick="switchSubtab('pdf')">📄 PDF</div>
 <div class="subtab" id="st-html" onclick="switchSubtab('html')">🔗 HTML</div>
 </div>
+<!-- ══ TIPO DE SERVICIO ══ -->
+<div class="seccion-group" style="padding-bottom:4px;">
+<h3>🗂 Tipo de servicio</h3>
+<div class="svc-tabs">
+<div class="svc-tab active" id="svc-web" onclick="switchServicio('web')">🌐 Web</div>
+<div class="svc-tab" id="svc-branding" onclick="switchServicio('branding')">🎨 Branding</div>
+<div class="svc-tab" id="svc-redes" onclick="switchServicio('redes')">📱 Redes</div>
+</div>
+</div>
 <!-- ══════ BUSCADOR DE PROSPECTOS ══════ -->
 <div class="seccion-group" id="sec-buscar">
 <h3>🔍 Buscar prospecto</h3>
@@ -425,7 +439,7 @@ if (el) el.style.display = 'none';
 </div>
 <div class="seccion-group">
 <h3>📌 Plan</h3>
-<div class="plan-selector">
+<div class="plan-selector" id="plan-selector-wrap">
 <div class="plan-option selected" id="popt-1" onclick="selPlan(1)">
 <span class="pname">Plan 1 — Captación</span>
 <span class="pprice">$449 setup · $200/año · $60/trim</span>
@@ -678,11 +692,73 @@ proceso: [
 ]
 }
 };
+
+// ═══════════════════════════════════════════════
+// PLANES BRANDING + REDES
+// ═══════════════════════════════════════════════
+var PLANES_BRANDING = {
+1:{nombre:"Esencial",precio:249,tipo_precio:"unico",entrega:"10-12 dias habiles",
+desc_corto:"Imagen profesional lista para todos tus canales digitales e impresos",
+incluye:["2 propuestas de concepto de logo","Hasta 2 rondas de revisiones","Estudio de color corporativo + tipografia","Versiones: color, B/N, monocromatico","Archivos: AI, EPS, PDF, PNG alta res., fondo transparente","Tarjeta de presentacion (1 o 2 caras)","Logo optimizado para redes (cuadrado + circular)","Guia rapida de colores corporativos (PDF 1 pag.)"]},
+2:{nombre:"Profesional",precio:399,tipo_precio:"unico",entrega:"15-18 dias habiles",
+desc_corto:"Identidad completa con guia de uso para cualquier soporte",
+incluye:["3 propuestas de concepto de logo","Hasta 3 rondas de revisiones","Analisis de competencia y posicionamiento de marca","Estudio de color + tipografia corporativa","Versiones completas + horizontal y vertical","Archivos: AI, EPS, PDF, PNG, SVG","Papeleria: hoja membretada + tarjeta","Guia de uso de marca (PDF 4 pag.)","Kit redes: perfil + portada Facebook e Instagram","Plantilla historia y post Instagram"]},
+3:{nombre:"Corporativo",precio:699,tipo_precio:"unico",entrega:"20-25 dias habiles",
+desc_corto:"Identidad de alto nivel con manual de marca profesional completo",
+incluye:["3 propuestas de concepto de logo","Hasta 4 rondas de revisiones","Analisis de mercado, naming y posicionamiento estrategico","Manual de Marca completo (PDF 10-15 pag.) con Pantone/CMYK/RGB/HEX","Papeleria completa: sobre, hoja, carpeta, tarjeta","Diseno de packing (1 producto)","Roll up 80x200 cm","Animacion de logo (5 seg., MP4)","Kit digital: perfil + portada + 3 plantillas post"]}
+};
+var PLANES_REDES = {
+1:{nombre:"Presencia",precio:299,tipo_precio:"mes",jornadas:0,
+desc_corto:"Imagen profesional y consistente en redes, sin visitas al local",
+incluye:["8 piezas graficas mensuales (imagenes estaticas)","2 carruseles educativos o informativos","Copy estrategico en cada publicacion","Publicacion en Facebook e Instagram","Reporte mensual basico de metricas","1 reunion mensual de alineacion (30 min, online)"]},
+2:{nombre:"Business Activo",precio:599,tipo_precio:"mes",jornadas:1,
+desc_corto:"Contenido real con tu equipo + 1 jornada de grabacion mensual",
+incluye:["12 piezas mensuales (imagenes + fotos reales del cliente)","4 piezas con fotografia real del equipo o instalaciones","3-4 Reels grabados en jornada mensual (3-4 h)","Edicion de video: cortes, musica, subtitulos","Optimizacion Perfil de Negocio Google","Configuracion respuestas WhatsApp Business","Reporte mensual con metricas + recomendaciones","4 historias animadas al mes"]},
+3:{nombre:"Premium Captacion",precio:1099,tipo_precio:"mes",jornadas:2,
+desc_corto:"Produccion profesional + estrategia de leads B2B",
+incluye:["Todo lo del Plan Business Activo","2 jornadas de produccion mensual","Campana Meta Ads de captacion (pauta por separado)","Landing page o formulario de captura de leads","Estrategia de leads + seguimiento mensual","Reportes avanzados con ROI estimado","Coordinacion con equipo de ventas"]}
+};
+var servicioActivo = 'web';
+var planActivoBranding = 1;
+var planActivoRedes = 1;
+
 var planActivo = 1;
 var subtabActivo = "whatsapp";
 // ═══════════════════════════════════════════════
 // NAVEGACION
 // ═══════════════════════════════════════════════
+
+function switchServicio(tipo) {
+servicioActivo = tipo;
+['web','branding','redes'].forEach(function(t){
+var el=document.getElementById('svc-'+t);
+if(el) el.classList.toggle('active',t===tipo);
+});
+renderPlanSelector();
+actualizarGenerador();
+}
+function getPlanActivoObj() {
+if(servicioActivo==='branding') return PLANES_BRANDING[planActivoBranding];
+if(servicioActivo==='redes') return PLANES_REDES[planActivoRedes];
+return PLANES[planActivo];
+}
+function renderPlanSelector() {
+var planes = servicioActivo==='branding'?PLANES_BRANDING:servicioActivo==='redes'?PLANES_REDES:PLANES;
+var activeIdx = servicioActivo==='branding'?planActivoBranding:servicioActivo==='redes'?planActivoRedes:planActivo;
+var html='';
+Object.keys(planes).forEach(function(k){
+var p=planes[k];
+var sel=parseInt(k)===activeIdx?'selected':'';
+var precio=p.tipo_precio==='mes'?('$'+p.precio+'/mes'):('$'+p.precio+' setup');
+html+='<div class="plan-option '+sel+'" id="popt-'+k+'" onclick="selPlan('+k+')">'+
+'<span class="pname">Plan '+k+' — '+p.nombre+'</span>'+
+'<span class="pprice">'+precio+'</span>'+
+'</div>';
+});
+var wrap=document.getElementById('plan-selector-wrap');
+if(wrap) wrap.innerHTML=html;
+}
+
 function switchTab(tab) {
 ["landing", "generador"].forEach(function(t) {
 document.getElementById("panel-" + t).classList.toggle("active", t === tab);
@@ -1097,6 +1173,55 @@ return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="v
 // ═══════════════════════════════════════════════
 // PROFORMA FORMAL (PDF tab)
 // ═══════════════════════════════════════════════
+
+function actualizarPreviewServicio(tipo) {
+var p=getPlanActivoObj();
+var nombre=v('p_nombre')||'';
+var empresa=v('p_empresa')||'';
+var ncot=v('p_ncot')||'501';
+var preview='';
+if(tipo==='whatsapp') {
+preview=getMsgServicio();
+var pre=document.getElementById('wa-preview-text');
+if(pre) pre.textContent=preview;
+} else if(tipo==='pdf'||tipo==='html') {
+var html=servicioActivo==='branding'?getBrandingProformaHTML():getRedesProformaHTML();
+var iframe=document.getElementById('preview-iframe');
+if(iframe){ iframe.srcdoc=html; }
+}
+}
+function getMsgServicio() {
+var p=getPlanActivoObj();
+var nombre=v('p_nombre')||'';
+var empresa=v('p_empresa')||'';
+var ncot=v('p_ncot')||'501';
+var msg='';
+msg+='*Sombrero Rojo Marketing Digital*\n';
+msg+='-----------------------------------\n\n';
+if(nombre) msg+='Hola '+nombre+', aqui esta tu propuesta:\n\n';
+if(servicioActivo==='branding'){
+msg+='*Branding Corporativo — Plan '+p.nombre+'*\n';
+if(empresa) msg+=empresa+'\n';
+msg+='Cotizacion N° '+ncot+'\n\n';
+msg+='*Inversion: $'+p.precio+' (pago unico)*\n';
+msg+='- Anticipo: 50% para iniciar\n';
+msg+='- Saldo: contra entrega de archivos\n';
+msg+='- Entrega estimada: '+p.entrega+'\n\n';
+} else {
+msg+='*Redes Sociales — Plan '+p.nombre+'*\n';
+if(empresa) msg+=empresa+'\n';
+msg+='Cotizacion N° '+ncot+'\n\n';
+msg+='*Inversion: $'+p.precio+'/mes*\n';
+msg+='- Contrato minimo: 3 meses\n';
+msg+='- Pago mensual anticipado\n\n';
+}
+msg+='*Incluye:*\n';
+p.incluye.slice(0,5).forEach(function(item){ msg+='- '+item+'\n'; });
+msg+='\n';
+msg+='¿Tienes alguna pregunta? Aqui estamos para ayudarte.';
+return msg;
+}
+
 function getProformaHTML() {
 var p = PLANES[planActivo];
 var nombre = v("p_nombre") || "Cliente";
@@ -1221,6 +1346,90 @@ fundRow +
 // ═══════════════════════════════════════════════
 // LANDING DEL PLAN (HTML tab)
 // ═══════════════════════════════════════════════
+
+function getBrandingProformaHTML() {
+var p=PLANES_BRANDING[planActivoBranding];
+var nombre=v('p_nombre')||'Cliente';
+var empresa=v('p_empresa')||'';
+var sector=v('p_sector')||'';
+var ciudad=v('p_ciudad')||'Cuenca';
+var ncot=v('p_ncot')||'501';
+var fecha=v('p_fecha')||new Date().toLocaleDateString('es-EC');
+var logo='https://sombrerorojo7.github.io/SR-web/logo.png';
+var items=p.incluye.map(function(i){return '<li>'+i+'</li>';}).join('');
+return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Propuesta Branding — '+empresa+'</title>'+
+'<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">'+
+'<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Gill Sans MT',Arial,sans-serif;color:#222;background:#f0f2f5;padding:20px}.doc{max-width:780px;margin:auto;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.08)}.dh{background:#003880;color:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:center}.brand img{height:50px;width:auto}.brand p{font-size:11px;opacity:.6;margin-top:4px}.badge-wrap{text-align:right}.badge{background:#ff0000;color:#fff;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:6px}.ncot{font-family:'Bebas Neue',Impact,sans-serif;font-size:32px;letter-spacing:2px}.fecha{font-size:11px;opacity:.7}.info-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid #003880}.info-cell{padding:20px 28px}.info-cell .label{font-size:10px;font-weight:700;color:#ff0000;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}.info-cell .val{font-size:16px;font-weight:700;color:#003880}.info-cell .sub{font-size:12px;color:#666}.plan-hero{background:#f8f9fc;border-bottom:2px solid #e8eaf0;padding:24px 28px;display:flex;justify-content:space-between;align-items:center}.plan-hero .ph-name{font-family:'Bebas Neue',Impact,sans-serif;font-size:26px;color:#003880;letter-spacing:1px}.ph-desc{font-size:13px;color:#666;margin-top:4px}.ph-price{text-align:right}.ph-price .amt{font-family:'Bebas Neue',Impact,sans-serif;font-size:38px;color:#ff0000}.ph-price .lbl{font-size:11px;color:#888}.section{padding:24px 28px;border-bottom:1px solid #f0f0f0}.section h3{font-size:11px;font-weight:700;color:#ff0000;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}.section ul{list-style:none}.section ul li{padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:13px;padding-left:18px;position:relative}.section ul li:before{content:"✓";color:#003880;font-weight:700;position:absolute;left:0}.inv-table{width:100%;border-collapse:collapse;font-size:13px}.inv-table th{background:#003880;color:#fff;padding:10px 14px;text-align:left;font-size:11px}.inv-table td{padding:10px 14px;border-bottom:1px solid #eee}.inv-table .total{font-weight:700;color:#003880;font-size:15px}.inv-table .total td{background:#f0f4f8;border-top:2px solid #003880}.terms{background:#f8f9fc;padding:20px 28px;font-size:12px;color:#666;display:flex;gap:20px;flex-wrap:wrap}.term-item{flex:1;min-width:120px}.term-item strong{display:block;color:#003880;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}.footer{background:#003880;color:rgba(255,255,255,.6);text-align:center;padding:14px;font-size:11px}@media print{.no-print{display:none!important}body{background:#fff!important;padding:0}}</style></head><body>'+
+'<div class="doc">'+
+'<div class="dh"><div class="brand"><img src="'+logo+'" alt="Sombrero Rojo"><p>Marketing Digital &middot; Cuenca, Ecuador</p></div>'+
+'<div class="badge-wrap"><div class="badge">PROPUESTA BRANDING</div><div class="ncot">N&deg; '+ncot+'</div><div class="fecha">Fecha: '+fecha+'</div></div></div>'+
+'<div class="info-row">'+
+'<div class="info-cell"><div class="label">Preparado para</div><div class="val">'+nombre+'</div><div class="sub">'+empresa+(sector?' &middot; '+sector:'')+'</div><div class="sub">'+ciudad+'</div></div>'+
+'<div class="info-cell"><div class="label">Preparado por</div><div class="val">Sombrero Rojo</div><div class="sub">Marketing Digital &middot; Cuenca, Ecuador</div><div class="sub">sombrerorojo.net</div></div>'+
+'</div>'+
+'<div class="plan-hero"><div><div class="ph-name">Branding Corporativo &mdash; Plan '+p.nombre+'</div><div class="ph-desc">'+p.desc_corto+'</div></div>'+
+'<div class="ph-price"><div class="amt">$'+p.precio+'</div><div class="lbl">Pago &uacute;nico</div></div></div>'+
+'<div class="section"><h3>Que incluye este plan</h3><ul>'+items+'</ul></div>'+
+'<div class="section"><h3>Detalle de inversion</h3>'+
+'<table class="inv-table"><thead><tr><th>Concepto</th><th>Detalle</th><th>Valor</th></tr></thead><tbody>'+
+'<tr><td>Branding '+p.nombre+'</td><td>'+p.desc_corto+'</td><td>$'+p.precio+'</td></tr>'+
+'<tr class="total"><td colspan="2"><strong>Total</strong></td><td><strong>$'+p.precio+'</strong></td></tr>'+
+'</tbody></table></div>'+
+'<div class="terms">'+
+'<div class="term-item"><strong>Entrega estimada</strong>'+p.entrega+'</div>'+
+'<div class="term-item"><strong>Forma de pago</strong>50% anticipo &middot; 50% contra entrega</div>'+
+'<div class="term-item"><strong>Validez</strong>15 d&iacute;as</div>'+
+'<div class="term-item"><strong>Contacto</strong>sombrerorojo.net &middot; 099 806 8900</div>'+
+'</div>'+
+'<div class="footer">Sombrero Rojo Marketing Digital &middot; Cuenca, Ecuador &middot; sombrerorojo.net</div>'+
+'</div>'+
+'<div class="no-print" style="text-align:center;margin:20px"><button onclick="window.print()" style="background:#003880;color:#fff;border:none;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:14px">Imprimir / Guardar PDF</button></div>'+
+'</body></html>';
+}
+
+
+function getRedesProformaHTML() {
+var p=PLANES_REDES[planActivoRedes];
+var nombre=v('p_nombre')||'Cliente';
+var empresa=v('p_empresa')||'';
+var sector=v('p_sector')||'';
+var ciudad=v('p_ciudad')||'Cuenca';
+var ncot=v('p_ncot')||'501';
+var fecha=v('p_fecha')||new Date().toLocaleDateString('es-EC');
+var logo='https://sombrerorojo7.github.io/SR-web/logo.png';
+var items=p.incluye.map(function(i){return '<li>'+i+'</li>';}).join('');
+var totalMin=p.precio*3;
+return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Propuesta Redes — '+empresa+'</title>'+
+'<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">'+
+'<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Gill Sans MT',Arial,sans-serif;color:#222;background:#f0f2f5;padding:20px}.doc{max-width:780px;margin:auto;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.08)}.dh{background:#003880;color:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:center}.brand img{height:50px;width:auto}.brand p{font-size:11px;opacity:.6;margin-top:4px}.badge-wrap{text-align:right}.badge{background:#ff0000;color:#fff;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:6px}.ncot{font-family:'Bebas Neue',Impact,sans-serif;font-size:32px;letter-spacing:2px}.fecha{font-size:11px;opacity:.7}.info-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid #003880}.info-cell{padding:20px 28px}.info-cell .label{font-size:10px;font-weight:700;color:#ff0000;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}.info-cell .val{font-size:16px;font-weight:700;color:#003880}.info-cell .sub{font-size:12px;color:#666}.plan-hero{background:#f8f9fc;border-bottom:2px solid #e8eaf0;padding:24px 28px;display:flex;justify-content:space-between;align-items:center}.plan-hero .ph-name{font-family:'Bebas Neue',Impact,sans-serif;font-size:26px;color:#003880;letter-spacing:1px}.ph-desc{font-size:13px;color:#666;margin-top:4px}.ph-price{text-align:right}.ph-price .amt{font-family:'Bebas Neue',Impact,sans-serif;font-size:38px;color:#ff0000}.ph-price .lbl{font-size:11px;color:#888}.section{padding:24px 28px;border-bottom:1px solid #f0f0f0}.section h3{font-size:11px;font-weight:700;color:#ff0000;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}.section ul{list-style:none}.section ul li{padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:13px;padding-left:18px;position:relative}.section ul li:before{content:"✓";color:#003880;font-weight:700;position:absolute;left:0}.inv-table{width:100%;border-collapse:collapse;font-size:13px}.inv-table th{background:#003880;color:#fff;padding:10px 14px;text-align:left;font-size:11px}.inv-table td{padding:10px 14px;border-bottom:1px solid #eee}.inv-table .total{font-weight:700;color:#003880;font-size:15px}.inv-table .total td{background:#f0f4f8;border-top:2px solid #003880}.terms{background:#f8f9fc;padding:20px 28px;font-size:12px;color:#666;display:flex;gap:20px;flex-wrap:wrap}.term-item{flex:1;min-width:120px}.term-item strong{display:block;color:#003880;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}.footer{background:#003880;color:rgba(255,255,255,.6);text-align:center;padding:14px;font-size:11px}@media print{.no-print{display:none!important}body{background:#fff!important;padding:0}}</style></head><body>'+
+'<div class="doc">'+
+'<div class="dh"><div class="brand"><img src="'+logo+'" alt="Sombrero Rojo"><p>Marketing Digital &middot; Cuenca, Ecuador</p></div>'+
+'<div class="badge-wrap"><div class="badge">PROPUESTA REDES</div><div class="ncot">N&deg; '+ncot+'</div><div class="fecha">Fecha: '+fecha+'</div></div></div>'+
+'<div class="info-row">'+
+'<div class="info-cell"><div class="label">Preparado para</div><div class="val">'+nombre+'</div><div class="sub">'+empresa+(sector?' &middot; '+sector:'')+'</div><div class="sub">'+ciudad+'</div></div>'+
+'<div class="info-cell"><div class="label">Preparado por</div><div class="val">Sombrero Rojo</div><div class="sub">Marketing Digital &middot; Cuenca, Ecuador</div><div class="sub">sombrerorojo.net</div></div>'+
+'</div>'+
+'<div class="plan-hero"><div><div class="ph-name">Gesti&oacute;n de Redes &mdash; Plan '+p.nombre+'</div><div class="ph-desc">'+p.desc_corto+'</div></div>'+
+'<div class="ph-price"><div class="amt">$'+p.precio+'</div><div class="lbl">Por mes</div></div></div>'+
+'<div class="section"><h3>Que incluye este plan</h3><ul>'+items+'</ul></div>'+
+'<div class="section"><h3>Detalle de inversion</h3>'+
+'<table class="inv-table"><thead><tr><th>Concepto</th><th>Detalle</th><th>Valor</th></tr></thead><tbody>'+
+'<tr><td>Plan '+p.nombre+' mensual</td><td>Gesti&oacute;n completa de redes</td><td>$'+p.precio+'/mes</td></tr>'+
+'<tr><td>Contrato m&iacute;nimo</td><td>3 meses</td><td>$'+totalMin+'</td></tr>'+
+'<tr class="total"><td colspan="2"><strong>Inversi&oacute;n mensual</strong></td><td><strong>$'+p.precio+'/mes</strong></td></tr>'+
+'</tbody></table></div>'+
+'<div class="terms">'+
+'<div class="term-item"><strong>Contrato minimo</strong>3 meses</div>'+
+'<div class="term-item"><strong>Pago</strong>Mensual anticipado</div>'+
+'<div class="term-item"><strong>Pauta publicitaria</strong>NO incluida (aparte)</div>'+
+'<div class="term-item"><strong>Contacto</strong>sombrerorojo.net &middot; 099 806 8900</div>'+
+'</div>'+
+'<div class="footer">Sombrero Rojo Marketing Digital &middot; Cuenca, Ecuador &middot; sombrerorojo.net</div>'+
+'</div>'+
+'<div class="no-print" style="text-align:center;margin:20px"><button onclick="window.print()" style="background:#003880;color:#fff;border:none;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:14px">Imprimir / Guardar PDF</button></div>'+
+'</body></html>';
+}
+
 function getPlanLandHTML() {
 var p = PLANES[planActivo];
 var nombre = v("p_nombre") || "";
@@ -1337,6 +1546,13 @@ function actualizarLanding() {
 renderFrame("frame-landing", getLandingHTML());
 }
 function actualizarGenerador() {
+if(servicioActivo==='branding'||servicioActivo==='redes'){
+var sub=document.getElementById('subtab-content-whatsapp')||document.getElementById('preview-content');
+var stab=document.querySelector('.subtab.active');
+var tipo=stab?stab.id.replace('st-',''):'whatsapp';
+actualizarPreviewServicio(tipo);
+return;
+}
 if (subtabActivo === "whatsapp") { actualizarWhatsApp(); }
 else if (subtabActivo === "pdf") { renderFrame("frame-proforma", getProformaHTML()); }
 else if (subtabActivo === "html") { renderFrame("frame-planland", getPlanLandHTML()); }
@@ -1496,6 +1712,7 @@ empresa:        empresa,
 ciudad:         ciudad,
 sector:         sector,
 whatsapp:       wa,
+tipo_servicio:  servicioActivo,
 plan_elegido:   planSheet,
 precio:         precio,
 estado_pipeline:"Propuesta enviada",
