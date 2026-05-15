@@ -776,8 +776,7 @@ function switchSubtab(st) {
   if (st === "whatsapp") { actualizarWAServicio(); }
   else if (st === "pdf") { renderFrame("frame-proforma", getProformaServicio()); }
   else if (st === "html") {
-    if (servicioActivo === 'web') { renderFrame("frame-planland", getPlanLandHTML()); }
-    else { renderFrame("frame-proforma", getProformaServicio()); }
+    renderFrame("frame-planland", servicioActivo === 'web' ? getPlanLandHTML() : getProformaServicio());
   }
 }
 // ═══════════════════════════════════════════════
@@ -896,32 +895,32 @@ function getWhatsAppMsg() {
   var mantT = parseFloat(v("p_mant_t")) || p.mant_t;
   var precioMostrar = founderOn ? pfund : (base - desc);
   var msg = "";
-  msg += "🎩 *Sombrero Rojo Marketing Digital*\n";
-  msg += "━━━━━━━━━━━━━━━━━━━\n\n";
+  msg += "*Sombrero Rojo Marketing Digital*\n";
+  msg += "-----------------------------------\n\n";
   if (nombre) {
-    msg += "Hola " + nombre + ", aquí está tu propuesta personalizada:\n\n";
+    msg += "Hola " + nombre + ", aqui esta tu propuesta:\n\n";
   } else {
-    msg += "Aquí está tu propuesta personalizada:\n\n";
+    msg += "Aqui esta tu propuesta personalizada:\n\n";
   }
-  msg += "📋 *Plan " + p.nombre + "*\n";
-  if (empresa) { msg += "🏢 " + empresa + (sector ? " · " + sector : "") + "\n"; }
-  msg += "📑 Cotización N° " + ncot + "\n\n";
-  msg += "💰 *Inversión:*\n";
-  msg += "• Setup único: *$" + precioMostrar.toLocaleString() + "*\n";
+  msg += "*Plan " + p.nombre + "*\n";
+  if (empresa) { msg += empresa + (sector ? " - " + sector : "") + "\n"; }
+  msg += "Cotizacion N° " + ncot + "\n\n";
+  msg += "*Inversion:*\n";
+  msg += "- Setup unico: *$" + precioMostrar.toLocaleString() + "*\n";
   if (founderOn && ahorro > 0) {
-    msg += "• ⭐ _Precio Fundador — ahorras $" + ahorro.toLocaleString() + "_\n";
+    msg += "- _Precio Fundador — ahorras $" + ahorro.toLocaleString() + "_\n";
   }
-  msg += "• 1er año de mantenimiento: *GRATIS* ✅\n";
-  msg += "• Mantenimiento año 2: *$" + mantA + "/año* · $" + mantT + "/trim\n\n";
-  msg += "✅ *Incluye:*\n";
+  msg += "- 1er año de mantenimiento: *GRATIS*\n";
+  msg += "- Mantenimiento año 2: *$" + mantA + "/año* - $" + mantT + "/trim\n\n";
+  msg += "*Incluye:*\n";
   var items = p.incluye.slice(0, 5);
   for (var i = 0; i < items.length; i++) {
-    msg += "• " + items[i] + "\n";
+    msg += "- " + items[i] + "\n";
   }
-  msg += "• ...y más\n\n";
-  msg += "📅 Propuesta válida por *15 días*\n";
-  msg += "💳 Pago: 50% inicio · 50% a la entrega\n\n";
-  msg += "¿Tienes alguna pregunta? ¡Aquí estamos para ayudarte! 😊";
+  msg += "- ...y mas\n\n";
+  msg += "Propuesta valida por *15 dias*\n";
+  msg += "Pago: 50% inicio - 50% a la entrega\n\n";
+  msg += "¿Tienes alguna pregunta? Aqui estamos para ayudarte.";
   return msg;
 }
 function actualizarWhatsApp() {
@@ -1286,7 +1285,7 @@ function getProformaHTML() {
     '<div class="pbar no-print"><button class="bprint" onclick="window.print()">&#128424; Imprimir / Guardar PDF</button></div>' +
     '<div class="doc">' +
     '<div class="dh">' +
-    '<div class="brand"><img src=\"https://sombrerorojo7.github.io/SR-web/logo.png\" alt=\"Sombrero Rojo\" style=\"height:52px;width:auto;display:block;margin-bottom:4px;\"><p style=\"font-size:11px;opacity:.6;margin-top:2px;\">Marketing Digital &middot; Cuenca, Ecuador</p></div>' +
+    '<div class="brand"><img src=\"https://sombrerorojo7.github.io/SR-web/logo.png\" alt=\"Sombrero Rojo\" style=\"height:52px;width:auto;display:block;margin-bottom:4px;filter:brightness(0) invert(1)\"><p style=\"font-size:11px;opacity:.6;margin-top:2px;\">Marketing Digital &middot; Cuenca, Ecuador</p></div>' +
     '<div class="dmeta"><div class="badge">Propuesta Comercial</div><h2>N&deg; ' + ncot + '</h2><p>Fecha: ' + fechaFmt + '</p></div>' +
     '</div>' +
     '<div class="iband">' +
@@ -1344,7 +1343,7 @@ function getBrandingProformaHTML() {
   'body{font-family:"Gill Sans MT","Gill Sans",Calibri,Arial,sans-serif;color:#222;background:#f0f2f5;padding:20px}'+
   '.doc{max-width:780px;margin:auto;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.08)}'+
   '.dh{background:#003880;color:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:center}'+
-  '.brand img{height:50px;width:auto}.brand p{font-size:11px;opacity:.6;margin-top:4px}'+
+  '.brand img{height:44px;width:auto;filter:brightness(0) invert(1)}.brand p{font-size:11px;opacity:.6;margin-top:4px}'+
   '.badge-wrap{text-align:right}.badge{background:#ff0000;color:#fff;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:6px}'+
   '.ncot{font-family:"Bebas Neue",Impact,sans-serif;font-size:32px;letter-spacing:2px}'+
   '.fecha{font-size:11px;opacity:.7}'+
@@ -1413,7 +1412,7 @@ function getRedesProformaHTML() {
   'body{font-family:"Gill Sans MT","Gill Sans",Calibri,Arial,sans-serif;color:#222;background:#f0f2f5;padding:20px}'+
   '.doc{max-width:780px;margin:auto;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.08)}'+
   '.dh{background:#003880;color:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:center}'+
-  '.brand img{height:50px;width:auto}.brand p{font-size:11px;opacity:.6;margin-top:4px}'+
+  '.brand img{height:44px;width:auto;filter:brightness(0) invert(1)}.brand p{font-size:11px;opacity:.6;margin-top:4px}'+
   '.badge-wrap{text-align:right}.badge{background:#ff0000;color:#fff;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:6px}'+
   '.ncot{font-family:"Bebas Neue",Impact,sans-serif;font-size:32px;letter-spacing:2px}'+
   '.fecha{font-size:11px;opacity:.7}'+
@@ -1466,6 +1465,213 @@ function getRedesProformaHTML() {
   '<button onclick="window.print()" style="background:#003880;color:#fff;border:none;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:14px">Imprimir / Guardar PDF</button>'+
   '</div></body></html>';
 }
+
+function getBrandingLandingHTML() {
+  var negocio  = v("l_negocio")  || "tu empresa";
+  var contacto = v("l_contacto") || "";
+  var wa       = v("l_wa")       || "593999999999";
+  var waVis    = v("l_wa_vis")   || "+593 99 999 9999";
+  var web      = v("l_web")      || "https://sombrerorojo.net";
+  var cupos    = v("l_cupos")    || "5";
+  var promo    = v("l_promo")    || ("Solo para los primeros " + cupos + " clientes.");
+  var waMsg    = encodeURIComponent("Hola, me interesa el servicio de Branding para " + negocio + ". ¿Podemos coordinar?");
+  var logo     = "https://sombrerorojo7.github.io/SR-web/logo.png";
+  var planes   = PLANES_BRANDING;
+  var pCards   = "";
+  [1,2,3].forEach(function(i){
+    var p = planes[i];
+    var dest = i===2?" dest":"";
+    var badge = i===2?'<div class="pb">MAS POPULAR</div>':"";
+    var items = p.incluye.slice(0,6).map(function(x){return '<li>'+x+'</li>';}).join("");
+    pCards += '<div class="plan-card'+dest+'">'+badge+
+      '<div class="ph"><h3>'+p.nombre+'</h3>'+
+      '<div class="ppr">$'+p.precio+' <span>pago unico</span></div>'+
+      '<div class="pdesc">'+p.desc_corto+'</div></div>'+
+      '<div class="pb-body"><ul class="inc-list">'+items+'</ul>'+
+      '<a href="https://wa.me/'+wa+'?text='+waMsg+'" class="btn-plan">Quiero este plan</a></div>'+
+      '</div>';
+  });
+  return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'+
+  '<meta name="viewport" content="width=device-width,initial-scale=1">'+
+  '<title>Branding Corporativo — '+negocio+'</title>'+
+  '<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">'+
+  '<style>'+CSS_SHARED+
+  '.planes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:22px}'+
+  '.plan-card{border:2px solid #dde2f0;border-radius:14px;overflow:hidden}'+
+  '.plan-card.dest{border-color:#ff0000}'+
+  '.pb{font-size:10px;font-weight:700;background:#ff0000;color:#fff;padding:3px 12px;text-align:center;letter-spacing:1px}'+
+  '.ph{padding:18px 16px 14px;background:#f8f9fc}'+
+  '.plan-card.dest .ph{background:linear-gradient(135deg,#ff0000,#cc0000);color:#fff}'+
+  '.ph h3{font-size:17px;font-weight:800;color:#003880;margin-bottom:6px}'+
+  '.plan-card.dest .ph h3{color:#fff}'+
+  '.ppr{font-size:26px;font-weight:800;color:#ff0000}'+
+  '.plan-card.dest .ppr{color:#fff}'+
+  '.ppr span{font-size:12px;font-weight:400;opacity:.65}'+
+  '.pdesc{font-size:12px;color:#666;margin-top:6px;line-height:1.5}'+
+  '.plan-card.dest .pdesc{color:rgba(255,255,255,.8)}'+
+  '.pb-body{padding:16px}'+
+  '.inc-list{list-style:none;margin-bottom:14px}'+
+  '.inc-list li{font-size:12px;color:#555;padding:5px 0;border-bottom:1px solid #f5f5f5;padding-left:16px;position:relative}'+
+  '.inc-list li:before{content:"\\2713";color:#003880;font-weight:700;position:absolute;left:0}'+
+  '.btn-plan{display:block;background:#003880;color:#fff;text-align:center;padding:10px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none}'+
+  '.plan-card.dest .btn-plan{background:#fff;color:#ff0000}'+
+  '.proc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-top:20px}'+
+  '.proc-step{background:#f8f9fc;border:1px solid #dde2f0;border-radius:10px;padding:16px;text-align:center}'+
+  '.proc-num{width:32px;height:32px;background:#ff0000;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;margin:0 auto 10px}'+
+  '.proc-step h4{font-size:13px;font-weight:700;color:#003880;margin-bottom:4px}'+
+  '.proc-step p{font-size:12px;color:#666;line-height:1.5}'+
+  '</style></head><body>'+
+  '<header style="background:#003880;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;">'+
+    '<img src="'+logo+'" style="height:42px;filter:brightness(0) invert(1);" alt="Sombrero Rojo">'+
+    '<a href="https://wa.me/'+wa+'" style="background:#25D366;color:#fff;padding:8px 16px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;">Contactar</a>'+
+  '</header>'+
+  '<div style="background:linear-gradient(135deg,#003880 55%,#0050b3);color:#fff;padding:60px 28px;text-align:center;">'+
+    '<div style="display:inline-block;background:#ff0000;color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;margin-bottom:16px;">IDENTIDAD DE MARCA</div>'+
+    '<h1 style="font-size:clamp(24px,4vw,42px);font-weight:800;line-height:1.2;margin-bottom:16px;">'+
+      (contacto?'Hola '+contacto+', ':'')+'Tu marca merece<br>una imagen profesional</h1>'+
+    '<p style="font-size:15px;opacity:.85;max-width:560px;margin:0 auto 28px;">'+
+      'Diseñamos la identidad visual de <strong>'+negocio+'</strong> para que transmita confianza, diferenciacion y profesionalismo en todos tus canales.</p>'+
+    '<a href="https://wa.me/'+wa+'?text='+waMsg+'" style="display:inline-block;background:#ff0000;color:#fff;padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;">Quiero mi propuesta gratuita</a>'+
+  '</div>'+
+  '<div class="container"><div class="section">'+
+    '<div class="sec-label">El problema</div>'+
+    '<h2>¿Tu imagen actual no refleja lo que eres?</h2>'+
+    '<div class="prob-grid">'+
+      '<div class="prob-card"><div class="prob-n">01</div><div class="prob-t">Sin logo profesional: pierdes credibilidad frente a la competencia.</div></div>'+
+      '<div class="prob-card"><div class="prob-n">02</div><div class="prob-t">Colores e imagen inconsistentes en web, redes y materiales.</div></div>'+
+      '<div class="prob-card"><div class="prob-n">03</div><div class="prob-t">Diseño de hace años que ya no representa cómo ha crecido tu empresa.</div></div>'+
+      '<div class="prob-card"><div class="prob-n">04</div><div class="prob-t">Clientes potenciales que no te recuerdan ni te diferencian.</div></div>'+
+    '</div>'+
+  '</div><hr class="div">'+
+  '<div class="section">'+
+    '<div class="sec-label">Nuestros planes</div>'+
+    '<h2>Elige el plan ideal para '+negocio+'</h2>'+
+    '<div class="planes-grid">'+pCards+'</div>'+
+  '</div><hr class="div">'+
+  '<div class="section">'+
+    '<div class="sec-label">Cómo trabajamos</div>'+
+    '<h2>Tu identidad lista en 4 pasos</h2>'+
+    '<div class="proc-grid">'+
+      '<div class="proc-step"><div class="proc-num">1</div><h4>Briefing</h4><p>Entendemos tu empresa, valores, público y competencia.</p></div>'+
+      '<div class="proc-step"><div class="proc-num">2</div><h4>Propuestas</h4><p>Presentamos conceptos de logo con fundamento estratégico.</p></div>'+
+      '<div class="proc-step"><div class="proc-num">3</div><h4>Refinamiento</h4><p>Ajustamos hasta que refleje exactamente tu visión.</p></div>'+
+      '<div class="proc-step"><div class="proc-num">4</div><h4>Entrega</h4><p>Archivos finales + manual de uso de marca listo para usar.</p></div>'+
+    '</div>'+
+  '</div></div>'+
+  '<div style="background:linear-gradient(135deg,#003880,#0050b3);color:#fff;padding:52px 28px;text-align:center;">'+
+    '<h2 style="font-size:clamp(20px,3vw,30px);font-weight:800;margin-bottom:12px;">'+promo+'</h2>'+
+    '<p style="opacity:.8;margin-bottom:24px;">Hablemos hoy y empezamos esta semana.</p>'+
+    '<a href="https://wa.me/'+wa+'?text='+waMsg+'" style="display:inline-block;background:#25D366;color:#fff;padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;margin-right:10px;">WhatsApp</a>'+
+    '<a href="'+web+'" style="display:inline-block;background:transparent;border:2px solid rgba(255,255,255,.5);color:#fff;padding:12px 28px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;">Nuestro sitio</a>'+
+  '</div>'+
+  '<footer>Sombrero Rojo Marketing Digital &middot; '+web+'</footer>'+
+  '</body></html>';
+}
+
+
+function getRedesLandingHTML() {
+  var negocio  = v("l_negocio")  || "tu empresa";
+  var contacto = v("l_contacto") || "";
+  var wa       = v("l_wa")       || "593999999999";
+  var waVis    = v("l_wa_vis")   || "+593 99 999 9999";
+  var web      = v("l_web")      || "https://sombrerorojo.net";
+  var cupos    = v("l_cupos")    || "5";
+  var promo    = v("l_promo")    || ("Solo para los primeros " + cupos + " clientes.");
+  var waMsg    = encodeURIComponent("Hola, me interesa gestión de redes para " + negocio + ". ¿Podemos coordinar?");
+  var logo     = "https://sombrerorojo7.github.io/SR-web/logo.png";
+  var planes   = PLANES_REDES;
+  var pCards   = "";
+  [1,2,3].forEach(function(i){
+    var p = planes[i];
+    var dest = i===2?" dest":"";
+    var badge = i===2?'<div class="pb">MAS POPULAR</div>':"";
+    var items = p.incluye.slice(0,6).map(function(x){return '<li>'+x+'</li>';}).join("");
+    pCards += '<div class="plan-card'+dest+'">'+badge+
+      '<div class="ph"><h3>'+p.nombre+'</h3>'+
+      '<div class="ppr">$'+p.precio+' <span>/mes</span></div>'+
+      '<div class="pdesc">'+p.desc_corto+'</div></div>'+
+      '<div class="pb-body"><ul class="inc-list">'+items+'</ul>'+
+      '<a href="https://wa.me/'+wa+'?text='+waMsg+'" class="btn-plan">Quiero este plan</a></div>'+
+      '</div>';
+  });
+  return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'+
+  '<meta name="viewport" content="width=device-width,initial-scale=1">'+
+  '<title>Gestión de Redes — '+negocio+'</title>'+
+  '<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">'+
+  '<style>'+CSS_SHARED+
+  '.planes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:22px}'+
+  '.plan-card{border:2px solid #dde2f0;border-radius:14px;overflow:hidden}'+
+  '.plan-card.dest{border-color:#ff0000}'+
+  '.pb{font-size:10px;font-weight:700;background:#ff0000;color:#fff;padding:3px 12px;text-align:center;letter-spacing:1px}'+
+  '.ph{padding:18px 16px 14px;background:#f8f9fc}'+
+  '.plan-card.dest .ph{background:linear-gradient(135deg,#ff0000,#cc0000);color:#fff}'+
+  '.ph h3{font-size:17px;font-weight:800;color:#003880;margin-bottom:6px}'+
+  '.plan-card.dest .ph h3{color:#fff}'+
+  '.ppr{font-size:26px;font-weight:800;color:#ff0000}'+
+  '.plan-card.dest .ppr{color:#fff}'+
+  '.ppr span{font-size:12px;font-weight:400;opacity:.65}'+
+  '.pdesc{font-size:12px;color:#666;margin-top:6px;line-height:1.5}'+
+  '.plan-card.dest .pdesc{color:rgba(255,255,255,.8)}'+
+  '.pb-body{padding:16px}'+
+  '.inc-list{list-style:none;margin-bottom:14px}'+
+  '.inc-list li{font-size:12px;color:#555;padding:5px 0;border-bottom:1px solid #f5f5f5;padding-left:16px;position:relative}'+
+  '.inc-list li:before{content:"\\2713";color:#003880;font-weight:700;position:absolute;left:0}'+
+  '.btn-plan{display:block;background:#003880;color:#fff;text-align:center;padding:10px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none}'+
+  '.plan-card.dest .btn-plan{background:#fff;color:#ff0000}'+
+  '.proc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-top:20px}'+
+  '.proc-step{background:#f8f9fc;border:1px solid #dde2f0;border-radius:10px;padding:16px;text-align:center}'+
+  '.proc-num{width:32px;height:32px;background:#ff0000;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;margin:0 auto 10px}'+
+  '.proc-step h4{font-size:13px;font-weight:700;color:#003880;margin-bottom:4px}'+
+  '.proc-step p{font-size:12px;color:#666;line-height:1.5}'+
+  '</style></head><body>'+
+  '<header style="background:#003880;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;">'+
+    '<img src="'+logo+'" style="height:42px;filter:brightness(0) invert(1);" alt="Sombrero Rojo">'+
+    '<a href="https://wa.me/'+wa+'" style="background:#25D366;color:#fff;padding:8px 16px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;">Contactar</a>'+
+  '</header>'+
+  '<div style="background:linear-gradient(135deg,#003880 55%,#0050b3);color:#fff;padding:60px 28px;text-align:center;">'+
+    '<div style="display:inline-block;background:#ff0000;color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;margin-bottom:16px;">GESTION DE REDES SOCIALES</div>'+
+    '<h1 style="font-size:clamp(24px,4vw,42px);font-weight:800;line-height:1.2;margin-bottom:16px;">'+
+      (contacto?'Hola '+contacto+', ':'')+'Redes activas,<br>clientes reales para '+negocio+'</h1>'+
+    '<p style="font-size:15px;opacity:.85;max-width:560px;margin:0 auto 28px;">'+
+      'Nos encargamos de todo el contenido, la estrategia y la publicación para que <strong>'+negocio+'</strong> crezca en Facebook e Instagram sin que tengas que preocuparte.</p>'+
+    '<a href="https://wa.me/'+wa+'?text='+waMsg+'" style="display:inline-block;background:#ff0000;color:#fff;padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;">Ver planes y precios</a>'+
+  '</div>'+
+  '<div class="container"><div class="section">'+
+    '<div class="sec-label">El problema</div>'+
+    '<h2>¿Tus redes no generan clientes?</h2>'+
+    '<div class="prob-grid">'+
+      '<div class="prob-card"><div class="prob-n">01</div><div class="prob-t">Sin tiempo para crear contenido consistente y de calidad.</div></div>'+
+      '<div class="prob-card"><div class="prob-n">02</div><div class="prob-t">Publicaciones irregulares que hacen que el algoritmo te ignore.</div></div>'+
+      '<div class="prob-card"><div class="prob-n">03</div><div class="prob-t">Seguidores que no se convierten en consultas ni ventas reales.</div></div>'+
+      '<div class="prob-card"><div class="prob-n">04</div><div class="prob-t">Competencia con redes activas y profesionales que te roba clientes.</div></div>'+
+    '</div>'+
+  '</div><hr class="div">'+
+  '<div class="section">'+
+    '<div class="sec-label">Nuestros planes</div>'+
+    '<h2>El plan perfecto para '+negocio+'</h2>'+
+    '<p style="color:#666;margin-bottom:4px;font-size:13px;">Contrato minimo 3 meses &middot; Pauta publicitaria NO incluida</p>'+
+    '<div class="planes-grid">'+pCards+'</div>'+
+  '</div><hr class="div">'+
+  '<div class="section">'+
+    '<div class="sec-label">Cómo trabajamos</div>'+
+    '<h2>Tu presencia activa en 4 pasos</h2>'+
+    '<div class="proc-grid">'+
+      '<div class="proc-step"><div class="proc-num">1</div><h4>Onboarding</h4><p>Conocemos tu negocio, público objetivo y estilo de marca.</p></div>'+
+      '<div class="proc-step"><div class="proc-num">2</div><h4>Estrategia</h4><p>Definimos calendario editorial y tipo de contenido mensual.</p></div>'+
+      '<div class="proc-step"><div class="proc-num">3</div><h4>Produccion</h4><p>Diseño, redacción, fotografía y video según el plan elegido.</p></div>'+
+      '<div class="proc-step"><div class="proc-num">4</div><h4>Publicacion</h4><p>Publicamos y reportamos resultados cada mes.</p></div>'+
+    '</div>'+
+  '</div></div>'+
+  '<div style="background:linear-gradient(135deg,#003880,#0050b3);color:#fff;padding:52px 28px;text-align:center;">'+
+    '<h2 style="font-size:clamp(20px,3vw,30px);font-weight:800;margin-bottom:12px;">'+promo+'</h2>'+
+    '<p style="opacity:.8;margin-bottom:24px;">Empezamos el proximo lunes con tu primer mes de contenido.</p>'+
+    '<a href="https://wa.me/'+wa+'?text='+waMsg+'" style="display:inline-block;background:#25D366;color:#fff;padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;margin-right:10px;">WhatsApp</a>'+
+    '<a href="'+web+'" style="display:inline-block;background:transparent;border:2px solid rgba(255,255,255,.5);color:#fff;padding:12px 28px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;">Nuestro sitio</a>'+
+  '</div>'+
+  '<footer>Sombrero Rojo Marketing Digital &middot; '+web+'</footer>'+
+  '</body></html>';
+}
+
 function getPlanLandHTML() {
   var p = PLANES[planActivo];
   var nombre = v("p_nombre") || "";
@@ -1579,7 +1785,10 @@ function getPlanLandHTML() {
 // ACTUALIZAR PREVIEWS
 // ═══════════════════════════════════════════════
 function actualizarLanding() {
-  renderFrame("frame-landing", getLandingHTML());
+  var html = servicioActivo==='branding' ? getBrandingLandingHTML()
+           : servicioActivo==='redes'    ? getRedesLandingHTML()
+           : getLandingHTML();
+  renderFrame("frame-landing", html);
 }
 function getProformaServicio() {
   if (servicioActivo === 'branding') return getBrandingProformaHTML();
@@ -1606,7 +1815,7 @@ function actualizarWAServicio() {
   container.innerHTML =
     '<div class="wa-phone">'+
       '<div class="wa-phone-header">'+
-        '<div class="wa-avatar-circle"><img src="https://sombrerorojo7.github.io/SR-web/logo.png" style="width:36px;height:36px;object-fit:contain;border-radius:50%;" onerror="this.style.display=&apos;none&apos;"></div>'+
+        '<div class="wa-avatar-circle" style="background:#cc0000;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;">SR</div>'+
         '<div><div class="wa-contact-name">Sombrero Rojo MD</div><div class="wa-contact-status">en línea</div></div>'+
       '</div>'+
       '<div class="wa-chat-body">'+
@@ -1620,8 +1829,7 @@ function actualizarGenerador() {
   if (subtabActivo === "whatsapp") { actualizarWAServicio(); }
   else if (subtabActivo === "pdf") { renderFrame("frame-proforma", getProformaServicio()); }
   else if (subtabActivo === "html") {
-    if (servicioActivo === 'web') { renderFrame("frame-planland", getPlanLandHTML()); }
-    else { renderFrame("frame-proforma", getProformaServicio()); }
+    renderFrame("frame-planland", servicioActivo === 'web' ? getPlanLandHTML() : getProformaServicio());
   }
 }
 // ═══════════════════════════════════════════════
@@ -1629,7 +1837,7 @@ function actualizarGenerador() {
 // ═══════════════════════════════════════════════
 function descargarLanding() {
   var neg = slug(v("l_negocio") || "propuesta");
-  descargarHTML(getLandingHTML(), "landing-sr-" + neg + ".html");
+  var _dlHtml = servicioActivo==="branding"?getBrandingLandingHTML():servicioActivo==="redes"?getRedesLandingHTML():getLandingHTML(); descargarHTML(_dlHtml, "landing-sr-" + neg + ".html");
 }
 function descargarProforma() {
   var nc = v("p_ncot") || "001";
