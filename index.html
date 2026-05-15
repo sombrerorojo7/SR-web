@@ -347,6 +347,14 @@ document.addEventListener('click', function(e) {
   <div class="sidebar">
     <div class="sidebar-brand">Genera la landing con los 3 planes para tu prospecto</div>
     <h2>🌐 Configurar Landing</h2>
+    <div class="seccion-group" style="padding-bottom:4px;">
+      <h3>🗂 Tipo de servicio</h3>
+      <div class="svc-tabs">
+        <div class="svc-tab active" id="svc-l-web"      onclick="switchServicioLanding('web')">🌐 Web</div>
+        <div class="svc-tab"        id="svc-l-branding" onclick="switchServicioLanding('branding')">🎨 Branding</div>
+        <div class="svc-tab"        id="svc-l-redes"    onclick="switchServicioLanding('redes')">📱 Redes</div>
+      </div>
+    </div>
     <div class="seccion-group">
       <h3>👤 Prospecto</h3>
       <div class="field-group"><label>Nombre del negocio</label>
@@ -729,9 +737,21 @@ function switchServicio(tipo) {
   ['web','branding','redes'].forEach(function(t){
     var el=document.getElementById('svc-'+t);
     if(el) el.classList.toggle('active',t===tipo);
+    var el2=document.getElementById('svc-l-'+t);
+    if(el2) el2.classList.toggle('active',t===tipo);
   });
   renderPlanSelector();
   actualizarGenerador();
+}
+function switchServicioLanding(tipo) {
+  servicioActivo = tipo;
+  ['web','branding','redes'].forEach(function(t){
+    var el=document.getElementById('svc-l-'+t);
+    if(el) el.classList.toggle('active',t===tipo);
+    var el2=document.getElementById('svc-'+t);
+    if(el2) el2.classList.toggle('active',t===tipo);
+  });
+  actualizarLanding();
 }
 function getPlanActivoObj() {
   if(servicioActivo==='branding') return PLANES_BRANDING[planActivoBranding];
