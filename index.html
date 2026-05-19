@@ -756,7 +756,7 @@ tagline:"Para negocios que quieren responder al instante y capturar datos básic
 desc_corto:"Menú 24/7, captura de datos y respuesta automática fuera de horario",
 entrega:"5–7 días hábiles",
 incluye:["Configuración WhatsApp Business API vía ManyChat","Mensaje de bienvenida automático personalizado","Menú principal con hasta 4 opciones","Flujo de captura: nombre, correo y teléfono","Respuesta automática fuera de horario","Integración con Google Sheets (base de datos)","1 plantilla de mensaje para difusión","Capacitación básica (1 sesión · 45 min)"],
-bonus:[]},
+bonus:["Sin visitas presenciales","Configurado sobre cuenta ManyChat del cliente","Gestión de conversaciones NO incluida","Ideal para negocios locales, servicios y consultorios"]},
 2:{nombre:"Captación Inteligente",precio:699,tipo_precio:"unico",
 tag:"Intermedio · Flujos completos + integración CRM",
 tagline:"Para empresas que quieren calificar prospectos, nutrir leads y vender mientras duermen.",
@@ -1641,8 +1641,9 @@ function getWABotLandingHTML() {
   var wa       = v("l_wa")       || "593999999999";
   var web      = v("l_web")      || "https://sombrerorojo.net";
   var cupos    = v("l_cupos")    || "5";
+  var descPct  = parseInt(v("l_desc_pct") || "20", 10);
   var promo    = v("l_promo")    || ("Solo para los primeros " + cupos + " clientes.");
-  var waMsgCTA = encodeURIComponent("Hola, me interesa automatizar mi WhatsApp con ManyChat para " + negocio + ". ¿Podemos coordinar?");
+  var waMsgCTA = encodeURIComponent("Hola, me interesa automatizar mi WhatsApp con ManyChat para mi empresa. ¿Podemos coordinar?");
   var logo     = LOGO_EMBEDDED;
   var planes   = PLANES_WHATSAPP;
   var pCards   = "";
@@ -1650,9 +1651,10 @@ function getWABotLandingHTML() {
     var p = planes[i];
     var dest = i===2?" dest":"";
     var badge = i===2?'<div class="pb">MAS POPULAR</div>':"";
-    var waMsgPlan = encodeURIComponent("Hola, me interesa el Plan " + p.nombre + " de Automatización WhatsApp para " + negocio + ". ¿Podemos coordinar?");
+    var waMsgPlan = encodeURIComponent("Hola, me interesa el Plan " + p.nombre + " de Automatización WhatsApp para mi empresa. ¿Podemos coordinar?");
     var incItems = p.incluye.map(function(x){return '<li>'+x+'</li>';}).join("");
     var hasBonus = p.bonus && p.bonus.length > 0;
+    var bonusTitle = i===1 ? "Características" : "Bonus";
     var bonusItems = hasBonus ? p.bonus.map(function(x){return '<li class="star">'+x+'</li>';}).join("") : "";
     pCards += '<div class="plan-card'+dest+'">'+badge+
       '<div class="ph"><h3>'+p.nombre+'</h3>'+
@@ -1663,12 +1665,32 @@ function getWABotLandingHTML() {
       '<div class="pb-body">'+
       '<div class="pc-cols">'+
       '<div class="pc-col"><div class="pc-col-h">Incluye</div><ul class="inc-list">'+incItems+'</ul></div>'+
-      (hasBonus?'<div class="pc-col"><div class="pc-col-h">&#9733; Bonus</div><ul class="inc-list star-list">'+bonusItems+'</ul>'+
+      (hasBonus?'<div class="pc-col"><div class="pc-col-h">&#9733; '+bonusTitle+'</div><ul class="inc-list star-list">'+bonusItems+'</ul>'+
       '<div class="pc-col-h" style="margin-top:8px;">&#8987; Entrega</div><ul class="inc-list"><li>'+p.entrega+'</li></ul></div>':'')+
       '</div>'+
       '<a href="https://wa.me/'+wa+'?text='+waMsgPlan+'" target="_blank" class="btn-plan">Quiero este plan</a></div>'+
       '</div>';
   });
+  var comparisonRows = [
+    ["Menú WhatsApp personalizado 24/7","✓","✓","✓"],
+    ["Captura de datos del prospecto","✓","✓","✓"],
+    ["Respuesta fuera de horario","✓","✓","✓"],
+    ["Integración Google Sheets CRM","Básico","Avanzado","Avanzado"],
+    ["Flujo de calificación de leads","—","✓","✓"],
+    ["Secuencia de nutrición automática","—","✓","✓"],
+    ["Notificación al asesor","—","✓","✓"],
+    ["Etiquetado automático por perfil","—","✓","✓"],
+    ["Dashboard de leads","—","✓","✓"],
+    ["Integración Meta Ads → bot","—","—","✓"],
+    ["Integración Calendly / Google Calendar","—","—","✓"],
+    ["Integración Make.com","—","—","✓"],
+    ["Pipeline CRM Kanban en Sheets","—","—","✓"],
+    ["Setup único","$349","$699","$1,299"],
+    ["Mantenimiento mensual","Desde $60","Desde $60","Desde $120"]
+  ];
+  var compHTML = comparisonRows.map(function(r, idx){
+    return '<tr'+(idx>=13?' class="price-row"':'')+'><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>';
+  }).join("");
   return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'+
   '<meta name="viewport" content="width=device-width,initial-scale=1">'+
   '<title>Automatizaci&oacute;n WhatsApp &mdash; '+negocio+'</title>'+
@@ -1706,6 +1728,28 @@ function getWABotLandingHTML() {
   '.proc-step p{font-size:12px;color:#666;line-height:1.5}'+
   '.aviso-wa{background:#FFF3CD;border-left:5px solid #F39C12;padding:14px 16px;margin-bottom:20px;font-size:12px;color:#7D5A00;line-height:1.7;border-radius:0 8px 8px 0}'+
   '.aviso-wa strong{color:#C0392B;font-weight:900}'+
+  '.wa-compare{width:100%;border-collapse:collapse;font-size:12px;margin-top:16px;border:1px solid #dde2f0}'+
+  '.wa-compare th{background:#003880;color:#fff;padding:10px 8px;text-align:center;font-size:11px}'+
+  '.wa-compare th:first-child{text-align:left;background:#111}'+
+  '.wa-compare th.dest{background:#1da851}'+
+  '.wa-compare td{padding:9px 8px;border-bottom:1px solid #e5e9f0;text-align:center;color:#374151}'+
+  '.wa-compare td:first-child{text-align:left;font-weight:700;color:#555}'+
+  '.wa-compare tr:nth-child(even) td{background:#fafafa}'+
+  '.wa-compare .price-row td{background:#f0f4ff!important;color:#ff0000;font-weight:800}'+
+  '.transp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:16px}'+
+  '.transp-item{border:1px solid #dde2f0;border-radius:10px;padding:14px;background:#fff}'+
+  '.transp-item.included{border-color:#25D366;background:#f4fff8}'+
+  '.ti-name{font-size:12px;font-weight:800;color:#003880;margin-bottom:5px}.ti-price{font-size:22px;font-weight:800;color:#ff0000;margin-bottom:5px}.ti-desc{font-size:11px;color:#666;line-height:1.45}'+
+  '.founder-wa{background:#162746;color:#fff;border-radius:0;padding:44px 28px;margin-top:12px;text-align:center}'+
+  '.founder-wa .tag{display:inline-block;background:#d43d2d;color:#fff;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;padding:9px 28px;border-radius:28px;margin-bottom:32px}'+
+  '.founder-wa h2{color:#fff!important;font-size:clamp(24px,3.5vw,34px)!important;margin-bottom:14px!important;font-family:\"Palatino Linotype\",Palatino,Georgia,serif!important}'+
+  '.founder-sub{color:rgba(255,255,255,.65);font-size:14px;line-height:1.55;margin-bottom:22px}'+
+  '.founder-discount{font-size:clamp(34px,5vw,48px);line-height:1;font-weight:900;color:#f39c12;margin:16px 0 22px}'+
+  '.founder-copy{color:rgba(255,255,255,.75);font-size:14px;line-height:1.6;max-width:760px;margin:0 auto 24px}'+
+  '.founder-list{list-style:none;max-width:840px;margin:0 auto 26px;text-align:left}'+
+  '.founder-list li{position:relative;padding:12px 0 12px 36px;border-bottom:1px solid rgba(255,255,255,.12);font-size:14px;color:rgba(255,255,255,.9);line-height:1.45}'+
+  '.founder-list li:before{content:"\\2713";position:absolute;left:0;top:14px;color:#f39c12;font-weight:900}'+
+  '.founder-cupos{color:rgba(255,255,255,.55);font-size:13px;font-style:italic}'+
   '.addon-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}'+
   '.addon-table tr:nth-child(even) td{background:#f8f9fc}'+
   '.addon-table td{padding:8px 12px;border-bottom:1px solid #dde2f0}'+
@@ -1751,9 +1795,42 @@ function getWABotLandingHTML() {
     '<div class="planes-grid">'+pCards+'</div>'+
   '</div><hr class="div">'+
   '<div class="section">'+
+    '<div class="sec-label">Comparaci&oacute;n</div>'+
+    '<h2>Comparaci&oacute;n de planes</h2>'+
+    '<p style="color:#666;margin-bottom:4px;font-size:13px;">Encuentra el plan que mejor se adapta a tu negocio.</p>'+
+    '<table class="wa-compare"><thead><tr><th>Caracter&iacute;stica</th><th>Respuesta Activa</th><th class="dest">Captaci&oacute;n ★</th><th>Funnel Completo</th></tr></thead><tbody>'+compHTML+'</tbody></table>'+
+  '</div><hr class="div">'+
+  '<div class="section">'+
     '<div class="aviso-wa">'+
       '<strong>&#9888; SOBRE MANYCHAT Y WHATSAPP API:</strong> ManyChat requiere una suscripci&oacute;n mensual propia del cliente (desde <strong>~$15 USD/mes Plan Pro</strong>). Esta suscripci&oacute;n <strong>nunca est&aacute; incluida</strong> en nuestro fee de configuraci&oacute;n. El n&uacute;mero de WhatsApp Business debe estar registrado y activo antes de iniciar.'+
     '</div>'+
+    '<div class="sec-label">Transparencia total</div>'+
+    '<h2>Sin costos ocultos</h2>'+
+    '<p style="color:#666;margin-bottom:4px;font-size:13px;">Sabes exactamente qu&eacute; paga tu empresa, a qui&eacute;n y por qu&eacute;.</p>'+
+    '<div class="transp-grid">'+
+      '<div class="transp-item"><div class="ti-name">ManyChat Pro</div><div class="ti-price">~$15/mes</div><div class="ti-desc">Lo contrata el cliente directo. Necesario para WhatsApp Business API.</div></div>'+
+      '<div class="transp-item"><div class="ti-name">Make.com</div><div class="ti-price">$0–9/mes</div><div class="ti-desc">Lo contrata el cliente directo. Solo necesario en automatizaciones avanzadas.</div></div>'+
+      '<div class="transp-item included"><div class="ti-name">Configuraci&oacute;n y flujos</div><div class="ti-price">Incluido</div><div class="ti-desc">Pago &uacute;nico de setup, programaci&oacute;n y pruebas en tu cuenta.</div></div>'+
+      '<div class="transp-item included"><div class="ti-name">Google Sheets CRM</div><div class="ti-price">Incluido</div><div class="ti-desc">Base de datos y dashboard seg&uacute;n el plan contratado.</div></div>'+
+    '</div>'+
+  '</div><hr class="div">'+
+  '<div class="section">'+
+    '<div class="founder-wa">'+
+      '<div class="tag">&#9889; Oferta especial · cupos limitados</div>'+
+      '<h2>Precio Fundador</h2>'+
+      '<p class="founder-sub">Disponible &uacute;nicamente para los primeros '+cupos+' clientes</p>'+
+      '<div class="founder-discount">'+descPct+'% OFF en el setup</div>'+
+      '<p class="founder-copy">Mantenimiento al precio completo desde el primer mes. A cambio: un testimonio breve sobre los resultados obtenidos y permiso para publicar el caso de &eacute;xito.</p>'+
+      '<ul class="founder-list">'+
+        '<li>Sin contratos largos — cancela cuando quieras con 15 d&iacute;as de aviso</li>'+
+        '<li>Testimonio breve sobre resultados (con tu autorizaci&oacute;n expresa)</li>'+
+        '<li>Permiso de publicar el caso de &eacute;xito en nuestras redes y sitio web</li>'+
+        '<li>Soporte prioritario durante los primeros 60 d&iacute;as</li>'+
+      '</ul>'+
+      '<p class="founder-cupos">&#9889; Quedan '+cupos+' cupos disponibles para esta condici&oacute;n especial · 2026</p>'+
+    '</div>'+
+  '</div><hr class="div">'+
+  '<div class="section">'+
     '<div class="sec-label">Servicios adicionales</div>'+
     '<h2>Servicios a la Carta</h2>'+
     '<table class="addon-table">'+
@@ -1797,7 +1874,7 @@ function getWABotPlanLandHTML() {
   var wa      = v("p_wa")      || "593999999999";
   var waVis   = v("p_wa_vis")  || "+593 99 999 9999";
   var web     = v("p_web")     || "https://sombrerorojo.net";
-  var waMsg   = encodeURIComponent("Hola" + (nombre ? " " + nombre : "") + ", me interesa el Plan " + p.nombre + " de Automatización WhatsApp. ¿Podemos coordinar?");
+  var waMsg   = encodeURIComponent("Hola" + (nombre ? " " + nombre : "") + ", me interesa el Plan " + p.nombre + " de Automatización WhatsApp para mi empresa. ¿Podemos coordinar?");
   var incItems = p.incluye.map(function(item) { return '<div class="inc-item">' + item + '</div>'; }).join("");
   var hasBonusW = p.bonus && p.bonus.length > 0;
   var bonusSecW = hasBonusW ? '<div class="container"><div class="section"><div class="sec-label">Bonificaciones</div><h2>Bonus incluido en este plan</h2><div class="inc-grid">' + p.bonus.map(function(b){return '<div class="inc-item bonus-item">'+b+'</div>';}).join("") + '</div></div></div><hr class="div">' : '';
