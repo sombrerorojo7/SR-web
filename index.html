@@ -753,7 +753,7 @@ function heroLogoHTML() {
   return '<div class="hero-brand"><img src="' + LOGO_EMBEDDED + '" alt="Sombrero Rojo Marketing Digital"></div>';
 }
 function contactHeaderHTML(message) {
-  var waMsg = encodeURIComponent(message || "Hola, me interesa una propuesta de Sombrero Rojo. ¿Podemos coordinar?");
+  var waMsg = encodeURIComponent(message || "Hola, me interesa una propuesta de Sombrero Rojo para mi empresa. ¿Podemos coordinar?");
   return '<header style="background:#003880;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;">' +
     '<div style="background:transparent;padding:0;display:inline-flex;align-items:center;"><img src="' + LOGO_EMBEDDED + '" style="height:46px;width:auto;display:block;" alt="Sombrero Rojo"></div>' +
     '<a href="https://wa.me/' + CONTACT_WA_NUMBER + '?text=' + waMsg + '" target="_blank" style="background:#25D366;color:#fff;padding:8px 16px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;">Contactar</a>' +
@@ -1089,7 +1089,7 @@ function getLandingHTML() {
   var descPct = v("l_desc_pct") || "20";
   var cupos = v("l_cupos") || "5";
   var promo = v("l_promo") || ("Solo para los primeros " + cupos + " clientes.");
-  var waMsgCTA = encodeURIComponent("Hola, me interesa la propuesta digital para " + negocio + ". Podemos coordinar?");
+  var waMsgCTA = encodeURIComponent("Hola, me interesa el servicio de Web para mi empresa. ¿Podemos coordinar?");
   var planesCSS = ".planes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:22px}" +
     ".plan-card{border:2px solid #dde2f0;border-radius:14px;overflow:hidden;transition:transform .2s}" +
     ".plan-card:hover{transform:translateY(-3px)}" +
@@ -1123,7 +1123,7 @@ function getLandingHTML() {
     var dest = n === 2 ? " dest" : "";
     var badge = n === 2 ? "&#9733; Mas elegido" : "Plan " + n;
     var items = p.incluye.slice(0, 6).map(function(item) { return "<li>" + item + "</li>"; }).join("");
-    var waMsgPlan = encodeURIComponent("Hola, me interesa el Plan " + p.nombre + " para " + negocio + ". Podemos coordinar?");
+    var waMsgPlan = encodeURIComponent("Hola, me interesa el Plan " + p.nombre + " de Web para mi empresa. ¿Podemos coordinar?");
     planesHTML += '<div class="plan-card' + dest + '">' +
       '<div class="ph"><div class="pb">' + badge + '</div>' +
       '<h3>' + p.nombre + '</h3><div class="pdesc">' + p.desc_corto + '</div>' +
@@ -1533,7 +1533,7 @@ function getBrandingLandingHTML() {
   var web      = v("l_web")      || "https://sombrerorojo.net";
   var cupos    = v("l_cupos")    || "5";
   var promo    = v("l_promo")    || ("Solo para los primeros " + cupos + " clientes.");
-  var waMsgCTAB = encodeURIComponent("Hola, me interesa el servicio de Branding para " + negocio + ". ¿Podemos coordinar?");
+  var waMsgCTAB = encodeURIComponent("Hola, me interesa el servicio de Branding para mi empresa. ¿Podemos coordinar?");
   var logo     = LOGO_EMBEDDED;
   var planes   = PLANES_BRANDING;
   var pCards   = "";
@@ -1541,7 +1541,7 @@ function getBrandingLandingHTML() {
     var p = planes[i];
     var dest = i===2?" dest":"";
     var badge = i===2?'<div class="pb">MAS POPULAR</div>':"";
-    var waMsgPlan = encodeURIComponent("Hola, me interesa el Plan " + p.nombre + " de Branding para " + negocio + ". ¿Podemos coordinar?");
+    var waMsgPlan = encodeURIComponent("Hola, me interesa el Plan " + p.nombre + " de Branding para mi empresa. ¿Podemos coordinar?");
     var incItems = p.incluye.map(function(x){return '<li>'+x+'</li>';}).join("");
     var hasBonus = p.bonus && p.bonus.length > 0;
     var bonusItems = hasBonus ? p.bonus.map(function(x){return '<li class="star">'+x+'</li>';}).join("") : "";
@@ -1691,7 +1691,7 @@ function getRedesLandingHTML() {
   var web      = v("l_web")      || "https://sombrerorojo.net";
   var cupos    = v("l_cupos")    || "5";
   var promo    = v("l_promo")    || ("Solo para los primeros " + cupos + " clientes.");
-  var waMsgCTAR = encodeURIComponent("Hola, me interesa gestión de redes para " + negocio + ". ¿Podemos coordinar?");
+  var waMsgCTAR = encodeURIComponent("Hola, me interesa el servicio de Redes para mi empresa. ¿Podemos coordinar?");
   var logo     = LOGO_EMBEDDED;
   var planes   = PLANES_REDES;
   var pCards   = "";
@@ -1699,7 +1699,7 @@ function getRedesLandingHTML() {
     var p = planes[i];
     var dest = i===2?" dest":"";
     var badge = i===2?'<div class="pb">MAS POPULAR</div>':"";
-    var waMsgPlan = encodeURIComponent("Hola, me interesa el Plan " + p.nombre + " de Redes para " + negocio + ". ¿Podemos coordinar?");
+    var waMsgPlan = encodeURIComponent("Hola, me interesa el Plan " + p.nombre + " de Redes para mi empresa. ¿Podemos coordinar?");
     var incItems = p.incluye.map(function(x){return '<li>'+x+'</li>';}).join("");
     var hasBonus = p.bonus && p.bonus.length > 0;
     var hasCar = p.caracteristicas && p.caracteristicas.length > 0;
@@ -1911,7 +1911,7 @@ function getPlanLandHTML() {
   var waVis = v("p_wa_vis") || "+593 99 999 9999";
   var web = v("p_web") || "https://sombrerorojo.net";
   var precioMostrar = founderOn ? pfund : (base - desc);
-  var waMsg = encodeURIComponent("Hola" + (nombre ? " " + nombre : "") + ", me interesa el Plan " + p.nombre + " de Sombrero Rojo. Podemos coordinar?");
+  var waMsg = encodeURIComponent("Hola" + (nombre ? " " + nombre : "") + ", me interesa el Plan " + p.nombre + " de Web para mi empresa. ¿Podemos coordinar?");
   var probCards = p.problemas.map(function(pr, i) {
     return '<div class="prob-card"><div class="prob-n">0' + (i + 1) + '</div><div class="prob-t">' + pr + '</div></div>';
   }).join("");
@@ -2009,7 +2009,7 @@ function getBrandingPlanLandHTML() {
   var wa = v("p_wa") || "593999999999";
   var waVis = v("p_wa_vis") || "+593 99 999 9999";
   var web = v("p_web") || "https://sombrerorojo.net";
-  var waMsg = encodeURIComponent("Hola" + (nombre ? " " + nombre : "") + ", me interesa el Plan " + p.nombre + " de Branding de Sombrero Rojo. ¿Podemos coordinar?");
+  var waMsg = encodeURIComponent("Hola" + (nombre ? " " + nombre : "") + ", me interesa el Plan " + p.nombre + " de Branding para mi empresa. ¿Podemos coordinar?");
   var incItems = p.incluye.map(function(item) { return '<div class="inc-item">' + item + '</div>'; }).join("");
   var hasBonusB = p.bonus && p.bonus.length > 0;
   var bonusSecB = hasBonusB ? '<div class="container"><div class="section"><div class="sec-label">Bonificaciones</div><h2>Bonus incluido en este plan</h2><div class="inc-grid">' + p.bonus.map(function(b){return '<div class="inc-item bonus-item">'+b+'</div>';}).join("") + '</div></div></div><hr class="div">' : '';
@@ -2094,7 +2094,7 @@ function getRedesPlanLandHTML() {
   var wa = v("p_wa") || "593999999999";
   var waVis = v("p_wa_vis") || "+593 99 999 9999";
   var web = v("p_web") || "https://sombrerorojo.net";
-  var waMsg = encodeURIComponent("Hola" + (nombre ? " " + nombre : "") + ", me interesa el Plan " + p.nombre + " de Redes de Sombrero Rojo. ¿Podemos coordinar?");
+  var waMsg = encodeURIComponent("Hola" + (nombre ? " " + nombre : "") + ", me interesa el Plan " + p.nombre + " de Redes para mi empresa. ¿Podemos coordinar?");
   var incItems = p.incluye.map(function(item) { return '<div class="inc-item">' + item + '</div>'; }).join("");
   var hasBonusP = p.bonus && p.bonus.length > 0;
   var hasCarP = p.caracteristicas && p.caracteristicas.length > 0;
