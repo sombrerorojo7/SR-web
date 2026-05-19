@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan de Acción — Sombrero Rojo</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --blue: #003399;
+      --red: #c0392b;
+      --orange: #e67e22;
+      --green: #27ae60;
+      --cyan: #2980b9;
+      --purple: #8e44ad;
+      --gray: #bdc3c7;
+      --ink: #111;
+      --muted: #666;
+      --line: #e8e8e8;
+      --page: #f5f5f5;
+      --surface: #fff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--page);
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    header {
+      background: var(--blue);
+      color: #fff;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    header p {
+      font-size: 11.5px;
+      opacity: .7;
+      margin-top: 3px;
+      letter-spacing: .3px;
+    }
+
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      color: var(--red);
+      font-size: 25px;
+      font-weight: 900;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, .14);
+      flex: 0 0 auto;
+    }
+
+    .brand-title {
+      font-size: 19px;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: .2px;
+    }
+
+    .container {
+      padding: 16px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .tab {
+      min-height: 36px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      border: 1.5px solid #ddd;
+      background: #fff;
+      color: #555;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      transition: transform .15s ease, color .15s ease, background .15s ease, border-color .15s ease;
+    }
+
+    .tab:hover { transform: translateY(-1px); }
+    .tab.active { background: var(--red); color: #fff; border-color: var(--red); }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 12px 8px;
+      border-radius: 10px;
+      background: #fff;
+      border: 1.5px solid #eee;
+    }
+
+    .stat-num { font-size: 24px; font-weight: 900; color: var(--red); }
+    .stat-label { font-size: 11px; color: #777; margin-top: 2px; }
+
+    .timeline { display: flex; flex-direction: column; gap: 10px; }
+    .block { display: grid; grid-template-columns: 80px 1fr; gap: 10px; align-items: start; }
+    .time-label { font-size: 11.5px; font-weight: 700; color: #888; padding-top: 4px; text-align: right; line-height: 1.3; }
+
+    .time-card {
+      border-radius: 8px;
+      padding: 10px 14px;
+      border-left: 3px solid;
+    }
+
+    .time-card h4 { font-size: 13px; font-weight: 800; margin-bottom: 3px; }
+    .time-card p { font-size: 12px; color: #555; line-height: 1.5; }
+
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 10px;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+    }
+
+    .urgent { border-color: var(--red); background: #fff8f7; }
+    .urgent .badge { background: rgba(192, 57, 43, .12); color: var(--red); }
+    .client { border-color: var(--cyan); background: #f5f9ff; }
+    .client .badge { background: rgba(41, 128, 185, .12); color: var(--cyan); }
+    .build { border-color: var(--green); background: #f5fff8; }
+    .build .badge { background: rgba(39, 174, 96, .12); color: var(--green); }
+    .review { border-color: var(--purple); background: #fdf5ff; }
+    .review .badge { background: rgba(142, 68, 173, .12); color: var(--purple); }
+    .rest { border-color: var(--gray); background: #fafafa; }
+    .rest .badge { background: #eee; color: #888; }
+
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+
+    .day-col {
+      border-radius: 8px;
+      border: 1.5px solid var(--line);
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .day-header {
+      padding: 7px 8px;
+      font-size: 12px;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .day-items { padding: 8px; display: flex; flex-direction: column; gap: 5px; }
+    .day-item { font-size: 11px; padding: 5px 7px; border-radius: 5px; line-height: 1.35; color: #333; }
+    .tag { font-size: 9px; font-weight: 800; padding: 1px 5px; border-radius: 4px; margin-right: 3px; text-transform: uppercase; display: inline-block; margin-bottom: 2px; }
+
+    .note {
+      margin-top: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1.5px solid #eee;
+      font-size: 12px;
+      line-height: 1.7;
+      color: #444;
+    }
+
+    .note strong { color: var(--red); }
+
+    .svc-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .svc-card {
+      border-radius: 10px;
+      border: 2px solid;
+      padding: 14px;
+      cursor: pointer;
+      background: #fff;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+
+    .svc-card:hover { transform: translateX(3px); box-shadow: 0 8px 22px rgba(0, 0, 0, .05); }
+    .svc-header { display: flex; align-items: center; gap: 10px; }
+
+    .svc-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .svc-title { flex: 1; min-width: 0; }
+    .svc-title h3 { font-size: 14px; font-weight: 800; margin-bottom: 2px; line-height: 1.45; }
+    .svc-title p { font-size: 11.5px; color: #666; line-height: 1.45; }
+
+    .arrow {
+      width: 18px;
+      height: 18px;
+      color: #999;
+      transition: transform .2s ease;
+      flex: 0 0 auto;
+    }
+
+    .svc-card.open .arrow { transform: rotate(90deg); }
+
+    .svc-detail {
+      display: none;
+      margin-top: 12px;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 12px;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .svc-card.open .svc-detail { display: grid; }
+    .detail-col h4 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: #888; margin-bottom: 6px; }
+    .detail-col ul { list-style: none; font-size: 12px; line-height: 1.8; color: #444; }
+    .detail-col ul li::before { content: "→ "; font-weight: 800; }
+
+    .bars { display: flex; flex-direction: column; gap: 5px; }
+    .bar-row { display: grid; grid-template-columns: 80px 1fr 38px; gap: 5px; align-items: center; font-size: 11px; color: #555; }
+    .bar-track { height: 8px; border-radius: 4px; background: #f0f0f0; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 4px; }
+    .bar-val { font-size: 11px; font-weight: 800; text-align: right; color: #333; }
+
+    .s1 { border-color: var(--orange); }
+    .s1 .svc-num { background: rgba(230, 126, 34, .12); color: var(--orange); }
+    .s1 .bar-fill { background: var(--orange); }
+    .s1 .detail-col li::before { color: var(--orange); }
+    .s2 { border-color: var(--red); }
+    .s2 .svc-num { background: rgba(192, 57, 43, .12); color: var(--red); }
+    .s2 .bar-fill { background: var(--red); }
+    .s2 .detail-col li::before { color: var(--red); }
+    .s3 { border-color: var(--cyan); }
+    .s3 .svc-num { background: rgba(41, 128, 185, .12); color: var(--cyan); }
+    .s3 .bar-fill { background: var(--cyan); }
+    .s3 .detail-col li::before { color: var(--cyan); }
+    .s4 { border-color: var(--gray); }
+    .s4 .svc-num { background: #f0f0f0; color: #888; }
+    .s4 .bar-fill { background: var(--gray); }
+    .s4 .detail-col li::before { color: var(--gray); }
+
+    .b-tag { display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 10px; margin-left: 5px; }
+    .b-unico { background: rgba(142, 68, 173, .12); color: var(--purple); }
+    .b-mrr { background: rgba(39, 174, 96, .12); color: var(--green); }
+    .b-hot { background: rgba(192, 57, 43, .12); color: var(--red); }
+
+    .summary-box {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      background: #fff8f7;
+      border-left: 3px solid var(--red);
+      font-size: 12.5px;
+      line-height: 1.7;
+      color: #333;
+    }
+
+    .summary-box strong { color: var(--red); }
+
+    .auto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .auto-card {
+      border-radius: 8px;
+      border: 1.5px solid var(--line);
+      padding: 12px;
+      background: #fff;
+    }
+
+    .auto-card h4 { font-size: 12px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .auto-card ul { list-style: none; font-size: 11.5px; color: #444; line-height: 1.8; }
+    .auto-card ul li::before { content: "· "; font-weight: 900; color: var(--red); }
+
+    .phase { font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 10px; text-transform: uppercase; }
+    .ph1 { background: rgba(192, 57, 43, .12); color: var(--red); }
+    .ph2 { background: rgba(41, 128, 185, .12); color: var(--cyan); }
+    .ph3 { background: rgba(39, 174, 96, .12); color: var(--green); }
+
+    @media (max-width: 560px) {
+      header { padding: 12px 14px; }
+      .container { padding: 12px; }
+      .stat-row { grid-template-columns: 1fr; }
+      .block { grid-template-columns: 1fr; gap: 4px; }
+      .time-label { text-align: left; padding-top: 0; }
+      .week-grid { grid-template-columns: 1fr 1fr; }
+      .svc-detail { grid-template-columns: 1fr; }
+      .auto-grid { grid-template-columns: 1fr; }
+      .tab { flex: 1 1 calc(50% - 6px); white-space: nowrap; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand-mark" aria-hidden="true">SR</div>
+    <div>
+      <div class="brand-title">Sombrero Rojo</div>
+      <p>Plan de Acción · Prospección · Clientes · Automatización · 2026</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <nav class="tabs" aria-label="Secciones del plan">
+      <button class="tab active" type="button" data-panel="rutina">📅 Rutina diaria</button>
+      <button class="tab" type="button" data-panel="semana">📆 Ritmo semanal</button>
+      <button class="tab" type="button" data-panel="servicios">💼 Servicios</button>
+      <button class="tab" type="button" data-panel="auto">🤖 Automatización</button>
+    </nav>
+
+    <section id="rutina" class="panel active">
+      <div class="stat-row">
+        <div class="stat"><div class="stat-num">2h</div><div class="stat-label">Prospección</div></div>
+        <div class="stat"><div class="stat-num">4h</div><div class="stat-label">Trabajo cliente</div></div>
+        <div class="stat"><div class="stat-num">2h</div><div class="stat-label">Construcción SR</div></div>
+      </div>
+
+      <div class="timeline">
+        <article class="block">
+          <div class="time-label">8:00 – 9:00</div>
+          <div class="time-card review"><span class="badge">Revisión</span><h4>Arranque + respuestas</h4><p>Revisar WhatsApps y correos de prospectos. Responder leads calientes primero. Ver pendientes del día anterior.</p></div>
+        </article>
+        <article class="block">
+          <div class="time-label">9:00 – 11:00</div>
+          <div class="time-card urgent"><span class="badge">🔥 Prospección</span><h4>Envíos + seguimiento</h4><p><strong>5–8 mensajes WhatsApp nuevos</strong> por día usando las listas ya armadas (Cuenca, Quito, GYE). Seguimiento de los que no respondieron en 2–3 días. Registrar estado en el sheet.</p></div>
+        </article>
+        <article class="block">
+          <div class="time-label">11:00 – 13:00</div>
+          <div class="time-card client"><span class="badge">Clientes</span><h4>Trabajo de producción</h4><p>Diseño, desarrollo web, redes. Bloque protegido: foco total para producción.</p></div>
+        </article>
+        <article class="block">
+          <div class="time-label">13:00 – 14:30</div>
+          <div class="time-card rest"><span class="badge">Descanso</span><h4>Almuerzo / Recarga</h4><p>Desconexión total. Si hay llamada con cliente, agendarla aquí.</p></div>
+        </article>
+        <article class="block">
+          <div class="time-label">14:30 – 16:30</div>
+          <div class="time-card client"><span class="badge">Clientes</span><h4>Producción + entregas</h4><p>Continuar trabajo de clientes. Enviar avances o aprobaciones. Reuniones de seguimiento si aplica.</p></div>
+        </article>
+        <article class="block">
+          <div class="time-label">16:30 – 18:30</div>
+          <div class="time-card build"><span class="badge">Construcción SR</span><h4>Sistemas + automatización</h4><p>Trabajar en Make.com, agentes IA, generador de propuestas, GitHub. Este bloque construye el negocio del futuro. <strong>No saltarlo.</strong></p></div>
+        </article>
+        <article class="block">
+          <div class="time-label">18:30 – 19:00</div>
+          <div class="time-card review"><span class="badge">Cierre</span><h4>Registro + plan mañana</h4><p>Anotar qué respondió, qué sigue. Máximo 30 min. Dejar el día cerrado.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="semana" class="panel">
+      <div class="week-grid">
+        <div class="day-col">
+          <div class="day-header" style="background:rgba(192,57,43,.1);color:#c0392b">Lunes</div>
+          <div class="day-items">
+            <div class="day-item" style="background:rgba(192,57,43,.06)"><span class="tag" style="background:rgba(192,57,43,.15);color:#c0392b">WA</span>8 mensajes Cuenca</div>
+            <div class="day-item" style="background:rgba(41,128,185,.06)"><span class="tag" style="background:rgba(41,128,185,.15);color:#2980b9">CLI</span>Producción clientes</div>
+            <div class="day-item" style="background:rgba(39,174,96,.06)"><span class="tag" style="background:rgba(39,174,96,.15);color:#27ae60">SR</span>GitHub: subir HTML</div>
+          </div>
+        </div>
+        <div class="day-col">
+          <div class="day-header" style="background:rgba(41,128,185,.1);color:#2980b9">Martes</div>
+          <div class="day-items">
+            <div class="day-item" style="background:rgba(192,57,43,.06)"><span class="tag" style="background:rgba(192,57,43,.15);color:#c0392b">WA</span>Follow-up + 5 Quito</div>
+            <div class="day-item" style="background:rgba(41,128,185,.06)"><span class="tag" style="background:rgba(41,128,185,.15);color:#2980b9">CLI</span>Entrega semanal</div>
+            <div class="day-item" style="background:rgba(39,174,96,.06)"><span class="tag" style="background:rgba(39,174,96,.15);color:#27ae60">SR</span>Make.com seguimiento</div>
+          </div>
+        </div>
+        <div class="day-col">
+          <div class="day-header" style="background:rgba(39,174,96,.1);color:#27ae60">Miércoles</div>
+          <div class="day-items">
+            <div class="day-item" style="background:rgba(192,57,43,.06)"><span class="tag" style="background:rgba(192,57,43,.15);color:#c0392b">WA</span>5 nuevos GYE</div>
+            <div class="day-item" style="background:rgba(41,128,185,.06)"><span class="tag" style="background:rgba(41,128,185,.15);color:#2980b9">CLI</span>Producción</div>
+            <div class="day-item" style="background:rgba(142,68,173,.06)"><span class="tag" style="background:rgba(142,68,173,.15);color:#8e44ad">RRSS</span>Post SR</div>
+          </div>
+        </div>
+        <div class="day-col">
+          <div class="day-header" style="background:rgba(142,68,173,.1);color:#8e44ad">Jueves</div>
+          <div class="day-items">
+            <div class="day-item" style="background:rgba(192,57,43,.06)"><span class="tag" style="background:rgba(192,57,43,.15);color:#c0392b">WA</span>Cierre leads tibios</div>
+            <div class="day-item" style="background:rgba(41,128,185,.06)"><span class="tag" style="background:rgba(41,128,185,.15);color:#2980b9">CLI</span>Producción</div>
+            <div class="day-item" style="background:rgba(39,174,96,.06)"><span class="tag" style="background:rgba(39,174,96,.15);color:#27ae60">SR</span>Agente: nuevos prospectos</div>
+          </div>
+        </div>
+        <div class="day-col">
+          <div class="day-header" style="background:rgba(243,156,18,.1);color:#d68910">Viernes</div>
+          <div class="day-items">
+            <div class="day-item" style="background:rgba(192,57,43,.06)"><span class="tag" style="background:rgba(192,57,43,.15);color:#c0392b">WA</span>Solo follow-up</div>
+            <div class="day-item" style="background:rgba(41,128,185,.06)"><span class="tag" style="background:rgba(41,128,185,.15);color:#2980b9">CLI</span>Cierres de semana</div>
+            <div class="day-item" style="background:rgba(142,68,173,.06)"><span class="tag" style="background:rgba(142,68,173,.15);color:#8e44ad">STR</span>Métricas + plan</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Regla de oro:</strong> 5 mensajes/día = 25/semana = 100/mes → con 10% de cierre = <strong>10 clientes nuevos/mes</strong>.<br>
+        No enviar más de 8 WA por día desde el mismo número para no ser bloqueado.<br>
+        <strong>Viernes</strong> es el mejor día para cerrar ventas — aprovecharlo.
+      </div>
+    </section>
+
+    <section id="servicios" class="panel">
+      <div class="svc-list">
+        <article class="svc-card s1">
+          <div class="svc-header">
+            <div class="svc-num">1</div>
+            <div class="svc-title"><h3>🤖 Chatbot / Consultorio Digital <span class="b-tag b-unico">Único en Cuenca</span><span class="b-tag b-mrr">MRR</span></h3><p>Make.com + ManyChat · Setup $800–1,500 + mantenimiento $150–300/mes</p></div>
+            <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="svc-detail">
+            <div class="detail-col"><h4>Por qué es #1</h4><ul><li>Nadie más lo ofrece en Cuenca</li><li>Clínicas y consultorios pagan bien</li><li>Soluciona dolor real: citas perdidas</li><li>Setup + mensualidad = doble ingreso</li><li>Nicho especializado = más fácil vender</li></ul></div>
+            <div class="detail-col"><h4>Métricas</h4><div class="bars"><div class="bar-row"><span>Ticket</span><div class="bar-track"><div class="bar-fill" style="width:90%"></div></div><span class="bar-val">Alto</span></div><div class="bar-row"><span>Facilidad</span><div class="bar-track"><div class="bar-fill" style="width:80%"></div></div><span class="bar-val">Alta</span></div><div class="bar-row"><span>Competencia</span><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div><span class="bar-val">Baja</span></div><div class="bar-row"><span>Recurrencia</span><div class="bar-track"><div class="bar-fill" style="width:85%"></div></div><span class="bar-val">Alta</span></div></div></div>
+          </div>
+        </article>
+
+        <article class="svc-card s2">
+          <div class="svc-header">
+            <div class="svc-num">2</div>
+            <div class="svc-title"><h3>🌐 Desarrollo Web <span class="b-tag b-hot">Cierre rápido</span></h3><p>$449 captación · $749 conversión · $1,399 automatización</p></div>
+            <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="svc-detail">
+            <div class="detail-col"><h4>Por qué es #2</h4><ul><li>ROI concreto y fácil de explicar</li><li>Todos los nichos lo necesitan</li><li>Hoteles: evita comisión 20% a Booking</li><li>Entrega en 1–2 semanas = caja rápida</li><li>Upsell natural a redes o chatbot</li></ul></div>
+            <div class="detail-col"><h4>Métricas</h4><div class="bars"><div class="bar-row"><span>Ticket</span><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div><span class="bar-val">Medio</span></div><div class="bar-row"><span>Facilidad</span><div class="bar-track"><div class="bar-fill" style="width:88%"></div></div><span class="bar-val">Alta</span></div><div class="bar-row"><span>Competencia</span><div class="bar-track"><div class="bar-fill" style="width:55%"></div></div><span class="bar-val">Media</span></div><div class="bar-row"><span>Recurrencia</span><div class="bar-track"><div class="bar-fill" style="width:20%"></div></div><span class="bar-val">Baja</span></div></div></div>
+          </div>
+        </article>
+
+        <article class="svc-card s3">
+          <div class="svc-header">
+            <div class="svc-num">3</div>
+            <div class="svc-title"><h3>📱 Gestión de Redes <span class="b-tag b-mrr">MRR $299–599</span></h3><p>Presencia $299 · Business Activo $599</p></div>
+            <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="svc-detail">
+            <div class="detail-col"><h4>Por qué es #3</h4><ul><li>Ingreso recurrente predecible</li><li>Fácil de entender para el cliente</li><li>Ideal para restaurantes y salones</li><li>Mejor venderlo después de web</li><li>Cuidado: consume tiempo sin automatizar</li></ul></div>
+            <div class="detail-col"><h4>Métricas</h4><div class="bars"><div class="bar-row"><span>Ticket</span><div class="bar-track"><div class="bar-fill" style="width:45%"></div></div><span class="bar-val">Bajo</span></div><div class="bar-row"><span>Facilidad</span><div class="bar-track"><div class="bar-fill" style="width:85%"></div></div><span class="bar-val">Alta</span></div><div class="bar-row"><span>Competencia</span><div class="bar-track"><div class="bar-fill" style="width:75%"></div></div><span class="bar-val">Alta</span></div><div class="bar-row"><span>Recurrencia</span><div class="bar-track"><div class="bar-fill" style="width:95%"></div></div><span class="bar-val">Alta</span></div></div></div>
+          </div>
+        </article>
+
+        <article class="svc-card s4">
+          <div class="svc-header">
+            <div class="svc-num">4</div>
+            <div class="svc-title"><h3>🎨 Branding</h3><p>Esencial $249 · Pro $399 · mejor como upsell</p></div>
+            <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="svc-detail">
+            <div class="detail-col"><h4>Por qué es #4</h4><ul><li>Ticket bajo para el trabajo que implica</li><li>Difícil probar ROI directo</li><li>Úsalo como add-on al cerrar web</li><li>Funciona como gancho de entrada $249</li></ul></div>
+            <div class="detail-col"><h4>Métricas</h4><div class="bars"><div class="bar-row"><span>Ticket</span><div class="bar-track"><div class="bar-fill" style="width:25%"></div></div><span class="bar-val">Bajo</span></div><div class="bar-row"><span>Facilidad</span><div class="bar-track"><div class="bar-fill" style="width:50%"></div></div><span class="bar-val">Media</span></div><div class="bar-row"><span>Competencia</span><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div><span class="bar-val">Alta</span></div><div class="bar-row"><span>Recurrencia</span><div class="bar-track"><div class="bar-fill" style="width:5%"></div></div><span class="bar-val">Nula</span></div></div></div>
+          </div>
+        </article>
+      </div>
+
+      <div class="summary-box">
+        <strong>Combo ideal:</strong> Web + Redes = $449 setup + $299/mes = <strong>$4,037 en el primer año</strong>.<br>
+        Consultorio con Chatbot + Redes = $1,200 setup + $450/mes = <strong>$6,600 en el primer año</strong>.
+      </div>
+    </section>
+
+    <section id="auto" class="panel">
+      <div class="auto-grid">
+        <div class="auto-card"><h4><span class="phase ph1">Fase 1 — Ya hecho</span></h4><ul><li>✅ Listas prospectos Cuenca, Quito, GYE</li><li>✅ Mensajes WA por nicho</li><li>✅ Generador de propuestas HTML</li><li>✅ Estudio de mercado 2026</li></ul></div>
+        <div class="auto-card"><h4><span class="phase ph1">Fase 1 — Esta semana</span></h4><ul><li>Subir index.html a GitHub</li><li>Make.com: recordatorio 48h sin respuesta</li><li>HubSpot: importar prospectos</li><li>Registrar SR en Clutch + Sortlist</li></ul></div>
+        <div class="auto-card"><h4><span class="phase ph2">Fase 2 — Mes 1</span></h4><ul><li>Make.com: propuesta auto al responder WA</li><li>Agente IA: generar contenido RRSS semanal</li><li>Página en inglés en sombrerorojo.net</li><li>Caso de estudio MonarcaTours publicado</li></ul></div>
+        <div class="auto-card"><h4><span class="phase ph2">Fase 2 — Mes 2-3</span></h4><ul><li>Chatbot WA con respuestas automáticas</li><li>Reporte mensual automático por cliente</li><li>Lanzar servicio GEO como oferta</li><li>Primer cliente LATAM remoto</li></ul></div>
+        <div class="auto-card"><h4><span class="phase ph3">Fase 3 — Mes 3-6</span></h4><ul><li>Onboarding automático nuevos clientes</li><li>Agente IA: propuesta completa en 2 min</li><li>Pipeline de prospectos USA hispanos</li><li>Primera contratación o colaborador</li></ul></div>
+        <div class="auto-card"><h4><span class="phase ph3">Fase 3 — Mes 6+</span></h4><ul><li>2-3 servicios completamente automatizados</li><li>Presencia activa Perú o Colombia</li><li>5-10 clientes recurrentes de alto valor</li><li>Ingresos mensuales $5,000+/mes</li></ul></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const tabs = document.querySelectorAll(".tab");
+    const panels = document.querySelectorAll(".panel");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const panelId = tab.dataset.panel;
+        panels.forEach((panel) => panel.classList.toggle("active", panel.id === panelId));
+        tabs.forEach((item) => item.classList.toggle("active", item === tab));
+      });
+    });
+
+    document.querySelectorAll(".svc-card").forEach((card) => {
+      card.addEventListener("click", () => card.classList.toggle("open"));
+    });
+  </script>
+</body>
+</html>
