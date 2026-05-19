@@ -195,7 +195,9 @@
   .sr-name { font-size:13px; font-weight:700; color:var(--azul); }
   .sr-detail { font-size:11px; color:#888; margin-top:1px; }
 .svc-tabs{display:flex;gap:5px;margin-bottom:10px;}
-.svc-tab{flex:1;padding:6px 4px;text-align:center;cursor:pointer;border-radius:6px;font-size:11px;font-weight:700;background:#f0f2f5;color:#555;border:2px solid transparent;transition:all .15s;user-select:none;}
+.svc-tab{flex:1;padding:8px 4px 6px;text-align:center;cursor:pointer;border-radius:6px;font-weight:700;background:#f0f2f5;color:#555;border:2px solid transparent;transition:all .15s;user-select:none;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.svc-tab .ti{font-size:18px;line-height:1;}
+.svc-tab .tl{font-size:10px;line-height:1;}
 .svc-tab.active{background:var(--azul);color:#fff;border-color:var(--azul);}
 .svc-tab:hover:not(.active){background:#e0e4f0;color:var(--azul);}
 </style>
@@ -351,10 +353,10 @@ document.addEventListener('click', function(e) {
     <div class="seccion-group" style="padding-bottom:4px;">
       <h3>🗂 Tipo de servicio</h3>
       <div class="svc-tabs">
-        <div class="svc-tab active" id="svc-l-web"       onclick="switchServicioLanding('web')">🌐 Web</div>
-        <div class="svc-tab"        id="svc-l-branding"  onclick="switchServicioLanding('branding')">🎨 Branding</div>
-        <div class="svc-tab"        id="svc-l-redes"     onclick="switchServicioLanding('redes')">📱 Redes</div>
-        <div class="svc-tab"        id="svc-l-whatsapp"  onclick="switchServicioLanding('whatsapp')">💬 WhatsApp</div>
+        <div class="svc-tab active" id="svc-l-web"       onclick="switchServicioLanding('web')"><span class="ti">🌐</span><span class="tl">Web</span></div>
+        <div class="svc-tab"        id="svc-l-branding"  onclick="switchServicioLanding('branding')"><span class="ti">🎨</span><span class="tl">Branding</span></div>
+        <div class="svc-tab"        id="svc-l-redes"     onclick="switchServicioLanding('redes')"><span class="ti">📱</span><span class="tl">Redes</span></div>
+        <div class="svc-tab"        id="svc-l-whatsapp"  onclick="switchServicioLanding('whatsapp')"><span class="ti">💬</span><span class="tl">WhatsApp</span></div>
       </div>
     </div>
     <div class="seccion-group">
@@ -428,10 +430,10 @@ document.addEventListener('click', function(e) {
 <div class="seccion-group" style="padding-bottom:4px;">
 <h3>🗂 Tipo de servicio</h3>
 <div class="svc-tabs">
-<div class="svc-tab active" id="svc-web"      onclick="switchServicio('web')">🌐 Web</div>
-<div class="svc-tab" id="svc-branding"  onclick="switchServicio('branding')">🎨 Branding</div>
-<div class="svc-tab" id="svc-redes"     onclick="switchServicio('redes')">📱 Redes</div>
-<div class="svc-tab" id="svc-whatsapp"  onclick="switchServicio('whatsapp')">💬 WhatsApp</div>
+<div class="svc-tab active" id="svc-web"      onclick="switchServicio('web')"><span class="ti">🌐</span><span class="tl">Web</span></div>
+<div class="svc-tab" id="svc-branding"  onclick="switchServicio('branding')"><span class="ti">🎨</span><span class="tl">Branding</span></div>
+<div class="svc-tab" id="svc-redes"     onclick="switchServicio('redes')"><span class="ti">📱</span><span class="tl">Redes</span></div>
+<div class="svc-tab" id="svc-whatsapp"  onclick="switchServicio('whatsapp')"><span class="ti">💬</span><span class="tl">WhatsApp</span></div>
 </div>
 </div>
 <!-- ══════ BUSCADOR DE PROSPECTOS ══════ -->
