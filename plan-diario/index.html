@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Plan de Acción — Sombrero Rojo</title>
+  <title>Plan Semanal SR</title>
   <style>
     :root {
       color-scheme: light;
@@ -13,12 +13,14 @@
       --green: #27ae60;
       --cyan: #2980b9;
       --purple: #8e44ad;
-      --gray: #bdc3c7;
-      --ink: #111;
-      --muted: #666;
-      --line: #e8e8e8;
-      --page: #f5f5f5;
+      --amber: #d68910;
+      --page: #f4f5f7;
       --surface: #fff;
+      --ink: #111827;
+      --muted: #667085;
+      --line: #e5e7eb;
+      --soft-red: #fff8f7;
+      --shadow: 0 12px 28px rgba(17, 24, 39, .08);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -34,285 +36,354 @@
     header {
       background: var(--blue);
       color: #fff;
-      padding: 12px 20px;
+      padding: 12px 16px;
       display: flex;
       align-items: center;
-      gap: 14px;
-    }
-
-    header p {
-      font-size: 11.5px;
-      opacity: .7;
-      margin-top: 3px;
-      letter-spacing: .3px;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
     }
 
     .brand-mark {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
       display: grid;
       place-items: center;
       background: #fff;
       color: var(--red);
-      font-size: 25px;
+      font-size: 23px;
       font-weight: 900;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, .14);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, .16);
       flex: 0 0 auto;
     }
 
-    .brand-title {
-      font-size: 19px;
-      font-weight: 900;
-      line-height: 1;
-      letter-spacing: .2px;
-    }
+    .brand-title { font-size: 18px; font-weight: 900; line-height: 1; }
+    header p { font-size: 11.5px; opacity: .75; margin-top: 4px; letter-spacing: .2px; }
 
     .container {
-      padding: 16px;
-      max-width: 700px;
+      width: min(100%, 980px);
       margin: 0 auto;
+      padding: 14px;
     }
 
     .tabs {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
       gap: 6px;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
+      margin-bottom: 14px;
     }
 
-    .tab {
+    .tab, button, .file-label {
+      border: 0;
+      border-radius: 999px;
       min-height: 36px;
-      padding: 8px 14px;
-      border-radius: 20px;
-      border: 1.5px solid #ddd;
+      padding: 8px 12px;
       background: #fff;
-      color: #555;
+      color: #4b5563;
+      font: inherit;
+      font-size: 12.5px;
+      font-weight: 800;
       cursor: pointer;
-      font-size: 13px;
-      font-weight: 700;
-      transition: transform .15s ease, color .15s ease, background .15s ease, border-color .15s ease;
+      box-shadow: inset 0 0 0 1.5px var(--line);
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
     }
 
-    .tab:hover { transform: translateY(-1px); }
-    .tab.active { background: var(--red); color: #fff; border-color: var(--red); }
+    .tab:hover, button:hover, .file-label:hover { transform: translateY(-1px); }
+    .tab.active, .primary { background: var(--red); color: #fff; box-shadow: inset 0 0 0 1.5px var(--red); }
+    .secondary { background: var(--blue); color: #fff; box-shadow: inset 0 0 0 1.5px var(--blue); }
+    .ghost { background: transparent; color: var(--muted); box-shadow: inset 0 0 0 1.5px var(--line); }
 
     .panel { display: none; }
     .panel.active { display: block; }
 
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    input[type="file"] { display: none; }
+
+    .week-title h1 {
+      font-size: 22px;
+      line-height: 1.1;
+      letter-spacing: 0;
+      margin-bottom: 3px;
+    }
+
+    .week-title p, .helper {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
     .stat-row {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       gap: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
+    }
+
+    .stat, .card, .day-col, .data-card {
+      background: var(--surface);
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
     }
 
     .stat {
+      padding: 12px 10px;
       text-align: center;
-      padding: 12px 8px;
-      border-radius: 10px;
-      background: #fff;
-      border: 1.5px solid #eee;
     }
 
-    .stat-num { font-size: 24px; font-weight: 900; color: var(--red); }
-    .stat-label { font-size: 11px; color: #777; margin-top: 2px; }
+    .stat-num { font-size: 24px; font-weight: 950; color: var(--red); }
+    .stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.25; }
 
-    .timeline { display: flex; flex-direction: column; gap: 10px; }
-    .block { display: grid; grid-template-columns: 80px 1fr; gap: 10px; align-items: start; }
-    .time-label { font-size: 11.5px; font-weight: 700; color: #888; padding-top: 4px; text-align: right; line-height: 1.3; }
-
-    .time-card {
-      border-radius: 8px;
-      padding: 10px 14px;
-      border-left: 3px solid;
+    .insight {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 10px;
+      margin-bottom: 12px;
     }
 
-    .time-card h4 { font-size: 13px; font-weight: 800; margin-bottom: 3px; }
-    .time-card p { font-size: 12px; color: #555; line-height: 1.5; }
+    .card {
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
 
-    .badge {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 800;
-      padding: 2px 7px;
-      border-radius: 10px;
-      margin-bottom: 5px;
+    .card h2, .data-card h3 {
+      font-size: 13px;
       text-transform: uppercase;
-      letter-spacing: .4px;
+      letter-spacing: .5px;
+      color: #374151;
+      margin-bottom: 8px;
     }
 
-    .urgent { border-color: var(--red); background: #fff8f7; }
-    .urgent .badge { background: rgba(192, 57, 43, .12); color: var(--red); }
-    .client { border-color: var(--cyan); background: #f5f9ff; }
-    .client .badge { background: rgba(41, 128, 185, .12); color: var(--cyan); }
-    .build { border-color: var(--green); background: #f5fff8; }
-    .build .badge { background: rgba(39, 174, 96, .12); color: var(--green); }
-    .review { border-color: var(--purple); background: #fdf5ff; }
-    .review .badge { background: rgba(142, 68, 173, .12); color: var(--purple); }
-    .rest { border-color: var(--gray); background: #fafafa; }
-    .rest .badge { background: #eee; color: #888; }
+    .pulse {
+      border-left: 4px solid var(--red);
+      background: var(--soft-red);
+      box-shadow: none;
+    }
+
+    .pulse strong { color: var(--red); }
+    .pulse p { font-size: 13px; line-height: 1.6; color: #3f3f46; }
 
     .week-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 6px;
+      gap: 8px;
     }
 
-    .day-col {
-      border-radius: 8px;
-      border: 1.5px solid var(--line);
-      overflow: hidden;
-      background: #fff;
-    }
-
+    .day-col { overflow: hidden; }
     .day-header {
-      padding: 7px 8px;
-      font-size: 12px;
-      font-weight: 800;
+      padding: 8px;
+      font-size: 12.5px;
+      font-weight: 900;
       text-align: center;
     }
 
-    .day-items { padding: 8px; display: flex; flex-direction: column; gap: 5px; }
-    .day-item { font-size: 11px; padding: 5px 7px; border-radius: 5px; line-height: 1.35; color: #333; }
-    .tag { font-size: 9px; font-weight: 800; padding: 1px 5px; border-radius: 4px; margin-right: 3px; text-transform: uppercase; display: inline-block; margin-bottom: 2px; }
-
-    .note {
-      margin-top: 10px;
-      padding: 10px 14px;
-      border-radius: 8px;
-      background: #fff;
-      border: 1.5px solid #eee;
-      font-size: 12px;
-      line-height: 1.7;
-      color: #444;
-    }
-
-    .note strong { color: var(--red); }
-
-    .svc-list { display: flex; flex-direction: column; gap: 10px; }
-
-    .svc-card {
-      border-radius: 10px;
-      border: 2px solid;
-      padding: 14px;
-      cursor: pointer;
-      background: #fff;
-      transition: transform .15s ease, box-shadow .15s ease;
-    }
-
-    .svc-card:hover { transform: translateX(3px); box-shadow: 0 8px 22px rgba(0, 0, 0, .05); }
-    .svc-header { display: flex; align-items: center; gap: 10px; }
-
-    .svc-num {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
+    .day-items {
+      padding: 8px;
       display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-height: 132px;
+    }
+
+    .day-item {
+      font-size: 11.5px;
+      padding: 7px 8px;
+      border-radius: 7px;
+      line-height: 1.35;
+      color: #333;
+      background: #f9fafb;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 900;
+      padding: 2px 5px;
+      border-radius: 5px;
+      margin-right: 4px;
+      margin-bottom: 3px;
+      text-transform: uppercase;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 86px;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      padding: 8px;
+      font: inherit;
+      font-size: 12px;
+      resize: vertical;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .objective-label {
+      display: block;
+      padding: 0 8px 8px;
+      color: var(--muted);
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+    }
+
+    .objective-label span { display: block; margin-bottom: 5px; }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: start;
+      padding: 10px;
+      border: 1.5px solid var(--line);
+      border-radius: 9px;
+      background: #fff;
+    }
+
+    .row h3 { font-size: 13px; line-height: 1.25; margin-bottom: 3px; }
+    .row p { font-size: 11.5px; color: var(--muted); line-height: 1.45; }
+
+    .pill {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      min-height: 22px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 10.5px;
       font-weight: 900;
-      flex-shrink: 0;
+      white-space: nowrap;
     }
 
-    .svc-title { flex: 1; min-width: 0; }
-    .svc-title h3 { font-size: 14px; font-weight: 800; margin-bottom: 2px; line-height: 1.45; }
-    .svc-title p { font-size: 11.5px; color: #666; line-height: 1.45; }
+    .pill.red { color: var(--red); background: rgba(192, 57, 43, .12); }
+    .pill.blue { color: var(--cyan); background: rgba(41, 128, 185, .12); }
+    .pill.green { color: var(--green); background: rgba(39, 174, 96, .12); }
+    .pill.purple { color: var(--purple); background: rgba(142, 68, 173, .12); }
+    .pill.gray { color: #6b7280; background: #f3f4f6; }
 
-    .arrow {
-      width: 18px;
-      height: 18px;
-      color: #999;
-      transition: transform .2s ease;
-      flex: 0 0 auto;
+    .service-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .service-card {
+      background: #fff;
+      border: 2px solid var(--line);
+      border-radius: 11px;
+      padding: 12px;
     }
 
-    .svc-card.open .arrow { transform: rotate(90deg); }
+    .service-head {
+      display: grid;
+      grid-template-columns: 34px 1fr auto;
+      gap: 10px;
+      align-items: center;
+    }
 
-    .svc-detail {
-      display: none;
-      margin-top: 12px;
-      border-top: 1px solid #f0f0f0;
-      padding-top: 12px;
+    .rank {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      font-weight: 950;
+      background: rgba(192, 57, 43, .12);
+      color: var(--red);
+    }
+
+    .service-card h3 { font-size: 14px; line-height: 1.25; margin-bottom: 2px; }
+    .service-card p { font-size: 11.5px; color: var(--muted); line-height: 1.45; }
+
+    .bar {
+      height: 8px;
+      border-radius: 99px;
+      overflow: hidden;
+      background: #f0f0f0;
+      margin-top: 10px;
+    }
+
+    .fill { height: 100%; border-radius: 99px; background: var(--red); }
+
+    .automation-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .data-card {
+      padding: 12px;
+    }
+
+    .data-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      color: #414651;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .data-card li::before {
+      content: "·";
+      color: var(--red);
+      font-weight: 950;
+      margin-right: 6px;
+    }
+
+    .empty {
+      border: 1.5px dashed #cbd5e1;
+      border-radius: 10px;
+      padding: 16px;
+      background: #fff;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 13px;
+    }
+
+    .split {
+      display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
     }
 
-    .svc-card.open .svc-detail { display: grid; }
-    .detail-col h4 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; color: #888; margin-bottom: 6px; }
-    .detail-col ul { list-style: none; font-size: 12px; line-height: 1.8; color: #444; }
-    .detail-col ul li::before { content: "→ "; font-weight: 800; }
-
-    .bars { display: flex; flex-direction: column; gap: 5px; }
-    .bar-row { display: grid; grid-template-columns: 80px 1fr 38px; gap: 5px; align-items: center; font-size: 11px; color: #555; }
-    .bar-track { height: 8px; border-radius: 4px; background: #f0f0f0; overflow: hidden; }
-    .bar-fill { height: 100%; border-radius: 4px; }
-    .bar-val { font-size: 11px; font-weight: 800; text-align: right; color: #333; }
-
-    .s1 { border-color: var(--orange); }
-    .s1 .svc-num { background: rgba(230, 126, 34, .12); color: var(--orange); }
-    .s1 .bar-fill { background: var(--orange); }
-    .s1 .detail-col li::before { color: var(--orange); }
-    .s2 { border-color: var(--red); }
-    .s2 .svc-num { background: rgba(192, 57, 43, .12); color: var(--red); }
-    .s2 .bar-fill { background: var(--red); }
-    .s2 .detail-col li::before { color: var(--red); }
-    .s3 { border-color: var(--cyan); }
-    .s3 .svc-num { background: rgba(41, 128, 185, .12); color: var(--cyan); }
-    .s3 .bar-fill { background: var(--cyan); }
-    .s3 .detail-col li::before { color: var(--cyan); }
-    .s4 { border-color: var(--gray); }
-    .s4 .svc-num { background: #f0f0f0; color: #888; }
-    .s4 .bar-fill { background: var(--gray); }
-    .s4 .detail-col li::before { color: var(--gray); }
-
-    .b-tag { display: inline-block; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 10px; margin-left: 5px; }
-    .b-unico { background: rgba(142, 68, 173, .12); color: var(--purple); }
-    .b-mrr { background: rgba(39, 174, 96, .12); color: var(--green); }
-    .b-hot { background: rgba(192, 57, 43, .12); color: var(--red); }
-
-    .summary-box {
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-radius: 8px;
-      background: #fff8f7;
-      border-left: 3px solid var(--red);
-      font-size: 12.5px;
-      line-height: 1.7;
-      color: #333;
-    }
-
-    .summary-box strong { color: var(--red); }
-
-    .auto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-    .auto-card {
-      border-radius: 8px;
+    .search {
+      width: 100%;
       border: 1.5px solid var(--line);
-      padding: 12px;
+      border-radius: 999px;
+      min-height: 38px;
+      padding: 8px 12px;
+      font: inherit;
+      font-size: 13px;
+      margin-bottom: 10px;
       background: #fff;
     }
 
-    .auto-card h4 { font-size: 12px; font-weight: 800; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-    .auto-card ul { list-style: none; font-size: 11.5px; color: #444; line-height: 1.8; }
-    .auto-card ul li::before { content: "· "; font-weight: 900; color: var(--red); }
-
-    .phase { font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 10px; text-transform: uppercase; }
-    .ph1 { background: rgba(192, 57, 43, .12); color: var(--red); }
-    .ph2 { background: rgba(41, 128, 185, .12); color: var(--cyan); }
-    .ph3 { background: rgba(39, 174, 96, .12); color: var(--green); }
-
-    @media (max-width: 560px) {
-      header { padding: 12px 14px; }
+    @media (max-width: 760px) {
       .container { padding: 12px; }
-      .stat-row { grid-template-columns: 1fr; }
-      .block { grid-template-columns: 1fr; gap: 4px; }
-      .time-label { text-align: left; padding-top: 0; }
-      .week-grid { grid-template-columns: 1fr 1fr; }
-      .svc-detail { grid-template-columns: 1fr; }
-      .auto-grid { grid-template-columns: 1fr; }
-      .tab { flex: 1 1 calc(50% - 6px); white-space: nowrap; }
+      .tabs { grid-template-columns: repeat(3, 1fr); }
+      .stat-row { grid-template-columns: repeat(2, 1fr); }
+      .insight, .split, .automation-grid { grid-template-columns: 1fr; }
+      .week-grid { grid-template-columns: 1fr; }
+      .day-col { border-radius: 9px; }
+      .toolbar { align-items: stretch; }
+      .actions { width: 100%; }
+      .actions > * { flex: 1 1 auto; text-align: center; }
     }
   </style>
 </head>
@@ -320,193 +391,620 @@
   <header>
     <div class="brand-mark" aria-hidden="true">SR</div>
     <div>
-      <div class="brand-title">Sombrero Rojo</div>
-      <p>Plan de Acción · Prospección · Clientes · Automatización · 2026</p>
+      <div class="brand-title">Plan Semanal SR</div>
+      <p>Prospección · Objetivos · Servicios · Automatización</p>
     </div>
   </header>
 
   <main class="container">
-    <nav class="tabs" aria-label="Secciones del plan">
-      <button class="tab active" type="button" data-panel="rutina">📅 Rutina diaria</button>
-      <button class="tab" type="button" data-panel="semana">📆 Ritmo semanal</button>
-      <button class="tab" type="button" data-panel="servicios">💼 Servicios</button>
-      <button class="tab" type="button" data-panel="auto">🤖 Automatización</button>
+    <nav class="tabs" aria-label="Secciones">
+      <button class="tab active" type="button" data-panel="semana">Semana</button>
+      <button class="tab" type="button" data-panel="prospectos">Prospectos</button>
+      <button class="tab" type="button" data-panel="servicios">Servicios</button>
+      <button class="tab" type="button" data-panel="auto">Automatización</button>
+      <button class="tab" type="button" data-panel="datos">Datos</button>
     </nav>
 
-    <section id="rutina" class="panel active">
-      <div class="stat-row">
-        <div class="stat"><div class="stat-num">2h</div><div class="stat-label">Prospección</div></div>
-        <div class="stat"><div class="stat-num">4h</div><div class="stat-label">Trabajo cliente</div></div>
-        <div class="stat"><div class="stat-num">2h</div><div class="stat-label">Construcción SR</div></div>
+    <section id="semana" class="panel active">
+      <div class="toolbar">
+        <div class="week-title">
+          <h1 id="weekTitle">Semana actual</h1>
+          <p id="weekSubtitle">Plan de acción generado desde prospectos.</p>
+        </div>
+        <div class="actions">
+          <button class="primary" type="button" id="newWeekBtn">Nueva semana</button>
+          <button class="secondary" type="button" id="saveWeekBtn">Guardar objetivos</button>
+        </div>
       </div>
 
-      <div class="timeline">
-        <article class="block">
-          <div class="time-label">8:00 – 9:00</div>
-          <div class="time-card review"><span class="badge">Revisión</span><h4>Arranque + respuestas</h4><p>Revisar WhatsApps y correos de prospectos. Responder leads calientes primero. Ver pendientes del día anterior.</p></div>
-        </article>
-        <article class="block">
-          <div class="time-label">9:00 – 11:00</div>
-          <div class="time-card urgent"><span class="badge">🔥 Prospección</span><h4>Envíos + seguimiento</h4><p><strong>5–8 mensajes WhatsApp nuevos</strong> por día usando las listas ya armadas (Cuenca, Quito, GYE). Seguimiento de los que no respondieron en 2–3 días. Registrar estado en el sheet.</p></div>
-        </article>
-        <article class="block">
-          <div class="time-label">11:00 – 13:00</div>
-          <div class="time-card client"><span class="badge">Clientes</span><h4>Trabajo de producción</h4><p>Diseño, desarrollo web, redes. Bloque protegido: foco total para producción.</p></div>
-        </article>
-        <article class="block">
-          <div class="time-label">13:00 – 14:30</div>
-          <div class="time-card rest"><span class="badge">Descanso</span><h4>Almuerzo / Recarga</h4><p>Desconexión total. Si hay llamada con cliente, agendarla aquí.</p></div>
-        </article>
-        <article class="block">
-          <div class="time-label">14:30 – 16:30</div>
-          <div class="time-card client"><span class="badge">Clientes</span><h4>Producción + entregas</h4><p>Continuar trabajo de clientes. Enviar avances o aprobaciones. Reuniones de seguimiento si aplica.</p></div>
-        </article>
-        <article class="block">
-          <div class="time-label">16:30 – 18:30</div>
-          <div class="time-card build"><span class="badge">Construcción SR</span><h4>Sistemas + automatización</h4><p>Trabajar en Make.com, agentes IA, generador de propuestas, GitHub. Este bloque construye el negocio del futuro. <strong>No saltarlo.</strong></p></div>
-        </article>
-        <article class="block">
-          <div class="time-label">18:30 – 19:00</div>
-          <div class="time-card review"><span class="badge">Cierre</span><h4>Registro + plan mañana</h4><p>Anotar qué respondió, qué sigue. Máximo 30 min. Dejar el día cerrado.</p></div>
-        </article>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Prospectos cargados</div></div>
+        <div class="stat"><div class="stat-num" id="statPending">0</div><div class="stat-label">Sin contactar</div></div>
+        <div class="stat"><div class="stat-num" id="statFollow">0</div><div class="stat-label">Para seguimiento</div></div>
+        <div class="stat"><div class="stat-num" id="statHot">0</div><div class="stat-label">Calientes / propuesta</div></div>
       </div>
+
+      <div class="insight">
+        <div class="card pulse">
+          <h2>Enfoque de la semana</h2>
+          <p id="weeklyFocus">Carga un CSV para generar el foco semanal de prospección.</p>
+        </div>
+        <div class="card">
+          <h2>Servicio a empujar</h2>
+          <p class="helper" id="servicePush">Se calcula según plan sugerido, estados y señales de interés.</p>
+        </div>
+      </div>
+
+      <div class="week-grid" id="weekGrid"></div>
     </section>
 
-    <section id="semana" class="panel">
-      <div class="week-grid">
-        <div class="day-col">
-          <div class="day-header" style="background:rgba(192,57,43,.1);color:#c0392b">Lunes</div>
-          <div class="day-items">
-            <div class="day-item" style="background:rgba(192,57,43,.06)"><span class="tag" style="background:rgba(192,57,43,.15);color:#c0392b">WA</span>8 mensajes Cuenca</div>
-            <div class="day-item" style="background:rgba(41,128,185,.06)"><span class="tag" style="background:rgba(41,128,185,.15);color:#2980b9">CLI</span>Producción clientes</div>
-            <div class="day-item" style="background:rgba(39,174,96,.06)"><span class="tag" style="background:rgba(39,174,96,.15);color:#27ae60">SR</span>GitHub: subir HTML</div>
-          </div>
+    <section id="prospectos" class="panel">
+      <div class="toolbar">
+        <div class="week-title">
+          <h1>Prospectos activos</h1>
+          <p>Prioriza por estado, fecha de último contacto y próximo contacto.</p>
         </div>
-        <div class="day-col">
-          <div class="day-header" style="background:rgba(41,128,185,.1);color:#2980b9">Martes</div>
-          <div class="day-items">
-            <div class="day-item" style="background:rgba(192,57,43,.06)"><span class="tag" style="background:rgba(192,57,43,.15);color:#c0392b">WA</span>Follow-up + 5 Quito</div>
-            <div class="day-item" style="background:rgba(41,128,185,.06)"><span class="tag" style="background:rgba(41,128,185,.15);color:#2980b9">CLI</span>Entrega semanal</div>
-            <div class="day-item" style="background:rgba(39,174,96,.06)"><span class="tag" style="background:rgba(39,174,96,.15);color:#27ae60">SR</span>Make.com seguimiento</div>
-          </div>
-        </div>
-        <div class="day-col">
-          <div class="day-header" style="background:rgba(39,174,96,.1);color:#27ae60">Miércoles</div>
-          <div class="day-items">
-            <div class="day-item" style="background:rgba(192,57,43,.06)"><span class="tag" style="background:rgba(192,57,43,.15);color:#c0392b">WA</span>5 nuevos GYE</div>
-            <div class="day-item" style="background:rgba(41,128,185,.06)"><span class="tag" style="background:rgba(41,128,185,.15);color:#2980b9">CLI</span>Producción</div>
-            <div class="day-item" style="background:rgba(142,68,173,.06)"><span class="tag" style="background:rgba(142,68,173,.15);color:#8e44ad">RRSS</span>Post SR</div>
-          </div>
-        </div>
-        <div class="day-col">
-          <div class="day-header" style="background:rgba(142,68,173,.1);color:#8e44ad">Jueves</div>
-          <div class="day-items">
-            <div class="day-item" style="background:rgba(192,57,43,.06)"><span class="tag" style="background:rgba(192,57,43,.15);color:#c0392b">WA</span>Cierre leads tibios</div>
-            <div class="day-item" style="background:rgba(41,128,185,.06)"><span class="tag" style="background:rgba(41,128,185,.15);color:#2980b9">CLI</span>Producción</div>
-            <div class="day-item" style="background:rgba(39,174,96,.06)"><span class="tag" style="background:rgba(39,174,96,.15);color:#27ae60">SR</span>Agente: nuevos prospectos</div>
-          </div>
-        </div>
-        <div class="day-col">
-          <div class="day-header" style="background:rgba(243,156,18,.1);color:#d68910">Viernes</div>
-          <div class="day-items">
-            <div class="day-item" style="background:rgba(192,57,43,.06)"><span class="tag" style="background:rgba(192,57,43,.15);color:#c0392b">WA</span>Solo follow-up</div>
-            <div class="day-item" style="background:rgba(41,128,185,.06)"><span class="tag" style="background:rgba(41,128,185,.15);color:#2980b9">CLI</span>Cierres de semana</div>
-            <div class="day-item" style="background:rgba(142,68,173,.06)"><span class="tag" style="background:rgba(142,68,173,.15);color:#8e44ad">STR</span>Métricas + plan</div>
-          </div>
+        <div class="actions">
+          <button class="ghost" type="button" id="showDueBtn">Ver seguimientos</button>
+          <button class="ghost" type="button" id="showPendingBtn">Ver sin contactar</button>
         </div>
       </div>
-
-      <div class="note">
-        <strong>Regla de oro:</strong> 5 mensajes/día = 25/semana = 100/mes → con 10% de cierre = <strong>10 clientes nuevos/mes</strong>.<br>
-        No enviar más de 8 WA por día desde el mismo número para no ser bloqueado.<br>
-        <strong>Viernes</strong> es el mejor día para cerrar ventas — aprovecharlo.
-      </div>
+      <input class="search" id="prospectSearch" type="search" placeholder="Buscar por empresa, ciudad, campaña, plan o estado">
+      <div class="list" id="prospectList"></div>
     </section>
 
     <section id="servicios" class="panel">
-      <div class="svc-list">
-        <article class="svc-card s1">
-          <div class="svc-header">
-            <div class="svc-num">1</div>
-            <div class="svc-title"><h3>🤖 Chatbot / Consultorio Digital <span class="b-tag b-unico">Único en Cuenca</span><span class="b-tag b-mrr">MRR</span></h3><p>Make.com + ManyChat · Setup $800–1,500 + mantenimiento $150–300/mes</p></div>
-            <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="svc-detail">
-            <div class="detail-col"><h4>Por qué es #1</h4><ul><li>Nadie más lo ofrece en Cuenca</li><li>Clínicas y consultorios pagan bien</li><li>Soluciona dolor real: citas perdidas</li><li>Setup + mensualidad = doble ingreso</li><li>Nicho especializado = más fácil vender</li></ul></div>
-            <div class="detail-col"><h4>Métricas</h4><div class="bars"><div class="bar-row"><span>Ticket</span><div class="bar-track"><div class="bar-fill" style="width:90%"></div></div><span class="bar-val">Alto</span></div><div class="bar-row"><span>Facilidad</span><div class="bar-track"><div class="bar-fill" style="width:80%"></div></div><span class="bar-val">Alta</span></div><div class="bar-row"><span>Competencia</span><div class="bar-track"><div class="bar-fill" style="width:10%"></div></div><span class="bar-val">Baja</span></div><div class="bar-row"><span>Recurrencia</span><div class="bar-track"><div class="bar-fill" style="width:85%"></div></div><span class="bar-val">Alta</span></div></div></div>
-          </div>
-        </article>
-
-        <article class="svc-card s2">
-          <div class="svc-header">
-            <div class="svc-num">2</div>
-            <div class="svc-title"><h3>🌐 Desarrollo Web <span class="b-tag b-hot">Cierre rápido</span></h3><p>$449 captación · $749 conversión · $1,399 automatización</p></div>
-            <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="svc-detail">
-            <div class="detail-col"><h4>Por qué es #2</h4><ul><li>ROI concreto y fácil de explicar</li><li>Todos los nichos lo necesitan</li><li>Hoteles: evita comisión 20% a Booking</li><li>Entrega en 1–2 semanas = caja rápida</li><li>Upsell natural a redes o chatbot</li></ul></div>
-            <div class="detail-col"><h4>Métricas</h4><div class="bars"><div class="bar-row"><span>Ticket</span><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div><span class="bar-val">Medio</span></div><div class="bar-row"><span>Facilidad</span><div class="bar-track"><div class="bar-fill" style="width:88%"></div></div><span class="bar-val">Alta</span></div><div class="bar-row"><span>Competencia</span><div class="bar-track"><div class="bar-fill" style="width:55%"></div></div><span class="bar-val">Media</span></div><div class="bar-row"><span>Recurrencia</span><div class="bar-track"><div class="bar-fill" style="width:20%"></div></div><span class="bar-val">Baja</span></div></div></div>
-          </div>
-        </article>
-
-        <article class="svc-card s3">
-          <div class="svc-header">
-            <div class="svc-num">3</div>
-            <div class="svc-title"><h3>📱 Gestión de Redes <span class="b-tag b-mrr">MRR $299–599</span></h3><p>Presencia $299 · Business Activo $599</p></div>
-            <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="svc-detail">
-            <div class="detail-col"><h4>Por qué es #3</h4><ul><li>Ingreso recurrente predecible</li><li>Fácil de entender para el cliente</li><li>Ideal para restaurantes y salones</li><li>Mejor venderlo después de web</li><li>Cuidado: consume tiempo sin automatizar</li></ul></div>
-            <div class="detail-col"><h4>Métricas</h4><div class="bars"><div class="bar-row"><span>Ticket</span><div class="bar-track"><div class="bar-fill" style="width:45%"></div></div><span class="bar-val">Bajo</span></div><div class="bar-row"><span>Facilidad</span><div class="bar-track"><div class="bar-fill" style="width:85%"></div></div><span class="bar-val">Alta</span></div><div class="bar-row"><span>Competencia</span><div class="bar-track"><div class="bar-fill" style="width:75%"></div></div><span class="bar-val">Alta</span></div><div class="bar-row"><span>Recurrencia</span><div class="bar-track"><div class="bar-fill" style="width:95%"></div></div><span class="bar-val">Alta</span></div></div></div>
-          </div>
-        </article>
-
-        <article class="svc-card s4">
-          <div class="svc-header">
-            <div class="svc-num">4</div>
-            <div class="svc-title"><h3>🎨 Branding</h3><p>Esencial $249 · Pro $399 · mejor como upsell</p></div>
-            <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="svc-detail">
-            <div class="detail-col"><h4>Por qué es #4</h4><ul><li>Ticket bajo para el trabajo que implica</li><li>Difícil probar ROI directo</li><li>Úsalo como add-on al cerrar web</li><li>Funciona como gancho de entrada $249</li></ul></div>
-            <div class="detail-col"><h4>Métricas</h4><div class="bars"><div class="bar-row"><span>Ticket</span><div class="bar-track"><div class="bar-fill" style="width:25%"></div></div><span class="bar-val">Bajo</span></div><div class="bar-row"><span>Facilidad</span><div class="bar-track"><div class="bar-fill" style="width:50%"></div></div><span class="bar-val">Media</span></div><div class="bar-row"><span>Competencia</span><div class="bar-track"><div class="bar-fill" style="width:70%"></div></div><span class="bar-val">Alta</span></div><div class="bar-row"><span>Recurrencia</span><div class="bar-track"><div class="bar-fill" style="width:5%"></div></div><span class="bar-val">Nula</span></div></div></div>
-          </div>
-        </article>
+      <div class="toolbar">
+        <div class="week-title">
+          <h1>Ranking de servicios</h1>
+          <p>Ordenado por demanda en la hoja, señales de interés y potencial de promoción.</p>
+        </div>
       </div>
-
-      <div class="summary-box">
-        <strong>Combo ideal:</strong> Web + Redes = $449 setup + $299/mes = <strong>$4,037 en el primer año</strong>.<br>
-        Consultorio con Chatbot + Redes = $1,200 setup + $450/mes = <strong>$6,600 en el primer año</strong>.
-      </div>
+      <div class="service-list" id="serviceList"></div>
     </section>
 
     <section id="auto" class="panel">
-      <div class="auto-grid">
-        <div class="auto-card"><h4><span class="phase ph1">Fase 1 — Ya hecho</span></h4><ul><li>✅ Listas prospectos Cuenca, Quito, GYE</li><li>✅ Mensajes WA por nicho</li><li>✅ Generador de propuestas HTML</li><li>✅ Estudio de mercado 2026</li></ul></div>
-        <div class="auto-card"><h4><span class="phase ph1">Fase 1 — Esta semana</span></h4><ul><li>Subir index.html a GitHub</li><li>Make.com: recordatorio 48h sin respuesta</li><li>HubSpot: importar prospectos</li><li>Registrar SR en Clutch + Sortlist</li></ul></div>
-        <div class="auto-card"><h4><span class="phase ph2">Fase 2 — Mes 1</span></h4><ul><li>Make.com: propuesta auto al responder WA</li><li>Agente IA: generar contenido RRSS semanal</li><li>Página en inglés en sombrerorojo.net</li><li>Caso de estudio MonarcaTours publicado</li></ul></div>
-        <div class="auto-card"><h4><span class="phase ph2">Fase 2 — Mes 2-3</span></h4><ul><li>Chatbot WA con respuestas automáticas</li><li>Reporte mensual automático por cliente</li><li>Lanzar servicio GEO como oferta</li><li>Primer cliente LATAM remoto</li></ul></div>
-        <div class="auto-card"><h4><span class="phase ph3">Fase 3 — Mes 3-6</span></h4><ul><li>Onboarding automático nuevos clientes</li><li>Agente IA: propuesta completa en 2 min</li><li>Pipeline de prospectos USA hispanos</li><li>Primera contratación o colaborador</li></ul></div>
-        <div class="auto-card"><h4><span class="phase ph3">Fase 3 — Mes 6+</span></h4><ul><li>2-3 servicios completamente automatizados</li><li>Presencia activa Perú o Colombia</li><li>5-10 clientes recurrentes de alto valor</li><li>Ingresos mensuales $5,000+/mes</li></ul></div>
+      <div class="toolbar">
+        <div class="week-title">
+          <h1>Automatización semanal</h1>
+          <p>Lista viva basada en la hoja cargada y el avance comercial.</p>
+        </div>
       </div>
+      <div class="automation-grid" id="automationGrid"></div>
+    </section>
+
+    <section id="datos" class="panel">
+      <div class="toolbar">
+        <div class="week-title">
+          <h1>Datos de prospección</h1>
+          <p>Importa el CSV exportado desde “Prospectos SR · Sistema de captación”.</p>
+        </div>
+        <div class="actions">
+          <label class="file-label primary" for="csvInput">Importar CSV</label>
+          <input id="csvInput" type="file" accept=".csv,text/csv" multiple>
+          <button class="secondary" type="button" id="exportPlanBtn">Exportar plan</button>
+          <button class="ghost" type="button" id="clearDataBtn">Limpiar datos</button>
+        </div>
+      </div>
+
+      <div class="split">
+        <div class="data-card">
+          <h3>Cómo usarlo</h3>
+          <ul>
+            <li>Exporta tu hoja como CSV desde Google Sheets o Excel.</li>
+            <li>Importa uno o varios CSV cada semana o cada vez que actualices estados.</li>
+            <li>La app guarda los datos en este navegador del teléfono.</li>
+            <li>Los prospectos no se suben a GitHub ni a ningún servidor desde esta app.</li>
+          </ul>
+        </div>
+        <div class="data-card">
+          <h3>Columnas reconocidas</h3>
+          <ul>
+            <li>Nombre de la Empresa, Ciudad, Campaña y Plan Sugerido.</li>
+            <li>Estado de contacto, Estado Pipeline y Fecha de último contacto.</li>
+            <li>Próximo Contacto, Link WhatsApp, Link Propuesta y Confirmación si existe.</li>
+            <li>También funciona si algunas columnas están vacías.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="empty" id="dataStatus" style="margin-top:10px">Todavía no hay CSV cargado.</div>
     </section>
   </main>
 
   <script>
-    const tabs = document.querySelectorAll(".tab");
-    const panels = document.querySelectorAll(".panel");
+    const STORAGE_KEY = "sr-weekly-planner-v2";
+    const DAY_NAMES = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+    const DAY_COLORS = [
+      ["rgba(192,57,43,.1)", "#c0392b"],
+      ["rgba(41,128,185,.1)", "#2980b9"],
+      ["rgba(39,174,96,.1)", "#27ae60"],
+      ["rgba(142,68,173,.1)", "#8e44ad"],
+      ["rgba(243,156,18,.1)", "#d68910"]
+    ];
 
-    tabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        const panelId = tab.dataset.panel;
-        panels.forEach((panel) => panel.classList.toggle("active", panel.id === panelId));
-        tabs.forEach((item) => item.classList.toggle("active", item === tab));
+    const state = loadState();
+
+    function loadState() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return { prospects: [], weeks: {}, activeWeek: weekStartISO(new Date()), importedAt: null };
+      try {
+        return { prospects: [], weeks: {}, activeWeek: weekStartISO(new Date()), importedAt: null, ...JSON.parse(saved) };
+      } catch {
+        return { prospects: [], weeks: {}, activeWeek: weekStartISO(new Date()), importedAt: null };
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function weekStartISO(date) {
+      const copy = new Date(date);
+      const day = copy.getDay() || 7;
+      copy.setDate(copy.getDate() - day + 1);
+      copy.setHours(0, 0, 0, 0);
+      return copy.toISOString().slice(0, 10);
+    }
+
+    function formatDate(iso) {
+      if (!iso) return "sin fecha";
+      const [year, month, day] = iso.slice(0, 10).split("-");
+      if (!year || !month || !day) return iso;
+      return `${day}/${month}/${year}`;
+    }
+
+    function daysSince(value) {
+      if (!value) return null;
+      const normalized = value.includes("/") ? value.split("/").reverse().join("-") : value;
+      const date = new Date(normalized);
+      if (Number.isNaN(date.getTime())) return null;
+      const now = new Date();
+      return Math.floor((now - date) / 86400000);
+    }
+
+    function normalizeText(value) {
+      return String(value || "").trim();
+    }
+
+    function lowercase(value) {
+      return normalizeText(value).toLowerCase();
+    }
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let quoted = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
+
+        if (char === '"' && quoted && next === '"') {
+          cell += '"';
+          i++;
+        } else if (char === '"') {
+          quoted = !quoted;
+        } else if (char === "," && !quoted) {
+          row.push(cell);
+          cell = "";
+        } else if ((char === "\n" || char === "\r") && !quoted) {
+          if (char === "\r" && next === "\n") i++;
+          row.push(cell);
+          if (row.some((item) => item.trim() !== "")) rows.push(row);
+          row = [];
+          cell = "";
+        } else {
+          cell += char;
+        }
+      }
+
+      row.push(cell);
+      if (row.some((item) => item.trim() !== "")) rows.push(row);
+      return rows;
+    }
+
+    function rowsToObjects(rows) {
+      const headers = rows[0].map((header) => normalizeText(header));
+      return rows.slice(1).map((row) => {
+        const item = {};
+        headers.forEach((header, index) => {
+          item[header] = normalizeText(row[index]);
+        });
+        return normalizeProspect(item);
       });
+    }
+
+    function pick(raw, candidates) {
+      const keys = Object.keys(raw);
+      const found = keys.find((key) => candidates.includes(key.toLowerCase()));
+      return found ? raw[found] : "";
+    }
+
+    function pickContains(raw, text) {
+      const key = Object.keys(raw).find((item) => item.toLowerCase().includes(text));
+      return key ? raw[key] : "";
+    }
+
+    function normalizeProspect(raw) {
+      const name = pick(raw, ["nombre de la empresa", "empresa", "nombre"]);
+      const city = pick(raw, ["ciudad"]);
+      const campaign = pick(raw, ["campaña", "configuración campaña"]);
+      const plan = pick(raw, ["plan sugerido", "servicio", "servicio sugerido"]);
+      const contactStatus = pick(raw, ["estado de contacto"]);
+      const pipelineStatus = pick(raw, ["estado pipeline"]);
+      const lastContact = pick(raw, ["fecha de último contacto", "fecha ultimo contacto"]);
+      const nextContact = pick(raw, ["próximo contacto", "proximo contacto"]);
+      const whatsapp = pick(raw, ["link whatsapp"]);
+      const proposal = pick(raw, ["link propuesta"]);
+      const confirmation = pickContains(raw, "confirm");
+      const messageName = pick(raw, ["nombre para mensaje"]);
+      const notes = pick(raw, ["observaciones", "notas"]);
+
+      return {
+        id: `${name}-${city}-${messageName}`.toLowerCase(),
+        name,
+        messageName,
+        city,
+        campaign,
+        plan,
+        contactStatus,
+        pipelineStatus,
+        lastContact,
+        nextContact,
+        whatsapp,
+        proposal,
+        confirmation,
+        notes,
+        service: serviceFromPlan(plan, campaign),
+      };
+    }
+
+    function statusBucket(prospect) {
+      const joined = lowercase(`${prospect.contactStatus} ${prospect.pipelineStatus} ${prospect.confirmation}`);
+      const age = daysSince(prospect.lastContact);
+      if (/cerrad|ganad|cliente|confirmad|aceptad/.test(joined)) return "won";
+      if (/perdid|descart|no interesado/.test(joined)) return "lost";
+      if (/interes|respond|propuesta|caliente|cotiz|reunion|reunión/.test(joined)) return "hot";
+      if (/enviad|contactad|seguimiento/.test(joined)) return age !== null && age >= 2 ? "follow" : "sent";
+      if (prospect.lastContact && age !== null && age >= 2) return "follow";
+      return "pending";
+    }
+
+    function serviceFromPlan(plan, campaign) {
+      const text = lowercase(`${plan} ${campaign}`);
+      if (/chatbot|consultorio|manychat|make/.test(text)) return "Chatbot / Consultorio Digital";
+      if (/web|landing|sitio/.test(text)) return "Desarrollo Web";
+      if (/redes|contenido|rrss|social/.test(text)) return "Gestión de Redes";
+      if (/branding|marca|logo/.test(text)) return "Branding";
+      return "Por definir";
+    }
+
+    function getStats() {
+      const prospects = state.prospects;
+      return {
+        total: prospects.length,
+        pending: prospects.filter((item) => statusBucket(item) === "pending").length,
+        follow: prospects.filter((item) => statusBucket(item) === "follow").length,
+        hot: prospects.filter((item) => ["hot", "won"].includes(statusBucket(item))).length,
+      };
+    }
+
+    function serviceRanking() {
+      const services = new Map();
+      state.prospects.forEach((prospect) => {
+        const service = prospect.service || "Por definir";
+        if (!services.has(service)) services.set(service, { service, total: 0, pending: 0, follow: 0, hot: 0, won: 0, score: 0, examples: [] });
+        const entry = services.get(service);
+        const bucket = statusBucket(prospect);
+        entry.total++;
+        entry[bucket] = (entry[bucket] || 0) + 1;
+        entry.score += bucket === "won" ? 10 : bucket === "hot" ? 7 : bucket === "follow" ? 4 : bucket === "sent" ? 2 : 1;
+        if (entry.examples.length < 3) entry.examples.push(prospect.name);
+      });
+      return [...services.values()].sort((a, b) => b.score - a.score || b.total - a.total);
+    }
+
+    function byCity(bucket) {
+      const cities = new Map();
+      state.prospects.filter((item) => !bucket || statusBucket(item) === bucket).forEach((item) => {
+        const city = item.city || "Sin ciudad";
+        cities.set(city, (cities.get(city) || 0) + 1);
+      });
+      return [...cities.entries()].sort((a, b) => b[1] - a[1]);
+    }
+
+    function firstNames(items, count = 3) {
+      const names = items.slice(0, count).map((item) => item.messageName || item.name).filter(Boolean);
+      return names.length ? names.join(", ") : "sin lista";
+    }
+
+    function buildWeekPlan() {
+      const pending = state.prospects.filter((item) => statusBucket(item) === "pending");
+      const follow = state.prospects.filter((item) => statusBucket(item) === "follow");
+      const hot = state.prospects.filter((item) => statusBucket(item) === "hot");
+      const topCity = byCity("pending")[0]?.[0] || "Cuenca";
+      const secondCity = byCity("pending")[1]?.[0] || "Quito/GYE";
+      const topService = serviceRanking()[0]?.service || "Desarrollo Web";
+
+      return [
+        [
+          item("WA", `Enviar 5–8 mensajes nuevos en ${topCity}: ${firstNames(pending.filter((p) => p.city === topCity), 4)}`, "red"),
+          item("SEG", `Revisar ${Math.min(follow.length, 5)} seguimientos atrasados`, "blue"),
+          item("OBJ", "Definir meta de cierres de la semana", "green"),
+        ],
+        [
+          item("WA", `Follow-up a enviados hace 48h: ${firstNames(follow, 4)}`, "red"),
+          item("CLI", "Bloque protegido de producción y entregas", "blue"),
+          item("SR", `Preparar propuesta base para ${topService}`, "green"),
+        ],
+        [
+          item("WA", `5 prospectos nuevos en ${secondCity}: ${firstNames(pending.filter((p) => p.city === secondCity), 4)}`, "red"),
+          item("RRSS", `Contenido SR enfocado en ${topService}`, "purple"),
+          item("DATA", "Actualizar estado pipeline y fecha de último contacto", "blue"),
+        ],
+        [
+          item("CIERRE", `Cerrar o reactivar leads calientes: ${firstNames(hot, 4)}`, "red"),
+          item("PROP", "Enviar propuesta a quien respondió o pidió información", "purple"),
+          item("AUTO", "Revisar próximos contactos vencidos", "green"),
+        ],
+        [
+          item("SEG", "Solo follow-up y cierres. Evitar abrir demasiados frentes nuevos", "red"),
+          item("STR", "Medir respuestas, servicios con mayor tracción y ciudades activas", "purple"),
+          item("PLAN", "Crear la próxima semana con nuevos objetivos", "green"),
+        ],
+      ];
+    }
+
+    function item(tag, text, color) {
+      return { tag, text, color };
+    }
+
+    function activeWeek() {
+      if (!state.weeks[state.activeWeek]) {
+        state.weeks[state.activeWeek] = { objectives: DAY_NAMES.map(() => ""), createdAt: new Date().toISOString() };
+      }
+      return state.weeks[state.activeWeek];
+    }
+
+    function render() {
+      renderTabs();
+      renderStats();
+      renderWeek();
+      renderProspects();
+      renderServices();
+      renderAutomation();
+      renderDataStatus();
+      saveState();
+    }
+
+    function renderTabs() {
+      document.querySelectorAll(".tab").forEach((tab) => {
+        tab.onclick = () => {
+          document.querySelectorAll(".panel").forEach((panel) => panel.classList.toggle("active", panel.id === tab.dataset.panel));
+          document.querySelectorAll(".tab").forEach((item) => item.classList.toggle("active", item === tab));
+        };
+      });
+    }
+
+    function renderStats() {
+      const stats = getStats();
+      document.getElementById("statTotal").textContent = stats.total;
+      document.getElementById("statPending").textContent = stats.pending;
+      document.getElementById("statFollow").textContent = stats.follow;
+      document.getElementById("statHot").textContent = stats.hot;
+      document.getElementById("weekTitle").textContent = `Semana del ${formatDate(state.activeWeek)}`;
+      document.getElementById("weekSubtitle").textContent = state.importedAt ? `CSV actualizado: ${formatDate(state.importedAt.slice(0, 10))}` : "Importa tu CSV para activar planificación automática.";
+
+      const topCity = byCity("pending")[0];
+      const topService = serviceRanking()[0];
+      document.getElementById("weeklyFocus").innerHTML = state.prospects.length
+        ? `Prioridad: <strong>${stats.follow} seguimientos</strong>, <strong>${stats.pending} nuevos por contactar</strong>${topCity ? ` y foco inicial en <strong>${topCity[0]}</strong>` : ""}.`
+        : "Carga un CSV para generar el foco semanal de prospección.";
+      document.getElementById("servicePush").textContent = topService
+        ? `${topService.service}: ${topService.total} prospectos, ${topService.hot || 0} calientes, score ${topService.score}.`
+        : "Se calcula según plan sugerido, estados y señales de interés.";
+    }
+
+    function renderWeek() {
+      const plan = buildWeekPlan();
+      const week = activeWeek();
+      const grid = document.getElementById("weekGrid");
+      grid.innerHTML = "";
+      DAY_NAMES.forEach((day, index) => {
+        const [bg, color] = DAY_COLORS[index];
+        const column = document.createElement("div");
+        column.className = "day-col";
+        column.innerHTML = `
+          <div class="day-header" style="background:${bg};color:${color}">${day}</div>
+          <div class="day-items">
+            ${plan[index].map((entry) => `
+              <div class="day-item">
+                <span class="tag" style="background:${tagBg(entry.color)};color:${tagColor(entry.color)}">${entry.tag}</span>${entry.text}
+              </div>
+            `).join("")}
+          </div>
+          <label class="objective-label">
+            <span>Objetivo propio</span>
+            <textarea data-objective="${index}" placeholder="Escribe tu objetivo del ${day.toLowerCase()}">${week.objectives[index] || ""}</textarea>
+          </label>
+        `;
+        grid.appendChild(column);
+      });
+      document.querySelectorAll("[data-objective]").forEach((field) => {
+        field.oninput = () => {
+          week.objectives[Number(field.dataset.objective)] = field.value;
+          saveState();
+        };
+      });
+    }
+
+    function tagBg(color) {
+      return {
+        red: "rgba(192,57,43,.15)",
+        blue: "rgba(41,128,185,.15)",
+        green: "rgba(39,174,96,.15)",
+        purple: "rgba(142,68,173,.15)"
+      }[color] || "#eee";
+    }
+
+    function tagColor(color) {
+      return { red: "#c0392b", blue: "#2980b9", green: "#27ae60", purple: "#8e44ad" }[color] || "#666";
+    }
+
+    function renderProspects(filter = null) {
+      const query = lowercase(document.getElementById("prospectSearch").value);
+      let prospects = state.prospects;
+      if (filter) prospects = prospects.filter((item) => statusBucket(item) === filter);
+      if (query) {
+        prospects = prospects.filter((item) => lowercase(`${item.name} ${item.city} ${item.campaign} ${item.plan} ${item.contactStatus} ${item.pipelineStatus}`).includes(query));
+      }
+      const priority = { hot: 1, follow: 2, pending: 3, sent: 4, won: 5, lost: 6 };
+      prospects = prospects.slice().sort((a, b) => (priority[statusBucket(a)] || 9) - (priority[statusBucket(b)] || 9));
+      const list = document.getElementById("prospectList");
+      list.innerHTML = prospects.length ? prospects.slice(0, 80).map(renderProspectRow).join("") : `<div class="empty">No hay prospectos para mostrar con este filtro.</div>`;
+    }
+
+    function renderProspectRow(item) {
+      const bucket = statusBucket(item);
+      const className = bucket === "hot" ? "purple" : bucket === "follow" ? "red" : bucket === "pending" ? "gray" : bucket === "won" ? "green" : "blue";
+      const age = daysSince(item.lastContact);
+      const ageText = age === null ? "sin último contacto" : `${age} día${age === 1 ? "" : "s"} desde contacto`;
+      return `
+        <article class="row">
+          <div>
+            <h3>${escapeHTML(item.name || "Sin nombre")}</h3>
+            <p>${escapeHTML(item.city || "Sin ciudad")} · ${escapeHTML(item.service || "Sin servicio")} · ${escapeHTML(item.contactStatus || item.pipelineStatus || "Sin estado")}</p>
+            <p>${ageText}${item.nextContact ? ` · próximo: ${escapeHTML(item.nextContact)}` : ""}</p>
+          </div>
+          <span class="pill ${className}">${labelForBucket(bucket)}</span>
+        </article>
+      `;
+    }
+
+    function labelForBucket(bucket) {
+      return { pending: "Sin contactar", follow: "Seguimiento", hot: "Caliente", sent: "Enviado", won: "Ganado", lost: "Descartado" }[bucket] || bucket;
+    }
+
+    function renderServices() {
+      const ranking = serviceRanking();
+      const max = Math.max(1, ...ranking.map((item) => item.score));
+      document.getElementById("serviceList").innerHTML = ranking.length ? ranking.map((entry, index) => `
+        <article class="service-card" style="border-color:${index === 0 ? "#c0392b" : "#e5e7eb"}">
+          <div class="service-head">
+            <div class="rank">${index + 1}</div>
+            <div>
+              <h3>${escapeHTML(entry.service)}</h3>
+              <p>${entry.total} prospectos · ${entry.follow || 0} seguimientos · ${entry.hot || 0} calientes · ${entry.won || 0} ganados</p>
+              <p>Ejemplos: ${escapeHTML(entry.examples.join(", ") || "sin ejemplos")}</p>
+            </div>
+            <span class="pill ${index === 0 ? "red" : "gray"}">${entry.score}</span>
+          </div>
+          <div class="bar"><div class="fill" style="width:${Math.round((entry.score / max) * 100)}%"></div></div>
+        </article>
+      `).join("") : `<div class="empty">Importa el CSV para ver qué servicio conviene empujar esta semana.</div>`;
+    }
+
+    function renderAutomation() {
+      const stats = getStats();
+      const ranking = serviceRanking();
+      const topService = ranking[0]?.service || "servicio principal";
+      const cards = [
+        ["Esta semana", [
+          `Revisar ${stats.follow} prospectos con seguimiento vencido o pendiente.`,
+          `Actualizar fecha de último contacto después de cada WhatsApp.`,
+          `Marcar como caliente a quien respondió o pidió propuesta.`,
+        ], "ph1"],
+        ["Sistema de captación", [
+          "Exportar CSV actualizado cada viernes.",
+          "Crear próxima semana después de revisar métricas.",
+          "Mantener próximos contactos completos en la hoja.",
+        ], "ph2"],
+        ["Promoción", [
+          `Empujar ${topService} en contenido y mensajes.`,
+          "Convertir mejores respuestas en caso de estudio o propuesta rápida.",
+          "Detectar ciudades/nichos con más respuesta.",
+        ], "ph3"],
+      ];
+      document.getElementById("automationGrid").innerHTML = cards.map(([title, items, phase]) => `
+        <div class="data-card">
+          <h3><span class="pill ${phase === "ph1" ? "red" : phase === "ph2" ? "blue" : "green"}">${title}</span></h3>
+          <ul>${items.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>
+        </div>
+      `).join("");
+    }
+
+    function renderDataStatus() {
+      const status = document.getElementById("dataStatus");
+      status.textContent = state.prospects.length
+        ? `${state.prospects.length} prospectos cargados. Última importación: ${state.importedAt ? new Date(state.importedAt).toLocaleString("es-EC") : "sin fecha"}.`
+        : "Todavía no hay CSV cargado.";
+    }
+
+    function escapeHTML(value) {
+      return String(value || "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[char]));
+    }
+
+    document.getElementById("csvInput").addEventListener("change", async (event) => {
+      const files = [...event.target.files];
+      if (!files.length) return;
+      const imported = [];
+      for (const file of files) {
+        const text = await file.text();
+        const rows = parseCSV(text);
+        if (rows.length > 1) imported.push(...rowsToObjects(rows));
+      }
+      state.prospects = imported;
+      state.importedAt = new Date().toISOString();
+      render();
+      event.target.value = "";
     });
 
-    document.querySelectorAll(".svc-card").forEach((card) => {
-      card.addEventListener("click", () => card.classList.toggle("open"));
+    document.getElementById("prospectSearch").addEventListener("input", () => renderProspects());
+    document.getElementById("showDueBtn").addEventListener("click", () => renderProspects("follow"));
+    document.getElementById("showPendingBtn").addEventListener("click", () => renderProspects("pending"));
+
+    document.getElementById("newWeekBtn").addEventListener("click", () => {
+      const current = new Date(`${state.activeWeek}T00:00:00`);
+      current.setDate(current.getDate() + 7);
+      state.activeWeek = weekStartISO(current);
+      activeWeek();
+      render();
     });
+
+    document.getElementById("saveWeekBtn").addEventListener("click", () => {
+      saveState();
+      document.getElementById("weekSubtitle").textContent = "Objetivos guardados en este navegador.";
+    });
+
+    document.getElementById("clearDataBtn").addEventListener("click", () => {
+      if (!confirm("¿Limpiar prospectos y planes guardados en este navegador?")) return;
+      state.prospects = [];
+      state.weeks = {};
+      state.activeWeek = weekStartISO(new Date());
+      state.importedAt = null;
+      render();
+    });
+
+    document.getElementById("exportPlanBtn").addEventListener("click", () => {
+      const plan = {
+        week: state.activeWeek,
+        generatedAt: new Date().toISOString(),
+        stats: getStats(),
+        services: serviceRanking(),
+        objectives: activeWeek().objectives,
+      };
+      const blob = new Blob([JSON.stringify(plan, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `plan-sr-${state.activeWeek}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+
+    render();
   </script>
 </body>
 </html>
