@@ -10,7 +10,7 @@
 <style>
   :root {
     --rojo: #ff0000; --rojo-dark: #cc0000;
-    --azul: #003880; --azul-mid: #0050b3;
+    --azul: #003399; --azul-mid: #003399;
     --beige: #e0d6c6; --gris: #f5f5f5; --gris2: #e8e8e8; --texto: #222;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,7 +26,7 @@
   .logo-img { height: 54px; width: auto; display: block; }
   .header-info { font-size: 11px; color: #888; text-align: right; line-height: 1.6; }
   /* NAV TABS */
-  .nav-tabs { display: flex; background: #002060; border-bottom: 2px solid rgba(255,255,255,0.08); }
+  .nav-tabs { display: flex; background: var(--azul); border-bottom: 2px solid rgba(255,255,255,0.08); }
   .nav-tab {
     flex: 1; max-width: 280px; padding: 13px 12px; text-align: center; cursor: pointer;
     color: rgba(255,255,255,0.5); font-size: 13px; font-weight: 600;
@@ -781,7 +781,7 @@ function heroLogoHTML() {
 }
 function contactHeaderHTML(message) {
   var waMsg = encodeURIComponent(message || "Hola, me interesa una propuesta de Sombrero Rojo para mi empresa. ¿Podemos coordinar?");
-  return '<header style="background:#003880;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;">' +
+  return '<header style="background:#003399;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;">' +
     '<div style="background:transparent;padding:0;display:inline-flex;align-items:center;"><img src="' + LOGO_EMBEDDED + '" style="height:46px;width:auto;display:block;" alt="Sombrero Rojo"></div>' +
     '<a href="https://wa.me/' + CONTACT_WA_NUMBER + '?text=' + waMsg + '" target="_blank" style="background:#25D366;color:#fff;padding:8px 16px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;">Contactar</a>' +
   '</header>';
@@ -1057,10 +1057,10 @@ var CSS_SHARED = "*{box-sizing:border-box;margin:0;padding:0}" +
 ".container{max-width:880px;margin:0 auto;padding:0 24px}" +
 ".section{padding:48px 0}" +
 ".sec-label{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:#ff0000;font-weight:700;margin-bottom:6px}" +
-".section h2{font-size:clamp(24px,3.5vw,34px);font-weight:800;color:#003880;margin-bottom:14px;font-family:'Palatino Linotype',Palatino,Georgia,serif}" +
+".section h2{font-size:clamp(24px,3.5vw,34px);font-weight:800;color:#003399;margin-bottom:14px;font-family:'Palatino Linotype',Palatino,Georgia,serif}" +
 ".section p{font-size:17px;line-height:1.7;color:#555}" +
 "hr.div{border:none;border-top:1px solid #eee;margin:0}" +
-".hero{background:linear-gradient(135deg,#003880 55%,#0050b3);color:#fff;padding:58px 28px 48px;text-align:center}" +
+".hero{background:#003399;color:#fff;padding:58px 28px 48px;text-align:center}" +
 ".hero .badge{display:inline-block;background:#ff0000;color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}" +
 ".hero h1{font-size:clamp(30px,5vw,46px);font-weight:800;line-height:1.15;margin-bottom:14px;font-family:'Bebas Neue',sans-serif;letter-spacing:.02em}" +
 ".hero .hsub{font-size:18px;opacity:.85;max-width:580px;margin:0 auto 18px;font-family:'Palatino Linotype',Palatino,Georgia,serif}" +
@@ -1072,11 +1072,11 @@ var CSS_SHARED = "*{box-sizing:border-box;margin:0;padding:0}" +
 ".prob-n{min-width:30px;height:30px;background:#ff0000;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}" +
 ".prob-t{font-size:15px;color:#555;line-height:1.6}" +
 ".steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:22px}" +
-".step{text-align:center;padding:20px 14px;background:#f8f9fc;border-radius:12px;border:1px solid #dde2f0}" +
+".step{text-align:center;padding:20px 14px;background:#fbf7f0;border-radius:12px;border:1px solid #e0d6c6}" +
 ".step-n{font-size:32px;font-weight:800;color:#ff0000;margin-bottom:6px;font-family:'Bebas Neue',sans-serif}" +
-".step h3{font-size:16px;font-weight:700;color:#003880;margin-bottom:5px;font-family:'Palatino Linotype',Palatino,Georgia,serif}" +
+".step h3{font-size:16px;font-weight:700;color:#003399;margin-bottom:5px;font-family:'Palatino Linotype',Palatino,Georgia,serif}" +
 ".step p{font-size:14px;color:#666;line-height:1.6}" +
-".inversion-box{background:#f8f9fc;border:2px solid #dde2f0;border-radius:14px;padding:28px;margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:20px}" +
+".inversion-box{background:#fbf7f0;border:2px solid #e0d6c6;border-radius:14px;padding:28px;margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:20px}" +
 ".inv-col h3{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:#888;margin-bottom:8px}" +
 ".inv-col .price-big{font-size:44px;font-weight:800;color:#ff0000;line-height:1;font-family:'Bebas Neue',sans-serif}" +
 ".inv-col .price-note{font-size:15px;color:#888;margin-top:4px}" +
@@ -1086,22 +1086,22 @@ var CSS_SHARED = "*{box-sizing:border-box;margin:0;padding:0}" +
 ".inc-item{font-size:15px;color:#555;display:flex;gap:8px;align-items:flex-start;line-height:1.5}" +
 ".inc-item::before{content:'\\2713';color:#ff0000;font-weight:700;flex-shrink:0;margin-top:1px}" +
 ".proceso-steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:22px}" +
-".proc-card{border:1px solid #dde2f0;border-radius:10px;padding:16px}" +
+".proc-card{border:1px solid #e0d6c6;border-radius:10px;padding:16px}" +
 ".proc-n{font-size:13px;font-weight:700;color:#ff0000;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}" +
-".proc-card h3{font-size:16px;font-weight:700;color:#003880;margin-bottom:5px;font-family:'Palatino Linotype',Palatino,Georgia,serif}" +
+".proc-card h3{font-size:16px;font-weight:700;color:#003399;margin-bottom:5px;font-family:'Palatino Linotype',Palatino,Georgia,serif}" +
 ".proc-card p{font-size:14px;color:#666;line-height:1.6}" +
 ".founder-sec{background:linear-gradient(135deg,#fff9f0,#fff3e0);border:2px solid #f5a623;border-radius:14px;padding:30px;margin-top:22px}" +
 ".founder-sec h2{color:#b7760d;margin-bottom:6px;font-family:'Palatino Linotype',Palatino,Georgia,serif;font-size:clamp(22px,3vw,30px)}" +
 ".founder-badge{display:inline-block;background:#f5a623;color:#fff;font-size:10px;font-weight:700;padding:3px 12px;border-radius:20px;margin-bottom:10px;text-transform:uppercase}" +
 ".f-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:9px;margin-top:14px}" +
 ".f-item{background:#fff;border:1px solid #f5c842;border-radius:7px;padding:10px;font-size:13px;color:#555}" +
-".cta-sec{background:linear-gradient(135deg,#003880,#0050b3);color:#fff;padding:48px 28px;text-align:center}" +
+".cta-sec{background:#003399;color:#fff;padding:48px 28px;text-align:center}" +
 ".cta-sec h2{font-size:clamp(24px,4vw,36px);font-weight:800;margin-bottom:10px;font-family:'Bebas Neue',sans-serif;letter-spacing:.03em}" +
 ".cta-sec p{opacity:.8;margin-bottom:26px;font-size:17px}" +
 ".cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}" +
 ".btn-wa{background:#25D366;color:#fff;padding:14px 26px;border-radius:8px;font-weight:700;text-decoration:none;font-size:16px}" +
 ".btn-site{background:transparent;color:#fff;padding:14px 26px;border-radius:8px;font-weight:700;text-decoration:none;font-size:16px;border:2px solid rgba(255,255,255,.45)}" +
-"footer{background:#003880;color:rgba(255,255,255,.4);text-align:center;padding:14px;font-size:13px}" +
+"footer{background:#003399;color:rgba(255,255,255,.4);text-align:center;padding:14px;font-size:13px}" +
 "@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');";
 // ═══════════════════════════════════════════════
 // LANDING COMPLETA
@@ -1119,14 +1119,14 @@ function getLandingHTML() {
   var promo = v("l_promo") || ("Solo para los primeros " + cupos + " clientes.");
   var waMsgCTA = encodeURIComponent("Hola, me interesa el servicio de Web para mi empresa. ¿Podemos coordinar?");
   var planesCSS = ".planes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:22px}" +
-    ".plan-card{border:2px solid #dde2f0;border-radius:14px;overflow:hidden;transition:transform .2s}" +
+    ".plan-card{border:2px solid #e0d6c6;border-radius:14px;overflow:hidden;transition:transform .2s}" +
     ".plan-card:hover{transform:translateY(-3px)}" +
     ".plan-card.dest{border-color:#ff0000}" +
-    ".ph{padding:18px 16px 14px;background:#f8f9fc}" +
+    ".ph{padding:18px 16px 14px;background:#fbf7f0}" +
     ".plan-card.dest .ph{background:linear-gradient(135deg,#ff0000,#cc0000);color:#fff}" +
     ".pb{font-size:10px;font-weight:700;background:#ff0000;color:#fff;padding:2px 10px;border-radius:10px;margin-bottom:7px;display:inline-block;text-transform:uppercase}" +
     ".plan-card.dest .pb{background:rgba(255,255,255,.25);color:#fff}" +
-    ".ph h3{font-size:16px;font-weight:800;color:#003880;margin-bottom:3px;font-family:'Palatino Linotype',Palatino,Georgia,serif}" +
+    ".ph h3{font-size:16px;font-weight:800;color:#003399;margin-bottom:3px;font-family:'Palatino Linotype',Palatino,Georgia,serif}" +
     ".plan-card.dest .ph h3{color:#fff}" +
     ".ph .pdesc{font-size:12px;color:#777;margin-bottom:10px}" +
     ".plan-card.dest .ph .pdesc{color:rgba(255,255,255,.8)}" +
@@ -1137,11 +1137,11 @@ function getLandingHTML() {
     ".pbody ul{list-style:none;display:flex;flex-direction:column;gap:6px}" +
     ".pbody li{font-size:12px;color:#555;display:flex;gap:7px}" +
     ".pbody li::before{content:'\\2713';color:#ff0000;font-weight:700;flex-shrink:0}" +
-    ".pmant{background:#f0f4fa;padding:9px 16px;font-size:11px;color:#666;border-top:1px solid #dde2f0}" +
+    ".pmant{background:#f0f4fa;padding:9px 16px;font-size:11px;color:#666;border-top:1px solid #e0d6c6}" +
     ".pcta{display:block;margin:12px 16px 16px;padding:9px;background:#ff0000;color:#fff;text-align:center;border-radius:7px;font-weight:700;text-decoration:none;font-size:13px}" +
     ".plan-card.dest .pcta{background:#fff;color:#ff0000}" +
     "table{width:100%;border-collapse:collapse;font-size:13px;margin-top:20px}" +
-    "th{background:#003880;color:#fff;padding:10px 12px;text-align:left;font-size:12px}" +
+    "th{background:#003399;color:#fff;padding:10px 12px;text-align:left;font-size:12px}" +
     "td{padding:9px 12px;border-bottom:1px solid #eee}" +
     "tr:nth-child(even) td{background:#f9f9f9}" +
     ".ck{color:#ff0000;font-weight:700}.cr{color:#ccc}";
@@ -1163,8 +1163,8 @@ function getLandingHTML() {
   }
   var mantHTML = "";
   for (var m = 1; m <= 3; m++) {
-    mantHTML += '<div style="border:1px solid #dde2f0;border-radius:12px;padding:20px;text-align:center">' +
-      '<div style="font-size:14px;font-weight:700;color:#003880;margin-bottom:6px">Plan ' + PLANES[m].nombre + '</div>' +
+    mantHTML += '<div style="border:1px solid #e0d6c6;border-radius:12px;padding:20px;text-align:center">' +
+      '<div style="font-size:14px;font-weight:700;color:#003399;margin-bottom:6px">Plan ' + PLANES[m].nombre + '</div>' +
       '<div style="font-size:28px;font-weight:800;color:#ff0000">$' + PLANES[m].mant_a + '<span style="font-size:13px;font-weight:400;opacity:.7">/año</span></div>' +
       '<div style="font-size:12px;color:#888;margin-top:3px">o $' + PLANES[m].mant_t + ' por trimestre</div></div>';
   }
@@ -1178,7 +1178,6 @@ function getLandingHTML() {
     '<h1>Tu negocio merece una presencia digital que venda</h1>' +
     '<p class="hsub">No se trata solo de tener un sitio web. Se trata de tener un sistema que atraiga, convenza y convierta.</p>' +
     (negocio !== "su empresa" ? '<div class="hsub2">Preparado para <strong>' + negocio + '</strong>' + (sector ? ' &middot; ' + sector : '') + '</div>' : '') +
-    heroLogoHTML() +
     '</div>' +
     (chk("s_problema") ? '<div class="container"><div class="section">' +
     '<div class="sec-label">El problema</div>' +
@@ -1247,8 +1246,8 @@ function getLandingHTML() {
     '</div></div>' +
     '</div></div>' : '') +
     (chk("s_cta_l") ? '<div class="cta-sec"><div class="container">' +
-    '<h2>El siguiente paso es una conversacion de 15 minutos</h2>' +
-    '<p>Sin tecnicismos ni compromisos. Revisamos tu negocio y definimos que plan tiene mas sentido para ti.</p>' +
+    '<h2>Elijamos el plan web correcto para tu negocio</h2>' +
+    '<p>Sin tecnicismos ni compromisos. Revisamos tu presencia actual y definimos qué estructura te conviene lanzar primero.</p>' +
     '<div class="cta-btns">' +
     '<a href="https://wa.me/' + wa + '?text=' + waMsgCTA + '" target="_blank" class="btn-wa">&#128241; WhatsApp &middot; ' + waVis + '</a>' +
     '<a href="' + web + '" target="_blank" class="btn-site">&#127760; Ver sitio web</a>' +
@@ -1336,7 +1335,7 @@ function getProformaHTML() {
     '*{box-sizing:border-box;margin:0;padding:0}' +
     'body{font-family:\'Gill Sans MT\',\'Gill Sans\',Calibri,\'Segoe UI\',Arial,sans-serif;color:#222;background:#f0f2f5;padding:20px}' +
     '.doc{max-width:780px;margin:0 auto;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.1)}' +
-    '.dh{background:linear-gradient(135deg,#003880,#0050b3);color:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}' +
+    '.dh{background:#003399;color:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}' +
     '.brand h1{font-size:20px;font-weight:800;font-family:\'Palatino Linotype\',Palatino,Georgia,serif}' +
     '.brand .hat{font-size:26px;vertical-align:middle;margin-right:6px}' +
     '.brand .rojo{color:#ff0000}.brand p{font-size:11px;opacity:.6;margin-top:3px}' +
@@ -1347,11 +1346,11 @@ function getProformaHTML() {
     '.ic{padding:18px 26px;border-right:1px solid #f0f0f0}' +
     '.ic:last-child{border-right:none}' +
     '.ic .lbl{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#ff0000;font-weight:700;margin-bottom:3px}' +
-    '.ic h3{font-size:14px;font-weight:700;color:#003880}.ic p{font-size:12px;color:#888;margin-top:1px}' +
-    '.plan-sec{padding:22px 26px;background:#f8f9fc;border-bottom:2px solid #eee}' +
+    '.ic h3{font-size:14px;font-weight:700;color:#003399}.ic p{font-size:12px;color:#888;margin-top:1px}' +
+    '.plan-sec{padding:22px 26px;background:#fbf7f0;border-bottom:2px solid #eee}' +
     '.plan-sec h3{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#aaa;margin-bottom:9px}' +
     '.plan-main{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}' +
-    '.plan-name{font-size:21px;font-weight:800;color:#003880;font-family:\'Palatino Linotype\',Palatino,Georgia,serif}.plan-desc{font-size:12px;color:#777;margin-top:2px}' +
+    '.plan-name{font-size:21px;font-weight:800;color:#003399;font-family:\'Palatino Linotype\',Palatino,Georgia,serif}.plan-desc{font-size:12px;color:#777;margin-top:2px}' +
     '.pbox{text-align:right}.pbox .plbl{font-size:10px;color:#aaa;text-transform:uppercase}' +
     '.pbox .pp{font-size:33px;font-weight:800;color:#ff0000}.pbox .pnote{font-size:11px;color:#aaa}' +
     '.inc{padding:22px 26px;border-bottom:1px solid #eee}' +
@@ -1362,21 +1361,21 @@ function getProformaHTML() {
     '.ptable{padding:22px 26px;border-bottom:1px solid #eee}' +
     '.ptable h3{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:#aaa;margin-bottom:12px}' +
     'table{width:100%;border-collapse:collapse}' +
-    'th{background:#003880;color:#fff;padding:9px 12px;text-align:left;font-size:11px;font-weight:600}' +
+    'th{background:#003399;color:#fff;padding:9px 12px;text-align:left;font-size:11px;font-weight:600}' +
     'td{padding:9px 12px;border-bottom:1px solid #eee;font-size:12px}' +
     '.tdr{text-align:right;font-weight:700}' +
-    '.rtot td{background:#f8f9fc;font-weight:700;font-size:13px}' +
+    '.rtot td{background:#fbf7f0;font-weight:700;font-size:13px}' +
     '.rmant td{background:#f0f4fa;font-size:12px}' +
     '.rfree td{background:#e8f5e9;color:#2e7d32;font-weight:600;font-size:11px}' +
     '.rfound td{background:linear-gradient(90deg,#fff9f0,#fff3e0);color:#b7760d;font-weight:700;font-size:13px;border:2px solid #f5a623}' +
-    '.conds{padding:18px 26px;background:#f8f9fc;border-bottom:1px solid #eee;display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px;color:#777}' +
+    '.conds{padding:18px 26px;background:#fbf7f0;border-bottom:1px solid #eee;display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px;color:#777}' +
     '.ci{display:flex;gap:7px}.ci::before{content:"\\2022";color:#ff0000;font-weight:700;flex-shrink:0}' +
     '.ctasec{padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}' +
-    '.ctasec h3{font-size:15px;font-weight:700;color:#003880;margin-bottom:3px}.ctasec p{font-size:12px;color:#777}' +
+    '.ctasec h3{font-size:15px;font-weight:700;color:#003399;margin-bottom:3px}.ctasec p{font-size:12px;color:#777}' +
     '.ctabtns{display:flex;flex-direction:column;gap:7px;min-width:190px}' +
     '.bwa{background:#25D366;color:#fff;padding:9px 16px;border-radius:7px;font-weight:700;text-decoration:none;font-size:12px;text-align:center;display:block}' +
-    '.bweb{background:#003880;color:#fff;padding:9px 16px;border-radius:7px;font-weight:700;text-decoration:none;font-size:12px;text-align:center;display:block}' +
-    '.dfooter{background:#003880;color:rgba(255,255,255,.4);text-align:center;padding:11px;font-size:10px}' +
+    '.bweb{background:#003399;color:#fff;padding:9px 16px;border-radius:7px;font-weight:700;text-decoration:none;font-size:12px;text-align:center;display:block}' +
+    '.dfooter{background:#003399;color:rgba(255,255,255,.4);text-align:center;padding:11px;font-size:10px}' +
     '.pbar{max-width:780px;margin:0 auto 14px;display:flex;gap:10px;justify-content:flex-end}' +
     '.bprint{background:#ff0000;color:#fff;border:none;padding:9px 16px;border-radius:7px;cursor:pointer;font-size:12px;font-weight:700}' +
     '</style></head><body>' +
@@ -1440,30 +1439,30 @@ function getBrandingProformaHTML() {
   '<style>*{box-sizing:border-box;margin:0;padding:0}'+
   'body{font-family:"Gill Sans MT","Gill Sans",Calibri,Arial,sans-serif;color:#222;background:#f0f2f5;padding:20px}'+
   '.doc{max-width:780px;margin:auto;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.08)}'+
-  '.dh{background:#003880;color:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:center}'+
+  '.dh{background:#003399;color:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:center}'+
   '.brand img{height:44px;width:auto}.brand p{font-size:11px;opacity:.6;margin-top:4px}'+
   '.badge-wrap{text-align:right}.badge{background:#ff0000;color:#fff;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:6px}'+
   '.ncot{font-family:"Bebas Neue",Impact,sans-serif;font-size:32px;letter-spacing:2px}'+
   '.fecha{font-size:11px;opacity:.7}'+
-  '.info-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid #003880}'+
+  '.info-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid #003399}'+
   '.info-cell{padding:20px 28px}.info-cell .label{font-size:10px;font-weight:700;color:#ff0000;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}'+
-  '.info-cell .val{font-size:16px;font-weight:700;color:#003880}.info-cell .sub{font-size:12px;color:#666}'+
-  '.plan-hero{background:#f8f9fc;border-bottom:2px solid #e8eaf0;padding:24px 28px;display:flex;justify-content:space-between;align-items:center}'+
-  '.plan-hero .ph-name{font-family:"Bebas Neue",Impact,sans-serif;font-size:26px;color:#003880;letter-spacing:1px}'+
+  '.info-cell .val{font-size:16px;font-weight:700;color:#003399}.info-cell .sub{font-size:12px;color:#666}'+
+  '.plan-hero{background:#fbf7f0;border-bottom:2px solid #e0d6c6;padding:24px 28px;display:flex;justify-content:space-between;align-items:center}'+
+  '.plan-hero .ph-name{font-family:"Bebas Neue",Impact,sans-serif;font-size:26px;color:#003399;letter-spacing:1px}'+
   '.ph-desc{font-size:13px;color:#666;margin-top:4px}'+
   '.ph-price{text-align:right}.ph-price .amt{font-family:"Bebas Neue",Impact,sans-serif;font-size:38px;color:#ff0000}'+
   '.ph-price .lbl{font-size:11px;color:#888}'+
   '.section{padding:24px 28px;border-bottom:1px solid #f0f0f0}'+
   '.section h3{font-size:11px;font-weight:700;color:#ff0000;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}'+
   '.section ul{list-style:none}.section ul li{padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:13px;padding-left:18px;position:relative}'+
-  '.section ul li:before{content:"\\2713";color:#003880;font-weight:700;position:absolute;left:0}'+
+  '.section ul li:before{content:"\\2713";color:#003399;font-weight:700;position:absolute;left:0}'+
   '.inv-table{width:100%;border-collapse:collapse;font-size:13px}'+
-  '.inv-table th{background:#003880;color:#fff;padding:10px 14px;text-align:left;font-size:11px}'+
+  '.inv-table th{background:#003399;color:#fff;padding:10px 14px;text-align:left;font-size:11px}'+
   '.inv-table td{padding:10px 14px;border-bottom:1px solid #eee}'+
-  '.inv-table .total td{background:#f0f4f8;border-top:2px solid #003880;font-weight:700}'+
-  '.terms{background:#f8f9fc;padding:20px 28px;font-size:12px;color:#666;display:flex;gap:20px;flex-wrap:wrap}'+
-  '.term-item{flex:1;min-width:120px}.term-item strong{display:block;color:#003880;font-size:11px;text-transform:uppercase;margin-bottom:3px}'+
-  '.footer{background:#003880;color:rgba(255,255,255,.6);text-align:center;padding:14px;font-size:11px}'+
+  '.inv-table .total td{background:#fbf7f0;border-top:2px solid #003399;font-weight:700}'+
+  '.terms{background:#fbf7f0;padding:20px 28px;font-size:12px;color:#666;display:flex;gap:20px;flex-wrap:wrap}'+
+  '.term-item{flex:1;min-width:120px}.term-item strong{display:block;color:#003399;font-size:11px;text-transform:uppercase;margin-bottom:3px}'+
+  '.footer{background:#003399;color:rgba(255,255,255,.6);text-align:center;padding:14px;font-size:11px}'+
   '@media print{.no-print{display:none!important}body{background:#fff!important;padding:0}}'+
   '</style></head><body>'+
   '<div class="doc">'+
@@ -1490,7 +1489,7 @@ function getBrandingProformaHTML() {
   '<div class="footer">Sombrero Rojo Marketing Digital &middot; Cuenca, Ecuador &middot; sombrerorojo.net</div>'+
   '</div>'+
   '<div class="no-print" style="text-align:center;margin:20px">'+
-  '<button onclick="window.print()" style="background:#003880;color:#fff;border:none;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:14px">Imprimir / Guardar PDF</button>'+
+  '<button onclick="window.print()" style="background:#003399;color:#fff;border:none;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:14px">Imprimir / Guardar PDF</button>'+
   '</div></body></html>';
 }
 function getRedesProformaHTML() {
@@ -1510,30 +1509,30 @@ function getRedesProformaHTML() {
   '<style>*{box-sizing:border-box;margin:0;padding:0}'+
   'body{font-family:"Gill Sans MT","Gill Sans",Calibri,Arial,sans-serif;color:#222;background:#f0f2f5;padding:20px}'+
   '.doc{max-width:780px;margin:auto;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.08)}'+
-  '.dh{background:#003880;color:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:center}'+
+  '.dh{background:#003399;color:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:center}'+
   '.brand img{height:44px;width:auto}.brand p{font-size:11px;opacity:.6;margin-top:4px}'+
   '.badge-wrap{text-align:right}.badge{background:#ff0000;color:#fff;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:6px}'+
   '.ncot{font-family:"Bebas Neue",Impact,sans-serif;font-size:32px;letter-spacing:2px}'+
   '.fecha{font-size:11px;opacity:.7}'+
-  '.info-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid #003880}'+
+  '.info-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid #003399}'+
   '.info-cell{padding:20px 28px}.info-cell .label{font-size:10px;font-weight:700;color:#ff0000;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}'+
-  '.info-cell .val{font-size:16px;font-weight:700;color:#003880}.info-cell .sub{font-size:12px;color:#666}'+
-  '.plan-hero{background:#f8f9fc;border-bottom:2px solid #e8eaf0;padding:24px 28px;display:flex;justify-content:space-between;align-items:center}'+
-  '.plan-hero .ph-name{font-family:"Bebas Neue",Impact,sans-serif;font-size:26px;color:#003880;letter-spacing:1px}'+
+  '.info-cell .val{font-size:16px;font-weight:700;color:#003399}.info-cell .sub{font-size:12px;color:#666}'+
+  '.plan-hero{background:#fbf7f0;border-bottom:2px solid #e0d6c6;padding:24px 28px;display:flex;justify-content:space-between;align-items:center}'+
+  '.plan-hero .ph-name{font-family:"Bebas Neue",Impact,sans-serif;font-size:26px;color:#003399;letter-spacing:1px}'+
   '.ph-desc{font-size:13px;color:#666;margin-top:4px}'+
   '.ph-price{text-align:right}.ph-price .amt{font-family:"Bebas Neue",Impact,sans-serif;font-size:38px;color:#ff0000}'+
   '.ph-price .lbl{font-size:11px;color:#888}'+
   '.section{padding:24px 28px;border-bottom:1px solid #f0f0f0}'+
   '.section h3{font-size:11px;font-weight:700;color:#ff0000;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}'+
   '.section ul{list-style:none}.section ul li{padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:13px;padding-left:18px;position:relative}'+
-  '.section ul li:before{content:"\\2713";color:#003880;font-weight:700;position:absolute;left:0}'+
+  '.section ul li:before{content:"\\2713";color:#003399;font-weight:700;position:absolute;left:0}'+
   '.inv-table{width:100%;border-collapse:collapse;font-size:13px}'+
-  '.inv-table th{background:#003880;color:#fff;padding:10px 14px;text-align:left;font-size:11px}'+
+  '.inv-table th{background:#003399;color:#fff;padding:10px 14px;text-align:left;font-size:11px}'+
   '.inv-table td{padding:10px 14px;border-bottom:1px solid #eee}'+
-  '.inv-table .total td{background:#f0f4f8;border-top:2px solid #003880;font-weight:700}'+
-  '.terms{background:#f8f9fc;padding:20px 28px;font-size:12px;color:#666;display:flex;gap:20px;flex-wrap:wrap}'+
-  '.term-item{flex:1;min-width:120px}.term-item strong{display:block;color:#003880;font-size:11px;text-transform:uppercase;margin-bottom:3px}'+
-  '.footer{background:#003880;color:rgba(255,255,255,.6);text-align:center;padding:14px;font-size:11px}'+
+  '.inv-table .total td{background:#fbf7f0;border-top:2px solid #003399;font-weight:700}'+
+  '.terms{background:#fbf7f0;padding:20px 28px;font-size:12px;color:#666;display:flex;gap:20px;flex-wrap:wrap}'+
+  '.term-item{flex:1;min-width:120px}.term-item strong{display:block;color:#003399;font-size:11px;text-transform:uppercase;margin-bottom:3px}'+
+  '.footer{background:#003399;color:rgba(255,255,255,.6);text-align:center;padding:14px;font-size:11px}'+
   '@media print{.no-print{display:none!important}body{background:#fff!important;padding:0}}'+
   '</style></head><body>'+
   '<div class="doc">'+
@@ -1562,7 +1561,7 @@ function getRedesProformaHTML() {
   '<div class="footer">Sombrero Rojo Marketing Digital &middot; Cuenca, Ecuador &middot; sombrerorojo.net</div>'+
   '</div>'+
   '<div class="no-print" style="text-align:center;margin:20px">'+
-  '<button onclick="window.print()" style="background:#003880;color:#fff;border:none;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:14px">Imprimir / Guardar PDF</button>'+
+  '<button onclick="window.print()" style="background:#003399;color:#fff;border:none;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:14px">Imprimir / Guardar PDF</button>'+
   '</div></body></html>';
 }
 
@@ -1580,31 +1579,31 @@ function getWABotProformaHTML() {
   '<style>*{box-sizing:border-box;margin:0;padding:0}'+
   'body{font-family:"Gill Sans MT","Gill Sans",Calibri,Arial,sans-serif;color:#222;background:#f0f2f5;padding:20px}'+
   '.doc{max-width:780px;margin:auto;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.08)}'+
-  '.dh{background:#003880;color:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:center}'+
+  '.dh{background:#003399;color:#fff;padding:28px 32px;display:flex;justify-content:space-between;align-items:center}'+
   '.brand img{height:44px;width:auto}.brand p{font-size:11px;opacity:.6;margin-top:4px}'+
   '.badge-wrap{text-align:right}.badge{background:#ff0000;color:#fff;font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:1px;margin-bottom:6px}'+
   '.ncot{font-family:"Bebas Neue",Impact,sans-serif;font-size:32px;letter-spacing:2px}'+
   '.fecha{font-size:11px;opacity:.7}'+
-  '.info-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid #003880}'+
+  '.info-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:2px solid #003399}'+
   '.info-cell{padding:20px 28px}.info-cell .label{font-size:10px;font-weight:700;color:#ff0000;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}'+
-  '.info-cell .val{font-size:16px;font-weight:700;color:#003880}.info-cell .sub{font-size:12px;color:#666}'+
-  '.plan-hero{background:#f8f9fc;border-bottom:2px solid #e8eaf0;padding:24px 28px;display:flex;justify-content:space-between;align-items:center}'+
-  '.plan-hero .ph-name{font-family:"Bebas Neue",Impact,sans-serif;font-size:26px;color:#003880;letter-spacing:1px}'+
+  '.info-cell .val{font-size:16px;font-weight:700;color:#003399}.info-cell .sub{font-size:12px;color:#666}'+
+  '.plan-hero{background:#fbf7f0;border-bottom:2px solid #e0d6c6;padding:24px 28px;display:flex;justify-content:space-between;align-items:center}'+
+  '.plan-hero .ph-name{font-family:"Bebas Neue",Impact,sans-serif;font-size:26px;color:#003399;letter-spacing:1px}'+
   '.ph-desc{font-size:13px;color:#666;margin-top:4px}'+
   '.ph-price{text-align:right}.ph-price .amt{font-family:"Bebas Neue",Impact,sans-serif;font-size:38px;color:#ff0000}'+
   '.ph-price .lbl{font-size:11px;color:#888}'+
   '.section{padding:24px 28px;border-bottom:1px solid #f0f0f0}'+
   '.section h3{font-size:11px;font-weight:700;color:#ff0000;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}'+
   '.section ul{list-style:none}.section ul li{padding:7px 0;border-bottom:1px solid #f5f5f5;font-size:13px;padding-left:18px;position:relative}'+
-  '.section ul li:before{content:"\\2713";color:#003880;font-weight:700;position:absolute;left:0}'+
+  '.section ul li:before{content:"\\2713";color:#003399;font-weight:700;position:absolute;left:0}'+
   '.inv-table{width:100%;border-collapse:collapse;font-size:13px}'+
-  '.inv-table th{background:#003880;color:#fff;padding:10px 14px;text-align:left;font-size:11px}'+
+  '.inv-table th{background:#003399;color:#fff;padding:10px 14px;text-align:left;font-size:11px}'+
   '.inv-table td{padding:10px 14px;border-bottom:1px solid #eee}'+
-  '.inv-table .total td{background:#f0f4f8;border-top:2px solid #003880;font-weight:700}'+
+  '.inv-table .total td{background:#fbf7f0;border-top:2px solid #003399;font-weight:700}'+
   '.aviso{background:#FFF3CD;border-left:5px solid #F39C12;padding:12px 16px;font-size:12px;color:#7D5A00;margin-bottom:8px;border-radius:0 6px 6px 0}'+
-  '.terms{background:#f8f9fc;padding:20px 28px;font-size:12px;color:#666;display:flex;gap:20px;flex-wrap:wrap}'+
-  '.term-item{flex:1;min-width:120px}.term-item strong{display:block;color:#003880;font-size:11px;text-transform:uppercase;margin-bottom:3px}'+
-  '.footer{background:#003880;color:rgba(255,255,255,.6);text-align:center;padding:14px;font-size:11px}'+
+  '.terms{background:#fbf7f0;padding:20px 28px;font-size:12px;color:#666;display:flex;gap:20px;flex-wrap:wrap}'+
+  '.term-item{flex:1;min-width:120px}.term-item strong{display:block;color:#003399;font-size:11px;text-transform:uppercase;margin-bottom:3px}'+
+  '.footer{background:#003399;color:rgba(255,255,255,.6);text-align:center;padding:14px;font-size:11px}'+
   '@media print{.no-print{display:none!important}body{background:#fff!important;padding:0}}'+
   '</style></head><body>'+
   '<div class="doc">'+
@@ -1633,7 +1632,7 @@ function getWABotProformaHTML() {
   '<div class="footer">Sombrero Rojo Marketing Digital &middot; Cuenca, Ecuador &middot; sombrerorojo.net</div>'+
   '</div>'+
   '<div class="no-print" style="text-align:center;margin:20px">'+
-  '<button onclick="window.print()" style="background:#003880;color:#fff;border:none;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:14px">Imprimir / Guardar PDF</button>'+
+  '<button onclick="window.print()" style="background:#003399;color:#fff;border:none;padding:10px 24px;border-radius:6px;cursor:pointer;font-size:14px">Imprimir / Guardar PDF</button>'+
   '</div></body></html>';
 }
 
@@ -1699,12 +1698,12 @@ function getWABotLandingHTML() {
   '<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">'+
   '<style>'+CSS_SHARED+
   '.planes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:22px}'+
-  '.plan-card{border:2px solid #dde2f0;border-radius:14px;overflow:hidden}'+
-  '.plan-card.dest{border-color:#25D366}'+
-  '.pb{font-size:10px;font-weight:700;background:#25D366;color:#fff;padding:3px 12px;text-align:center;letter-spacing:1px}'+
-  '.ph{padding:18px 16px 14px;background:#f8f9fc}'+
-  '.plan-card.dest .ph{background:linear-gradient(135deg,#1da851,#25D366);color:#fff}'+
-  '.ph h3{font-size:17px;font-weight:800;color:#003880;margin-bottom:6px}'+
+  '.plan-card{border:2px solid #e0d6c6;border-radius:14px;overflow:hidden}'+
+  '.plan-card.dest{border-color:#ff0000}'+
+  '.pb{font-size:10px;font-weight:700;background:#ff0000;color:#fff;padding:3px 12px;text-align:center;letter-spacing:1px}'+
+  '.ph{padding:18px 16px 14px;background:#fbf7f0}'+
+  '.plan-card.dest .ph{background:linear-gradient(135deg,#ff0000,#cc0000);color:#fff}'+
+  '.ph h3{font-size:17px;font-weight:800;color:#003399;margin-bottom:6px}'+
   '.plan-card.dest .ph h3{color:#fff}'+
   '.ppr{font-size:26px;font-weight:800;color:#ff0000}'+
   '.plan-card.dest .ppr{color:#fff}'+
@@ -1716,32 +1715,32 @@ function getWABotLandingHTML() {
   '.pb-body{padding:16px}'+
   '.pc-cols{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}'+
   '.pc-col{flex:1;min-width:140px}'+
-  '.pc-col-h{font-size:10px;font-weight:800;color:#003880;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;padding-bottom:3px;border-bottom:2px solid #dde2f0}'+
+  '.pc-col-h{font-size:10px;font-weight:800;color:#003399;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;padding-bottom:3px;border-bottom:2px solid #e0d6c6}'+
   '.inc-list{list-style:none;margin-bottom:0}'+
   '.inc-list li{font-size:11px;color:#555;padding:4px 0;border-bottom:1px solid #f5f5f5;padding-left:14px;position:relative}'+
-  '.inc-list li:before{content:"\\2713";color:#003880;font-weight:700;position:absolute;left:0;top:4px}'+
+  '.inc-list li:before{content:"\\2713";color:#003399;font-weight:700;position:absolute;left:0;top:4px}'+
   '.star-list li:before{content:"\\2605";color:#f39c12}'+
-  '.btn-plan{display:block;background:#25D366;color:#fff;text-align:center;padding:10px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none}'+
-  '.plan-card.dest .btn-plan{background:#fff;color:#1da851}'+
+  '.btn-plan{display:block;background:#003399;color:#fff;text-align:center;padding:10px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none}'+
+  '.plan-card.dest .btn-plan{background:#fff;color:#ff0000}'+
   '.proc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-top:20px}'+
-  '.proc-step{background:#f8f9fc;border:1px solid #dde2f0;border-radius:10px;padding:16px;text-align:center}'+
-  '.proc-num{width:32px;height:32px;background:#003880;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;margin:0 auto 10px}'+
-  '.proc-step h4{font-size:13px;font-weight:700;color:#003880;margin-bottom:4px}'+
+  '.proc-step{background:#fbf7f0;border:1px solid #e0d6c6;border-radius:10px;padding:16px;text-align:center}'+
+  '.proc-num{width:32px;height:32px;background:#003399;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;margin:0 auto 10px}'+
+  '.proc-step h4{font-size:13px;font-weight:700;color:#003399;margin-bottom:4px}'+
   '.proc-step p{font-size:12px;color:#666;line-height:1.5}'+
   '.aviso-wa{background:#FFF3CD;border-left:5px solid #F39C12;padding:14px 16px;margin-bottom:20px;font-size:12px;color:#7D5A00;line-height:1.7;border-radius:0 8px 8px 0}'+
   '.aviso-wa strong{color:#C0392B;font-weight:900}'+
-  '.wa-compare{width:100%;border-collapse:collapse;font-size:12px;margin-top:16px;border:1px solid #dde2f0}'+
-  '.wa-compare th{background:#003880;color:#fff;padding:10px 8px;text-align:center;font-size:11px}'+
+  '.wa-compare{width:100%;border-collapse:collapse;font-size:12px;margin-top:16px;border:1px solid #e0d6c6}'+
+  '.wa-compare th{background:#003399;color:#fff;padding:10px 8px;text-align:center;font-size:11px}'+
   '.wa-compare th:first-child{text-align:left;background:#111}'+
-  '.wa-compare th.dest{background:#1da851}'+
-  '.wa-compare td{padding:9px 8px;border-bottom:1px solid #e5e9f0;text-align:center;color:#374151}'+
+  '.wa-compare th.dest{background:#ff0000}'+
+  '.wa-compare td{padding:9px 8px;border-bottom:1px solid #e0d6c6;text-align:center;color:#374151}'+
   '.wa-compare td:first-child{text-align:left;font-weight:700;color:#555}'+
   '.wa-compare tr:nth-child(even) td{background:#fafafa}'+
-  '.wa-compare .price-row td{background:#f0f4ff!important;color:#ff0000;font-weight:800}'+
+  '.wa-compare .price-row td{background:#fbf7f0!important;color:#ff0000;font-weight:800}'+
   '.transp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:16px}'+
-  '.transp-item{border:1px solid #dde2f0;border-radius:10px;padding:14px;background:#fff}'+
-  '.transp-item.included{border-color:#25D366;background:#f4fff8}'+
-  '.ti-name{font-size:12px;font-weight:800;color:#003880;margin-bottom:5px}.ti-price{font-size:22px;font-weight:800;color:#ff0000;margin-bottom:5px}.ti-desc{font-size:11px;color:#666;line-height:1.45}'+
+  '.transp-item{border:1px solid #e0d6c6;border-radius:10px;padding:14px;background:#fff}'+
+  '.transp-item.included{border-color:#ff0000;background:#fff0f0}'+
+  '.ti-name{font-size:12px;font-weight:800;color:#003399;margin-bottom:5px}.ti-price{font-size:22px;font-weight:800;color:#ff0000;margin-bottom:5px}.ti-desc{font-size:11px;color:#666;line-height:1.45}'+
   '.founder-wa{background:#162746;color:#fff;border-radius:0;padding:44px 28px;margin-top:12px;text-align:center}'+
   '.founder-wa .tag{display:inline-block;background:#d43d2d;color:#fff;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;padding:9px 28px;border-radius:28px;margin-bottom:32px}'+
   '.founder-wa h2{color:#fff!important;font-size:clamp(24px,3.5vw,34px)!important;margin-bottom:14px!important;font-family:\"Palatino Linotype\",Palatino,Georgia,serif!important}'+
@@ -1753,17 +1752,17 @@ function getWABotLandingHTML() {
   '.founder-list li:before{content:"\\2713";position:absolute;left:0;top:14px;color:#f39c12;font-weight:900}'+
   '.founder-cupos{color:rgba(255,255,255,.55);font-size:13px;font-style:italic}'+
   '.addon-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}'+
-  '.addon-table tr:nth-child(even) td{background:#f8f9fc}'+
-  '.addon-table td{padding:8px 12px;border-bottom:1px solid #dde2f0}'+
+  '.addon-table tr:nth-child(even) td{background:#fbf7f0}'+
+  '.addon-table td{padding:8px 12px;border-bottom:1px solid #e0d6c6}'+
   '.addon-table td:last-child{font-weight:700;color:#ff0000;text-align:right;white-space:nowrap}'+
   '.tc-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}'+
-  '.tc-table tr:nth-child(even) td{background:#f8f9fc}'+
-  '.tc-table td{padding:8px 12px;line-height:1.6;vertical-align:top;border-bottom:1px solid #dde2f0}'+
-  '.tc-table td:first-child{font-weight:700;width:28%;color:#003880}'+
+  '.tc-table tr:nth-child(even) td{background:#fbf7f0}'+
+  '.tc-table td{padding:8px 12px;line-height:1.6;vertical-align:top;border-bottom:1px solid #e0d6c6}'+
+  '.tc-table td:first-child{font-weight:700;width:28%;color:#003399}'+
   '</style></head><body>'+
   contactHeaderHTML("Hola, me interesa automatizar mi WhatsApp con ManyChat. ¿Podemos coordinar?")+
-  '<div style="background:linear-gradient(135deg,#003880 55%,#0050b3);color:#fff;padding:60px 28px;text-align:center;">'+
-    '<div style="display:inline-block;background:#25D366;color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;margin-bottom:16px;">AUTOMATIZACI&Oacute;N WHATSAPP</div>'+
+  '<div style="background:#003399;color:#fff;padding:60px 28px;text-align:center;">'+
+    '<div style="display:inline-block;background:#ff0000;color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;margin-bottom:16px;">AUTOMATIZACI&Oacute;N WHATSAPP</div>'+
     '<h1 style="font-size:clamp(28px,5vw,46px);font-weight:800;line-height:1.15;margin-bottom:16px;font-family:\'Bebas Neue\',sans-serif;letter-spacing:.02em;">'+
       (contacto?'Hola '+contacto+', ':'')+'Convierte cada mensaje<br>en una oportunidad de venta</h1>'+
     '<p style="font-size:15px;opacity:.85;max-width:560px;margin:0 auto 28px;">'+
@@ -1858,7 +1857,7 @@ function getWABotLandingHTML() {
       '<tr><td>&#128241; Plataforma</td><td>Trabajamos exclusivamente sobre ManyChat. La suscripci&oacute;n mensual (~$15 USD/mes) es responsabilidad del cliente. Cambios en pol&iacute;ticas de Meta pueden afectar los flujos.</td></tr>'+
     '</table>'+
   '</div></div>'+
-  '<div style="background:linear-gradient(135deg,#003880,#0050b3);color:#fff;padding:52px 28px;text-align:center;">'+
+  '<div style="background:#003399;color:#fff;padding:52px 28px;text-align:center;">'+
     '<h2 style="font-size:clamp(20px,3vw,30px);font-weight:800;margin-bottom:12px;">'+promo+'</h2>'+
     '<p style="opacity:.8;margin-bottom:24px;">El siguiente paso es una demo de 15 minutos en vivo. Sin compromiso.</p>'+
     '<a href="https://wa.me/'+wa+'?text='+waMsgCTA+'" target="_blank" style="display:inline-block;background:#25D366;color:#fff;padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;margin-right:10px;">WhatsApp</a>'+
@@ -1890,18 +1889,18 @@ function getWABotPlanLandHTML() {
   var procCards = procPasos.map(function(pr, i) {
     return '<div class="proc-card"><div class="proc-n">Paso 0' + (i+1) + '</div><h3>' + pr[0] + '</h3><p>' + pr[1] + '</p></div>';
   }).join("");
-  var entregaNote = '<div style="margin-top:10px;padding:10px 14px;background:#f0f4ff;border-radius:8px;font-size:12px;color:#003880;"><strong>&#8987; Entrega estimada:</strong> ' + p.entrega + ' desde aprobación del anticipo</div>';
+  var entregaNote = '<div style="margin-top:10px;padding:10px 14px;background:#fbf7f0;border-radius:8px;font-size:12px;color:#003399;"><strong>&#8987; Entrega estimada:</strong> ' + p.entrega + ' desde aprobación del anticipo</div>';
   return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">' +
     '<title>WhatsApp Bot ' + p.nombre + ' &mdash; Sombrero Rojo</title>' +
     '<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">' +
     '<style>' + CSS_SHARED +
     '.inc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}' +
-    '.inc-item{background:#f8fafc;border:1px solid #e5e9f0;border-radius:10px;padding:12px 14px;font-size:13px;color:#374151;display:flex;gap:8px;align-items:flex-start}' +
-    '.inc-item:before{content:"\\2713";color:#25D366;font-weight:700;flex-shrink:0}' +
+    '.inc-item{background:#fbf7f0;border:1px solid #e0d6c6;border-radius:10px;padding:12px 14px;font-size:13px;color:#374151;display:flex;gap:8px;align-items:flex-start}' +
+    '.inc-item:before{content:"\\2713";color:#ff0000;font-weight:700;flex-shrink:0}' +
     '.proceso-steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-top:16px}' +
-    '.proc-card{background:#f8fafc;border:1px solid #e5e9f0;border-radius:12px;padding:16px}' +
-    '.proc-n{font-size:10px;font-weight:700;color:#25D366;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}' +
-    '.proc-card h3{font-size:14px;font-weight:700;color:#003880;margin-bottom:4px}' +
+    '.proc-card{background:#fbf7f0;border:1px solid #e0d6c6;border-radius:12px;padding:16px}' +
+    '.proc-n{font-size:10px;font-weight:700;color:#ff0000;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}' +
+    '.proc-card h3{font-size:14px;font-weight:700;color:#003399;margin-bottom:4px}' +
     '.proc-card p{font-size:12px;color:#6b7280;line-height:1.5}' +
     '.bonus-item:before{content:"\\2605";color:#f39c12}' +
     '.aviso-wa{background:#FFF3CD;border-left:5px solid #F39C12;padding:12px 16px;font-size:12px;color:#7D5A00;margin-top:16px;border-radius:0 6px 6px 0}' +
@@ -1990,12 +1989,12 @@ function getBrandingLandingHTML() {
   '<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">'+
   '<style>'+CSS_SHARED+
   '.planes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:22px}'+
-  '.plan-card{border:2px solid #dde2f0;border-radius:14px;overflow:hidden}'+
+  '.plan-card{border:2px solid #e0d6c6;border-radius:14px;overflow:hidden}'+
   '.plan-card.dest{border-color:#ff0000}'+
   '.pb{font-size:10px;font-weight:700;background:#ff0000;color:#fff;padding:3px 12px;text-align:center;letter-spacing:1px}'+
-  '.ph{padding:18px 16px 14px;background:#f8f9fc}'+
+  '.ph{padding:18px 16px 14px;background:#fbf7f0}'+
   '.plan-card.dest .ph{background:linear-gradient(135deg,#ff0000,#cc0000);color:#fff}'+
-  '.ph h3{font-size:17px;font-weight:800;color:#003880;margin-bottom:6px}'+
+  '.ph h3{font-size:17px;font-weight:800;color:#003399;margin-bottom:6px}'+
   '.plan-card.dest .ph h3{color:#fff}'+
   '.ppr{font-size:26px;font-weight:800;color:#ff0000}'+
   '.plan-card.dest .ppr{color:#fff}'+
@@ -2007,31 +2006,31 @@ function getBrandingLandingHTML() {
   '.pb-body{padding:16px}'+
   '.pc-cols{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}'+
   '.pc-col{flex:1;min-width:140px}'+
-  '.pc-col-h{font-size:10px;font-weight:800;color:#003880;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;padding-bottom:3px;border-bottom:2px solid #dde2f0}'+
+  '.pc-col-h{font-size:10px;font-weight:800;color:#003399;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;padding-bottom:3px;border-bottom:2px solid #e0d6c6}'+
   '.inc-list{list-style:none;margin-bottom:0}'+
   '.inc-list li{font-size:11px;color:#555;padding:4px 0;border-bottom:1px solid #f5f5f5;padding-left:14px;position:relative}'+
-  '.inc-list li:before{content:"\\2713";color:#003880;font-weight:700;position:absolute;left:0;top:4px}'+
+  '.inc-list li:before{content:"\\2713";color:#003399;font-weight:700;position:absolute;left:0;top:4px}'+
   '.star-list li:before{content:"\\2605";color:#f39c12}'+
-  '.btn-plan{display:block;background:#003880;color:#fff;text-align:center;padding:10px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none}'+
+  '.btn-plan{display:block;background:#003399;color:#fff;text-align:center;padding:10px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none}'+
   '.plan-card.dest .btn-plan{background:#fff;color:#ff0000}'+
   '.proc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-top:20px}'+
-  '.proc-step{background:#f8f9fc;border:1px solid #dde2f0;border-radius:10px;padding:16px;text-align:center}'+
+  '.proc-step{background:#fbf7f0;border:1px solid #e0d6c6;border-radius:10px;padding:16px;text-align:center}'+
   '.proc-num{width:32px;height:32px;background:#ff0000;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;margin:0 auto 10px}'+
-  '.proc-step h4{font-size:13px;font-weight:700;color:#003880;margin-bottom:4px}'+
+  '.proc-step h4{font-size:13px;font-weight:700;color:#003399;margin-bottom:4px}'+
   '.proc-step p{font-size:12px;color:#666;line-height:1.5}'+
   '.aviso-anticipo{background:#FFF3CD;border-left:5px solid #F39C12;padding:14px 16px;margin-bottom:20px;font-size:12px;color:#7D5A00;line-height:1.7;border-radius:0 8px 8px 0}'+
   '.aviso-anticipo strong{color:#C0392B;font-weight:900}'+
   '.addon-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}'+
-  '.addon-table tr:nth-child(even) td{background:#f8f9fc}'+
-  '.addon-table td{padding:8px 12px;border-bottom:1px solid #dde2f0}'+
+  '.addon-table tr:nth-child(even) td{background:#fbf7f0}'+
+  '.addon-table td{padding:8px 12px;border-bottom:1px solid #e0d6c6}'+
   '.addon-table td:last-child{font-weight:700;color:#ff0000;text-align:right;white-space:nowrap}'+
   '.tc-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}'+
-  '.tc-table tr:nth-child(even) td{background:#f8f9fc}'+
-  '.tc-table td{padding:8px 12px;line-height:1.6;vertical-align:top;border-bottom:1px solid #dde2f0}'+
-  '.tc-table td:first-child{font-weight:700;width:28%;color:#003880}'+
+  '.tc-table tr:nth-child(even) td{background:#fbf7f0}'+
+  '.tc-table td{padding:8px 12px;line-height:1.6;vertical-align:top;border-bottom:1px solid #e0d6c6}'+
+  '.tc-table td:first-child{font-weight:700;width:28%;color:#003399}'+
   '</style></head><body>'+
   contactHeaderHTML("Hola, me interesa el servicio de Branding para mi empresa. ¿Podemos coordinar?")+
-  '<div style="background:linear-gradient(135deg,#003880 55%,#0050b3);color:#fff;padding:60px 28px;text-align:center;">'+
+  '<div style="background:#003399;color:#fff;padding:60px 28px;text-align:center;">'+
     '<div style="display:inline-block;background:#ff0000;color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;margin-bottom:16px;">IDENTIDAD DE MARCA</div>'+
     '<h1 style="font-size:clamp(30px,5vw,46px);font-weight:800;line-height:1.15;margin-bottom:16px;font-family:\'Bebas Neue\',sans-serif;letter-spacing:.02em;">'+
       (contacto?'Hola '+contacto+', ':'')+'Tu marca merece<br>una imagen profesional</h1>'+
@@ -2095,7 +2094,7 @@ function getBrandingLandingHTML() {
       '<tr><td>&#128203; Brief</td><td>Todo proyecto inicia con un formulario de brief. Cambios radicales a mitad del proceso pueden implicar costos adicionales.</td></tr>'+
     '</table>'+
   '</div></div>'+
-  '<div style="background:linear-gradient(135deg,#003880,#0050b3);color:#fff;padding:52px 28px;text-align:center;">'+
+  '<div style="background:#003399;color:#fff;padding:52px 28px;text-align:center;">'+
     '<h2 style="font-size:clamp(20px,3vw,30px);font-weight:800;margin-bottom:12px;">'+promo+'</h2>'+
     '<p style="opacity:.8;margin-bottom:24px;">Hablemos hoy y empezamos esta semana.</p>'+
     '<a href="https://wa.me/'+wa+'?text='+waMsgCTAB+'" target="_blank" style="display:inline-block;background:#25D366;color:#fff;padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;margin-right:10px;">WhatsApp</a>'+
@@ -2152,12 +2151,12 @@ function getRedesLandingHTML() {
   '<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">'+
   '<style>'+CSS_SHARED+
   '.planes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:22px}'+
-  '.plan-card{border:2px solid #dde2f0;border-radius:14px;overflow:hidden}'+
+  '.plan-card{border:2px solid #e0d6c6;border-radius:14px;overflow:hidden}'+
   '.plan-card.dest{border-color:#ff0000}'+
   '.pb{font-size:10px;font-weight:700;background:#ff0000;color:#fff;padding:3px 12px;text-align:center;letter-spacing:1px}'+
-  '.ph{padding:18px 16px 14px;background:#f8f9fc}'+
+  '.ph{padding:18px 16px 14px;background:#fbf7f0}'+
   '.plan-card.dest .ph{background:linear-gradient(135deg,#ff0000,#cc0000);color:#fff}'+
-  '.ph h3{font-size:17px;font-weight:800;color:#003880;margin-bottom:6px}'+
+  '.ph h3{font-size:17px;font-weight:800;color:#003399;margin-bottom:6px}'+
   '.plan-card.dest .ph h3{color:#fff}'+
   '.ppr{font-size:26px;font-weight:800;color:#ff0000}'+
   '.plan-card.dest .ppr{color:#fff}'+
@@ -2171,43 +2170,43 @@ function getRedesLandingHTML() {
   '.pb-body{padding:16px}'+
   '.pc-cols{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}'+
   '.pc-col{flex:1;min-width:140px}'+
-  '.pc-col-h{font-size:10px;font-weight:800;color:#003880;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;padding-bottom:3px;border-bottom:2px solid #dde2f0}'+
+  '.pc-col-h{font-size:10px;font-weight:800;color:#003399;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;padding-bottom:3px;border-bottom:2px solid #e0d6c6}'+
   '.inc-list{list-style:none;margin-bottom:0}'+
   '.inc-list li{font-size:11px;color:#555;padding:4px 0;border-bottom:1px solid #f5f5f5;padding-left:14px;position:relative}'+
-  '.inc-list li:before{content:"\\2713";color:#003880;font-weight:700;position:absolute;left:0;top:4px}'+
+  '.inc-list li:before{content:"\\2713";color:#003399;font-weight:700;position:absolute;left:0;top:4px}'+
   '.star-list li:before{content:"\\2605";color:#f39c12}'+
-  '.btn-plan{display:block;background:#003880;color:#fff;text-align:center;padding:10px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none}'+
+  '.btn-plan{display:block;background:#003399;color:#fff;text-align:center;padding:10px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none}'+
   '.plan-card.dest .btn-plan{background:#fff;color:#ff0000}'+
   '.proc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-top:20px}'+
-  '.proc-step{background:#f8f9fc;border:1px solid #dde2f0;border-radius:10px;padding:16px;text-align:center}'+
+  '.proc-step{background:#fbf7f0;border:1px solid #e0d6c6;border-radius:10px;padding:16px;text-align:center}'+
   '.proc-num{width:32px;height:32px;background:#ff0000;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;margin:0 auto 10px}'+
-  '.proc-step h4{font-size:13px;font-weight:700;color:#003880;margin-bottom:4px}'+
+  '.proc-step h4{font-size:13px;font-weight:700;color:#003399;margin-bottom:4px}'+
   '.proc-step p{font-size:12px;color:#666;line-height:1.5}'+
   '.aviso-ads{background:#FFF3CD;border-left:5px solid #F39C12;padding:14px 16px;margin-bottom:20px;font-size:12px;color:#7D5A00;line-height:1.7;border-radius:0 8px 8px 0}'+
   '.aviso-ads strong{color:#C0392B;font-weight:900}'+
   '.camp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:16px}'+
-  '.camp-card{border:2px solid #dde2f0;border-radius:12px;overflow:hidden}'+
+  '.camp-card{border:2px solid #e0d6c6;border-radius:12px;overflow:hidden}'+
   '.camp-head{padding:10px 14px;color:#fff;text-align:center}'+
   '.camp-head-std{background:linear-gradient(135deg,#1A5276,#0e3251)}'+
   '.camp-head-emp{background:linear-gradient(135deg,#117A65,#0a5446)}'+
   '.camp-head h3{font-size:15px;font-weight:800;letter-spacing:1px}'+
-  '.camp-price-row{background:#f8f9fc;padding:8px;text-align:center;border-bottom:1px solid #dde2f0}'+
+  '.camp-price-row{background:#fbf7f0;padding:8px;text-align:center;border-bottom:1px solid #e0d6c6}'+
   '.camp-price{font-size:28px;font-weight:800;color:#ff0000}'+
   '.camp-note{font-size:10px;color:#C0392B;font-weight:700;margin-top:1px}'+
   '.camp-body{padding:12px 14px;font-size:12px;line-height:1.7}'+
   '.camp-body li{list-style:none;padding-left:14px;margin-bottom:2px;position:relative}'+
   '.camp-body li:before{content:"\\25b8";color:#ff0000;position:absolute;left:0;font-size:10px;top:3px}'+
   '.addon-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}'+
-  '.addon-table tr:nth-child(even) td{background:#f8f9fc}'+
-  '.addon-table td{padding:8px 12px;border-bottom:1px solid #dde2f0}'+
+  '.addon-table tr:nth-child(even) td{background:#fbf7f0}'+
+  '.addon-table td{padding:8px 12px;border-bottom:1px solid #e0d6c6}'+
   '.addon-table td:last-child{font-weight:700;color:#ff0000;text-align:right;white-space:nowrap}'+
   '.tc-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}'+
-  '.tc-table tr:nth-child(even) td{background:#f8f9fc}'+
-  '.tc-table td{padding:8px 12px;line-height:1.6;vertical-align:top;border-bottom:1px solid #dde2f0}'+
-  '.tc-table td:first-child{font-weight:700;width:28%;color:#003880}'+
+  '.tc-table tr:nth-child(even) td{background:#fbf7f0}'+
+  '.tc-table td{padding:8px 12px;line-height:1.6;vertical-align:top;border-bottom:1px solid #e0d6c6}'+
+  '.tc-table td:first-child{font-weight:700;width:28%;color:#003399}'+
   '</style></head><body>'+
   contactHeaderHTML("Hola, me interesa el servicio de Redes para mi empresa. ¿Podemos coordinar?")+
-  '<div style="background:linear-gradient(135deg,#003880 55%,#0050b3);color:#fff;padding:60px 28px;text-align:center;">'+
+  '<div style="background:#003399;color:#fff;padding:60px 28px;text-align:center;">'+
     '<div style="display:inline-block;background:#ff0000;color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;margin-bottom:16px;">GESTION DE REDES SOCIALES</div>'+
     '<h1 style="font-size:clamp(30px,5vw,46px);font-weight:800;line-height:1.15;margin-bottom:16px;font-family:\'Bebas Neue\',sans-serif;letter-spacing:.02em;">'+
       (contacto?'Hola '+contacto+', ':'')+'Redes activas,<br>clientes reales para '+negocio+'</h1>'+
@@ -2308,7 +2307,7 @@ function getRedesLandingHTML() {
       '<tr><td>&#128202; Resultados</td><td>Sombrero Rojo garantiza entrega de contenido de calidad y publicación puntual. Los resultados dependen también del presupuesto de pauta, industria y mercado del cliente.</td></tr>'+
     '</table>'+
   '</div></div>'+
-  '<div style="background:linear-gradient(135deg,#003880,#0050b3);color:#fff;padding:52px 28px;text-align:center;">'+
+  '<div style="background:#003399;color:#fff;padding:52px 28px;text-align:center;">'+
     '<h2 style="font-size:clamp(20px,3vw,30px);font-weight:800;margin-bottom:12px;">'+promo+'</h2>'+
     '<p style="opacity:.8;margin-bottom:24px;">Empezamos el próximo lunes con tu primer mes de contenido.</p>'+
     '<a href="https://wa.me/'+wa+'?text='+waMsgCTAR+'" target="_blank" style="display:inline-block;background:#25D366;color:#fff;padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;margin-right:10px;">WhatsApp</a>'+
@@ -2399,7 +2398,7 @@ function getPlanLandHTML() {
     '</div>' +
     '<div class="inv-col">' +
     '<h3>Mantenimiento desde el año 2</h3>' +
-    '<div class="price-mant" style="font-size:22px;font-weight:800;color:#003880">$' + mantA + '<span style="font-size:13px;font-weight:400;color:#888">/año</span></div>' +
+    '<div class="price-mant" style="font-size:22px;font-weight:800;color:#003399">$' + mantA + '<span style="font-size:13px;font-weight:400;color:#888">/año</span></div>' +
     '<div class="price-note" style="margin-top:4px">o $' + mantT + ' por trimestre</div>' +
     '<div class="price-note" style="margin-top:6px">Incluye soporte, actualizaciones, hosting y optimizacion continua</div>' +
     '</div></div>' +
@@ -2418,8 +2417,8 @@ function getPlanLandHTML() {
     '</div></div><hr class="div">' +
     founderSec +
     '<div class="cta-sec"><div class="container">' +
-    '<h2>El siguiente paso es una conversacion de 15 minutos</h2>' +
-    '<p>Sin tecnicismos ni compromisos. Te mostramos como funciona y lo que podemos hacer por tu negocio.</p>' +
+    '<h2>Revisemos qué web necesita tu negocio</h2>' +
+    '<p>En 15 minutos definimos estructura, prioridades y el camino más simple para lanzarla bien.</p>' +
     '<div class="cta-btns">' +
     '<a href="https://wa.me/' + wa + '?text=' + waMsg + '" target="_blank" class="btn-wa">&#128241; Escribir por WhatsApp &middot; ' + waVis + '</a>' +
     '<a href="' + web + '" target="_blank" class="btn-site">&#127760; Ver sitio web</a>' +
@@ -2439,7 +2438,7 @@ function getBrandingPlanLandHTML() {
   var incItems = p.incluye.map(function(item) { return '<div class="inc-item">' + item + '</div>'; }).join("");
   var hasBonusB = p.bonus && p.bonus.length > 0;
   var bonusSecB = hasBonusB ? '<div class="container"><div class="section"><div class="sec-label">Bonificaciones</div><h2>Bonus incluido en este plan</h2><div class="inc-grid">' + p.bonus.map(function(b){return '<div class="inc-item bonus-item">'+b+'</div>';}).join("") + '</div></div></div><hr class="div">' : '';
-  var entregaNote = p.entrega ? '<div style="margin-top:10px;padding:10px 14px;background:#f0f4ff;border-radius:8px;font-size:12px;color:#003880;"><strong>&#8987; Entrega estimada:</strong> '+p.entrega+' desde aprobación del anticipo</div>' : '';
+  var entregaNote = p.entrega ? '<div style="margin-top:10px;padding:10px 14px;background:#fbf7f0;border-radius:8px;font-size:12px;color:#003399;"><strong>&#8987; Entrega estimada:</strong> '+p.entrega+' desde aprobación del anticipo</div>' : '';
   var procPasos = [
     ["Briefing", "Entendemos tu empresa, valores, público y competencia."],
     ["Propuestas", "Presentamos " + (planActivoBranding >= 2 ? "3" : "2") + " conceptos de logo con fundamento estratégico."],
@@ -2454,12 +2453,12 @@ function getBrandingPlanLandHTML() {
     '<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">' +
     '<style>' + CSS_SHARED +
     '.inc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}' +
-    '.inc-item{background:#f8fafc;border:1px solid #e5e9f0;border-radius:10px;padding:12px 14px;font-size:13px;color:#374151;display:flex;gap:8px;align-items:flex-start}' +
+    '.inc-item{background:#fbf7f0;border:1px solid #e0d6c6;border-radius:10px;padding:12px 14px;font-size:13px;color:#374151;display:flex;gap:8px;align-items:flex-start}' +
     '.inc-item:before{content:"\\2713";color:#ff0000;font-weight:700;flex-shrink:0}' +
     '.proceso-steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-top:16px}' +
-    '.proc-card{background:#f8fafc;border:1px solid #e5e9f0;border-radius:12px;padding:16px}' +
+    '.proc-card{background:#fbf7f0;border:1px solid #e0d6c6;border-radius:12px;padding:16px}' +
     '.proc-n{font-size:10px;font-weight:700;color:#ff0000;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}' +
-    '.proc-card h3{font-size:14px;font-weight:700;color:#003880;margin-bottom:4px}' +
+    '.proc-card h3{font-size:14px;font-weight:700;color:#003399;margin-bottom:4px}' +
     '.proc-card p{font-size:12px;color:#6b7280;line-height:1.5}' +
     '.bonus-item:before{content:"\\2605";color:#f39c12}' +
     '</style></head><body>' +
@@ -2503,8 +2502,8 @@ function getBrandingPlanLandHTML() {
     '<div class="proceso-steps">' + procCards + '</div>' +
     '</div></div><hr class="div">' +
     '<div class="cta-sec"><div class="container">' +
-    '<h2>El siguiente paso es una conversación de 15 minutos</h2>' +
-    '<p>Sin compromisos. Te mostramos el proceso y lo que podemos hacer por tu marca.</p>' +
+    '<h2>Hagamos que tu marca se vea a la altura</h2>' +
+    '<p>Revisamos tu identidad actual y te mostramos cómo llevarla a un sistema visual profesional.</p>' +
     '<div class="cta-btns">' +
     '<a href="https://wa.me/' + wa + '?text=' + waMsg + '" target="_blank" class="btn-wa">&#128241; WhatsApp · ' + waVis + '</a>' +
     '<a href="' + web + '" target="_blank" class="btn-site">&#127760; Ver sitio web</a>' +
@@ -2529,7 +2528,7 @@ function getRedesPlanLandHTML() {
   var bonusSec = hasBonusP ? '<div class="container"><div class="section"><div class="sec-label">Bonificaciones</div><h2>Bonus incluido en este plan</h2><div class="inc-grid">' + p.bonus.map(function(b){return '<div class="inc-item bonus-item">'+b+'</div>';}).join("") + '</div></div></div><hr class="div">' : '';
   var carSec = hasCarP ? '<div class="container"><div class="section"><div class="sec-label">Características</div><h2>¿Cómo funciona este plan?</h2><div class="inc-grid">' + p.caracteristicas.map(function(c){return '<div class="inc-item">'+c+'</div>';}).join("") + '</div></div></div><hr class="div">' : '';
   var impSec = hasImpP ? '<div class="container"><div class="section"><div class="aviso-plan">' + p.importante.map(function(im){return '<div>&#9888; '+im+'</div>';}).join("") + '</div></div></div><hr class="div">' : '';
-  var prodNote = hasProdP ? '<div style="margin-top:10px;padding:10px 14px;background:#f0f4ff;border-radius:8px;font-size:12px;color:#003880;"><strong>&#8987; Producción estimada:</strong> ' + p.produccion.join(' &middot; ') + '</div>' : '';
+  var prodNote = hasProdP ? '<div style="margin-top:10px;padding:10px 14px;background:#fbf7f0;border-radius:8px;font-size:12px;color:#003399;"><strong>&#8987; Producción estimada:</strong> ' + p.produccion.join(' &middot; ') + '</div>' : '';
   var feePautaNote = p.fee_pauta ? '<div style="margin-top:8px;padding:10px 14px;background:#fff3cd;border-radius:8px;font-size:12px;color:#7d5a00;"><strong>&#9888; Fee de pauta:</strong> ' + p.fee_pauta + ' adicional al fee mensual. El presupuesto de Ads se factura por separado.</div>' : '';
   var procPasos = [
     ["Onboarding", "Conocemos tu negocio, público objetivo y estilo de marca."],
@@ -2545,12 +2544,12 @@ function getRedesPlanLandHTML() {
     '<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">' +
     '<style>' + CSS_SHARED +
     '.inc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:16px}' +
-    '.inc-item{background:#f8fafc;border:1px solid #e5e9f0;border-radius:10px;padding:12px 14px;font-size:13px;color:#374151;display:flex;gap:8px;align-items:flex-start}' +
+    '.inc-item{background:#fbf7f0;border:1px solid #e0d6c6;border-radius:10px;padding:12px 14px;font-size:13px;color:#374151;display:flex;gap:8px;align-items:flex-start}' +
     '.inc-item:before{content:"\\2713";color:#ff0000;font-weight:700;flex-shrink:0}' +
     '.proceso-steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin-top:16px}' +
-    '.proc-card{background:#f8fafc;border:1px solid #e5e9f0;border-radius:12px;padding:16px}' +
+    '.proc-card{background:#fbf7f0;border:1px solid #e0d6c6;border-radius:12px;padding:16px}' +
     '.proc-n{font-size:10px;font-weight:700;color:#ff0000;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}' +
-    '.proc-card h3{font-size:14px;font-weight:700;color:#003880;margin-bottom:4px}' +
+    '.proc-card h3{font-size:14px;font-weight:700;color:#003399;margin-bottom:4px}' +
     '.proc-card p{font-size:12px;color:#6b7280;line-height:1.5}' +
     '.bonus-item:before{content:"\\2605";color:#f39c12}' +
     '.aviso-plan{background:#FFF3CD;border-left:5px solid #F39C12;padding:12px 16px;font-size:12px;color:#7D5A00;line-height:1.7;border-radius:0 8px 8px 0}' +
@@ -2598,8 +2597,8 @@ function getRedesPlanLandHTML() {
     '<div class="proceso-steps">' + procCards + '</div>' +
     '</div></div><hr class="div">' +
     '<div class="cta-sec"><div class="container">' +
-    '<h2>El siguiente paso es una conversación de 15 minutos</h2>' +
-    '<p>Sin compromisos. Te mostramos cómo funciona y empezamos el próximo lunes.</p>' +
+    '<h2>Organicemos tu próximo mes de contenido</h2>' +
+    '<p>Vemos tus redes actuales, definimos prioridades y te mostramos cómo empezaría el calendario.</p>' +
     '<div class="cta-btns">' +
     '<a href="https://wa.me/' + wa + '?text=' + waMsg + '" target="_blank" class="btn-wa">&#128241; WhatsApp · ' + waVis + '</a>' +
     '<a href="' + web + '" target="_blank" class="btn-site">&#127760; Ver sitio web</a>' +
