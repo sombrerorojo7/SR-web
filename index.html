@@ -779,9 +779,10 @@ var CONTACT_WA_NUMBER = "593998068900";
 function heroLogoHTML() {
   return '<div class="hero-brand"><img src="' + LOGO_EMBEDDED + '" alt="Sombrero Rojo Marketing Digital"></div>';
 }
-function contactHeaderHTML(message) {
+function contactHeaderHTML(message, bgColor) {
   var waMsg = encodeURIComponent(message || "Hola, me interesa una propuesta de Sombrero Rojo para mi empresa. ¿Podemos coordinar?");
-  return '<header style="background:#003399;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;">' +
+  var headerBg = bgColor || "#003399";
+  return '<header style="background:' + headerBg + ';padding:14px 24px;display:flex;justify-content:space-between;align-items:center;">' +
     '<div style="background:transparent;padding:0;display:inline-flex;align-items:center;"><img src="' + LOGO_EMBEDDED + '" style="height:46px;width:auto;display:block;" alt="Sombrero Rojo"></div>' +
     '<a href="https://wa.me/' + CONTACT_WA_NUMBER + '?text=' + waMsg + '" target="_blank" style="background:#25D366;color:#fff;padding:8px 16px;border-radius:6px;font-size:12px;font-weight:700;text-decoration:none;">Contactar</a>' +
   '</header>';
@@ -916,13 +917,76 @@ function chk(id) {
   return el ? el.checked : false;
 }
 function money(n) {
-  return Number(n || 0).toLocaleString("en-US", { maximumFractionDigits: 2 });
+  var num = Number(n || 0);
+  return num.toLocaleString("en-US", { minimumFractionDigits: num % 1 ? 2 : 0, maximumFractionDigits: 2 });
 }
 function precioFundador(p) {
   return p && p.precio_fundador ? p.precio_fundador : Math.round((p.precio * 0.8) * 100) / 100;
 }
 function precioLanding(p, founderOn) {
   return founderOn ? precioFundador(p) : p.precio;
+}
+function founderActivo() {
+  return chk("p_founder_on") || chk("l_founder_on");
+}
+function founderPctActivo() {
+  return v("p_fund_pct") || v("l_desc_pct") || "20";
+}
+function founderCuposActivo() {
+  return v("p_fund_cupos") || v("l_cupos") || "5";
+}
+function founderLandingPrincipalHTML(tipo, descPct, cupos) {
+  var title = "Precio Fundador";
+  var discount = descPct + "% de ahorro inicial";
+  var copy = "Condición especial para los primeros clientes que activen su proyecto con Sombrero Rojo.";
+  var items = [
+    "Sin contratos largos — cancela cuando quieras con 15 días de aviso",
+    "Testimonio breve sobre resultados con autorización expresa",
+    "Permiso para publicar el caso de éxito en nuestras redes y sitio web",
+    "Soporte prioritario durante los primeros 60 días"
+  ];
+  if (tipo === "web") {
+    title = "Precio Fundador Web";
+    discount = "Activa tu página web con " + descPct + "% de ahorro inicial";
+    copy = "Para negocios que quieren lanzar su presencia digital este mes y permitirnos mostrar el caso como ejemplo de implementación.";
+    items = [
+      "Precio fundador aplicado al setup inicial de la página web",
+      "1er año de mantenimiento incluido",
+      "Testimonio breve al finalizar el lanzamiento",
+      "Permiso para publicar el caso de éxito en nuestras redes y sitio web"
+    ];
+  } else if (tipo === "branding") {
+    title = "Precio Fundador Branding";
+    discount = "Impulsa tu marca con " + descPct + "% de ahorro inicial";
+    copy = "Para marcas que nos permitan mostrar el antes y después del proyecto como caso visual de portafolio.";
+    items = [
+      "Precio fundador aplicado a la identidad de marca",
+      "Archivos finales listos para uso digital e impreso",
+      "Caso visual autorizado para portafolio",
+      "Testimonio breve al finalizar la entrega"
+    ];
+  } else if (tipo === "redes") {
+    title = "Precio Fundador Redes";
+    discount = "Arranca tus redes con " + descPct + "% de ahorro en el primer mes";
+    copy = "Para empresas que inicien con mínimo 3 meses de gestión y nos permitan mostrar contenido o métricas como caso de éxito.";
+    items = [
+      "Primer mes con precio fundador",
+      "Contrato mínimo de 3 meses",
+      "Reporte mensual de resultados",
+      "Permiso para mostrar contenido o métricas del caso"
+    ];
+  }
+  return '<div class="section">' +
+    '<div class="founder-wa founder-' + tipo + '">' +
+      '<div class="tag">&#9889; Oferta especial · cupos limitados</div>' +
+      '<h2>' + title + '</h2>' +
+      '<p class="founder-sub">Disponible únicamente para los primeros ' + cupos + ' clientes</p>' +
+      '<div class="founder-discount">' + discount + '</div>' +
+      '<p class="founder-copy">' + copy + '</p>' +
+      '<ul class="founder-list">' + items.map(function(item){ return '<li>' + item + '</li>'; }).join('') + '</ul>' +
+      '<p class="founder-cupos">&#9889; Quedan ' + cupos + ' cupos disponibles para esta condición especial · 2026</p>' +
+    '</div>' +
+  '</div>';
 }
 var _syncCamposCompartidos = false;
 function syncCampo(origenId, destinoId, fallbackId) {
@@ -1072,6 +1136,10 @@ var CSS_SHARED = "*{box-sizing:border-box;margin:0;padding:0}" +
 ".section p{font-size:17px;line-height:1.7;color:#555}" +
 "hr.div{border:none;border-top:1px solid #eee;margin:0}" +
 ".hero{background:#003399;color:#fff;padding:58px 28px 48px;text-align:center}" +
+".hero-web{background:#003399;padding:120px 28px 110px}" +
+".hero-web h1{text-transform:uppercase;font-size:clamp(44px,8vw,82px);line-height:1.12;margin-bottom:28px;font-weight:400}" +
+".hero-web .hsub{font-family:'Gill Sans MT','Gill Sans',Calibri,'Segoe UI',Arial,sans-serif;font-size:clamp(18px,2.4vw,28px);line-height:1.35;font-weight:700;max-width:930px;margin:0 auto 34px;opacity:.95}" +
+".hero-cta{display:inline-block;background:#ff0000;color:#fff;padding:18px 44px;border-radius:10px;font-weight:800;font-size:18px;text-decoration:none}" +
 ".hero .badge{display:inline-block;background:#ff0000;color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}" +
 ".hero h1{font-size:clamp(30px,5vw,46px);font-weight:800;line-height:1.15;margin-bottom:14px;font-family:'Bebas Neue',sans-serif;letter-spacing:.02em}" +
 ".hero .hsub{font-size:18px;opacity:.85;max-width:580px;margin:0 auto 18px;font-family:'Palatino Linotype',Palatino,Georgia,serif}" +
@@ -1106,6 +1174,22 @@ var CSS_SHARED = "*{box-sizing:border-box;margin:0;padding:0}" +
 ".founder-badge{display:inline-block;background:#f5a623;color:#fff;font-size:10px;font-weight:700;padding:3px 12px;border-radius:20px;margin-bottom:10px;text-transform:uppercase}" +
 ".f-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:9px;margin-top:14px}" +
 ".f-item{background:#fff;border:1px solid #f5c842;border-radius:7px;padding:10px;font-size:13px;color:#555}" +
+".founder-wa{background:#162746;color:#fff;border-radius:0;padding:44px 28px;margin-top:12px;text-align:center}" +
+".founder-wa.founder-web,.founder-wa.founder-branding,.founder-wa.founder-redes{background:#002060;border-top:6px solid #ff0000;border-bottom:6px solid #e0d6c6;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}" +
+".founder-wa .tag{display:inline-block;background:#d43d2d;color:#fff;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;padding:9px 28px;border-radius:28px;margin-bottom:28px}" +
+".founder-wa.founder-web .tag,.founder-wa.founder-branding .tag,.founder-wa.founder-redes .tag{background:#ff0000;color:#fff;border:1px solid rgba(255,255,255,.28)}" +
+".founder-wa h2{color:#fff!important;font-size:clamp(24px,3.5vw,34px)!important;margin-bottom:12px!important;font-family:'Palatino Linotype',Palatino,Georgia,serif!important;font-weight:600!important}" +
+".founder-wa.founder-web h2,.founder-wa.founder-branding h2,.founder-wa.founder-redes h2{font-family:'Bebas Neue',Impact,sans-serif!important;text-transform:uppercase;letter-spacing:.08em;font-size:clamp(28px,4vw,44px)!important;line-height:1!important;font-weight:400!important}" +
+".founder-sub{color:rgba(255,255,255,.68);font-size:14px;line-height:1.55;margin-bottom:18px}" +
+".founder-discount{font-size:clamp(32px,5vw,46px);line-height:1;font-weight:800;color:#f39c12;margin:14px 0 20px}" +
+".founder-wa.founder-web .founder-discount,.founder-wa.founder-branding .founder-discount,.founder-wa.founder-redes .founder-discount{color:#e0d6c6;font-family:'Palatino Linotype',Palatino,Georgia,serif;font-weight:500;font-size:clamp(30px,4.6vw,44px);line-height:1.12}" +
+".founder-copy{color:rgba(255,255,255,.78);font-size:14px;line-height:1.6;max-width:760px;margin:0 auto 22px}" +
+".founder-wa.founder-web .founder-copy,.founder-wa.founder-branding .founder-copy,.founder-wa.founder-redes .founder-copy{color:#F39C12}" +
+".founder-list{list-style:none;max-width:840px;margin:0 auto 22px;text-align:left}" +
+".founder-list li{position:relative;padding:11px 0 11px 36px;border-bottom:1px solid rgba(255,255,255,.12);font-size:14px;color:rgba(255,255,255,.9);line-height:1.45}" +
+".founder-list li:before{content:'\\2713';position:absolute;left:0;top:12px;color:#f39c12;font-weight:900}" +
+".founder-cupos{color:rgba(255,255,255,.55);font-size:13px;font-style:italic}" +
+".founder-wa.founder-web .founder-cupos,.founder-wa.founder-branding .founder-cupos,.founder-wa.founder-redes .founder-cupos{color:#F39C12}" +
 ".cta-sec{background:#003399;color:#fff;padding:48px 28px;text-align:center}" +
 ".cta-sec h2{font-size:clamp(24px,4vw,36px);font-weight:800;margin-bottom:10px;font-family:'Bebas Neue',sans-serif;letter-spacing:.03em}" +
 ".cta-sec p{opacity:.8;margin-bottom:26px;font-size:17px}" +
@@ -1185,12 +1269,13 @@ function getLandingHTML() {
     '<title>Propuesta Digital &mdash; ' + negocio + '</title>' +
     '<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">' +
     '<style>' + CSS_SHARED + planesCSS + '</style></head><body>' +
-    contactHeaderHTML("Hola, me interesa el servicio de Web para mi empresa. ¿Podemos coordinar?") +
-    '<div class="hero">' +
-    (contacto ? '<div class="badge">Propuesta para ' + contacto + '</div>' : '<div class="badge">Propuesta Digital Personalizada</div>') +
-    '<h1>Tu negocio merece una presencia digital que venda</h1>' +
+    contactHeaderHTML("Hola, me interesa el servicio de Web para mi empresa. ¿Podemos coordinar?", "#003399") +
+    '<div class="hero hero-web">' +
+    '<div class="badge">Página web profesional</div>' +
+    '<h1>Tu negocio merece<br>una presencia digital que venda</h1>' +
     '<p class="hsub">No se trata solo de tener un sitio web. Se trata de tener un sistema que atraiga, convenza y convierta.</p>' +
     (negocio !== "su empresa" ? '<div class="hsub2">Preparado para <strong>' + negocio + '</strong>' + (sector ? ' &middot; ' + sector : '') + '</div>' : '') +
+    '<a href="#planes-web" class="hero-cta">Ver planes y precios</a>' +
     '</div>' +
     (chk("s_problema") ? '<div class="container"><div class="section">' +
     '<div class="sec-label">El problema</div>' +
@@ -1212,12 +1297,13 @@ function getLandingHTML() {
     '<div class="step"><div class="step-n">02</div><h3>El visitante toma acción</h3><p>Botones estratégicos, WhatsApp integrado y formularios que reducen la fricción al mínimo.</p></div>' +
     '<div class="step"><div class="step-n">03</div><h3>El interés se convierte</h3><p>El prospecto contacta, agenda o consulta. Tú cierras. El sistema trabaja mientras atiendes.</p></div>' +
     '</div></div></div><hr class="div">' : '') +
-    (chk("s_planes") ? '<div class="container"><div class="section">' +
+    (chk("s_planes") ? '<div class="container"><div class="section" id="planes-web">' +
     '<div class="sec-label">Inversión</div>' +
     '<h2>Los 3 Planes disponibles</h2>' +
     '<p>Escoge el que mejor se adapta a tu etapa y objetivos.</p>' +
     '<div class="planes-grid">' + planesHTML + '</div>' +
     '</div></div><hr class="div">' : '') +
+    (chk("s_fund_l") && founderOn ? founderLandingPrincipalHTML("web", descPct, cupos) + '<hr class="div">' : '') +
     (chk("s_tabla") ? '<div class="container"><div class="section">' +
     '<div class="sec-label">Comparacion</div>' +
     '<h2>Que incluye cada plan?</h2>' +
@@ -1246,18 +1332,6 @@ function getLandingHTML() {
     '<div style="background:#e8f5e9;color:#2e7d32;font-weight:700;font-size:13px;padding:12px 16px;border-radius:8px;margin-top:16px;text-align:center">' +
     '&#10003; El primer año de mantenimiento es GRATIS en todos los planes &middot; Incluye hosting + dominio</div>' +
     '</div></div><hr class="div">' : '') +
-    (chk("s_fund_l") && founderOn ? '<div class="container"><div class="section">' +
-    '<div class="founder-sec">' +
-    '<div class="founder-badge">&#9733; Oferta Especial &mdash; Precio Fundador</div>' +
-    '<h2>' + descPct + '% de descuento en el setup inicial</h2>' +
-    '<p style="color:#666;margin-top:6px;font-size:14px">' + promo + '</p>' +
-    '<div class="f-grid">' +
-    '<div class="f-item">&#10004; ' + descPct + '% de descuento en el setup inicial</div>' +
-    '<div class="f-item">&#10004; Solo ' + cupos + ' cupos disponibles &middot; Cupo limitado</div>' +
-    '<div class="f-item">&#10004; Sin contratos largos &mdash; cancela cuando quieras</div>' +
-    '<div class="f-item">&#10004; A cambio: un testimonio breve sobre resultados</div>' +
-    '</div></div>' +
-    '</div></div>' : '') +
     (chk("s_cta_l") ? '<div class="cta-sec"><div class="container">' +
     '<h2>Elijamos el plan web correcto para tu negocio</h2>' +
     '<p>Sin tecnicismos ni compromisos. Revisamos tu presencia actual y definimos qué estructura te conviene lanzar primero.</p>' +
@@ -1757,16 +1831,16 @@ function getWABotLandingHTML() {
   '.transp-item{border:1px solid #e0d6c6;border-radius:10px;padding:14px;background:#fff}'+
   '.transp-item.included{border-color:#ff0000;background:#fff0f0}'+
   '.ti-name{font-size:12px;font-weight:800;color:#003399;margin-bottom:5px}.ti-price{font-size:22px;font-weight:800;color:#ff0000;margin-bottom:5px}.ti-desc{font-size:11px;color:#666;line-height:1.45}'+
-  '.founder-wa{background:#162746;color:#fff;border-radius:0;padding:44px 28px;margin-top:12px;text-align:center}'+
-  '.founder-wa .tag{display:inline-block;background:#d43d2d;color:#fff;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;padding:9px 28px;border-radius:28px;margin-bottom:32px}'+
-  '.founder-wa h2{color:#fff!important;font-size:clamp(24px,3.5vw,34px)!important;margin-bottom:14px!important;font-family:\"Palatino Linotype\",Palatino,Georgia,serif!important}'+
+  '.founder-wa{background:#002060;color:#fff;border-radius:0;padding:44px 28px;margin-top:12px;text-align:center;border-top:6px solid #ff0000;border-bottom:6px solid #e0d6c6;box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)}'+
+  '.founder-wa .tag{display:inline-block;background:#ff0000;color:#fff;font-size:12px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;padding:9px 28px;border-radius:28px;margin-bottom:32px;border:1px solid rgba(255,255,255,.28)}'+
+  '.founder-wa h2{color:#fff!important;font-size:clamp(28px,4vw,44px)!important;margin-bottom:14px!important;font-family:\"Bebas Neue\",Impact,sans-serif!important;text-transform:uppercase;letter-spacing:.08em;line-height:1!important;font-weight:400!important}'+
   '.founder-sub{color:rgba(255,255,255,.65);font-size:14px;line-height:1.55;margin-bottom:22px}'+
-  '.founder-discount{font-size:clamp(34px,5vw,48px);line-height:1;font-weight:900;color:#f39c12;margin:16px 0 22px}'+
-  '.founder-copy{color:rgba(255,255,255,.75);font-size:14px;line-height:1.6;max-width:760px;margin:0 auto 24px}'+
+  '.founder-discount{font-family:\"Palatino Linotype\",Palatino,Georgia,serif;font-size:clamp(30px,4.6vw,44px);line-height:1.12;font-weight:500;color:#e0d6c6;margin:16px 0 22px}'+
+  '.founder-copy{color:#F39C12;font-size:14px;line-height:1.6;max-width:760px;margin:0 auto 24px}'+
   '.founder-list{list-style:none;max-width:840px;margin:0 auto 26px;text-align:left}'+
   '.founder-list li{position:relative;padding:12px 0 12px 36px;border-bottom:1px solid rgba(255,255,255,.12);font-size:14px;color:rgba(255,255,255,.9);line-height:1.45}'+
   '.founder-list li:before{content:"\\2713";position:absolute;left:0;top:14px;color:#f39c12;font-weight:900}'+
-  '.founder-cupos{color:rgba(255,255,255,.55);font-size:13px;font-style:italic}'+
+  '.founder-cupos{color:#F39C12;font-size:13px;font-style:italic}'+
   '.addon-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:12px}'+
   '.addon-table tr:nth-child(even) td{background:#fbf7f0}'+
   '.addon-table td{padding:8px 12px;border-bottom:1px solid #e0d6c6}'+
@@ -1831,7 +1905,7 @@ function getWABotLandingHTML() {
       '<div class="transp-item included"><div class="ti-name">Google Sheets CRM</div><div class="ti-price">Incluido</div><div class="ti-desc">Base de datos y dashboard seg&uacute;n el plan contratado.</div></div>'+
     '</div>'+
   '</div><hr class="div">'+
-  '<div class="section">'+
+  '</div><div class="section">'+
     '<div class="founder-wa">'+
       '<div class="tag">&#9889; Oferta especial · cupos limitados</div>'+
       '<h2>Precio Fundador</h2>'+
@@ -1846,7 +1920,7 @@ function getWABotLandingHTML() {
       '</ul>'+
       '<p class="founder-cupos">&#9889; Quedan '+cupos+' cupos disponibles para esta condici&oacute;n especial · 2026</p>'+
     '</div>'+
-  '</div><hr class="div">'+
+  '</div><hr class="div"><div class="container">'+
   '<div class="section">'+
     '<div class="sec-label">Servicios adicionales</div>'+
     '<h2>Servicios a la Carta</h2>'+
@@ -1971,6 +2045,7 @@ function getBrandingLandingHTML() {
   var web      = v("l_web")      || "https://sombrerorojo.net";
   var cupos    = v("l_cupos")    || "5";
   var founderOn = chk("l_founder_on");
+  var descPct  = v("l_desc_pct") || "20";
   var promo    = v("l_promo")    || ("Solo para los primeros " + cupos + " clientes.");
   var waMsgCTAB = encodeURIComponent("Hola, me interesa el servicio de Branding para mi empresa. ¿Podemos coordinar?");
   var logo     = LOGO_EMBEDDED;
@@ -2073,6 +2148,7 @@ function getBrandingLandingHTML() {
     '<p style="color:#666;margin-bottom:4px;font-size:13px;">Anticipo del 50% para iniciar &middot; Saldo contra entrega de archivos finales &middot; Precios en USD</p>'+
     '<div class="planes-grid">'+pCards+'</div>'+
   '</div><hr class="div">'+
+  (founderOn ? '</div>' + founderLandingPrincipalHTML("branding", descPct, cupos) + '<hr class="div"><div class="container">' : '')+
   '<div class="section">'+
     '<div class="sec-label">Cómo trabajamos</div>'+
     '<h2>Tu identidad lista en 4 pasos</h2>'+
@@ -2132,6 +2208,7 @@ function getRedesLandingHTML() {
   var web      = v("l_web")      || "https://sombrerorojo.net";
   var cupos    = v("l_cupos")    || "5";
   var founderOn = chk("l_founder_on");
+  var descPct  = v("l_desc_pct") || "20";
   var promo    = v("l_promo")    || ("Solo para los primeros " + cupos + " clientes.");
   var waMsgCTAR = encodeURIComponent("Hola, me interesa el servicio de Redes para mi empresa. ¿Podemos coordinar?");
   var logo     = LOGO_EMBEDDED;
@@ -2252,6 +2329,7 @@ function getRedesLandingHTML() {
     '<p style="color:#666;margin-bottom:4px;font-size:13px;">Contrato mínimo 3 meses &middot; Pauta publicitaria NO incluida &middot; Precios en USD</p>'+
     '<div class="planes-grid">'+pCards+'</div>'+
   '</div><hr class="div">'+
+  (founderOn ? '</div>' + founderLandingPrincipalHTML("redes", descPct, cupos) + '<hr class="div"><div class="container">' : '')+
   '<div class="section">'+
     '<div class="sec-label">Cómo trabajamos</div>'+
     '<h2>Tu presencia activa en 4 pasos</h2>'+
@@ -2344,14 +2422,14 @@ function getPlanLandHTML() {
   var nombre = v("p_nombre") || "";
   var empresa = v("p_empresa") || "";
   var sector = v("p_sector") || "";
-  var founderOn = chk("p_founder_on");
+  var founderOn = founderActivo();
   var base = parseFloat(v("p_base")) || p.precio;
   var desc = parseFloat(v("p_desc")) || 0;
-  var pfund = parseFloat(v("p_pfund")) || (base - desc);
-  var ahorro = parseFloat(v("p_ahorro")) || desc;
+  var pfund = parseFloat(v("p_pfund")) || precioFundador(p);
+  var ahorro = parseFloat(v("p_ahorro")) || (base - pfund);
   var condFund = v("p_cond_fund") || "Solo primeros clientes";
-  var fundPct = v("p_fund_pct") || "20";
-  var fundCupos = v("p_fund_cupos") || "5";
+  var fundPct = founderPctActivo();
+  var fundCupos = founderCuposActivo();
   var mantA = parseFloat(v("p_mant_a")) || p.mant_a;
   var mantT = parseFloat(v("p_mant_t")) || p.mant_t;
   var wa = v("p_wa") || "593999999999";
@@ -2375,13 +2453,13 @@ function getPlanLandHTML() {
     '<div class="container"><div class="section">' +
     '<div class="founder-sec">' +
     '<div class="founder-badge">&#9733; Oferta Especial &mdash; Precio Fundador</div>' +
-    '<h2>' + fundPct + '% de descuento en el setup inicial</h2>' +
-    '<p style="color:#666;margin-top:8px;font-size:14px">Disponible unicamente para los primeros <strong>' + fundCupos + ' clientes</strong>. ' + condFund + '</p>' +
+    '<h2>Activa tu página web con ' + fundPct + '% de ahorro inicial</h2>' +
+    '<p style="color:#666;margin-top:8px;font-size:14px">Condición para negocios que quieren lanzar su presencia digital sin alargar el proceso. ' + condFund + '</p>' +
     '<div class="f-grid">' +
-    '<div class="f-item">&#10004; ' + fundPct + '% de descuento en el setup: ahorras $' + ahorro.toLocaleString() + '</div>' +
-    '<div class="f-item">&#10004; Solo ' + fundCupos + ' cupos disponibles &middot; Actua rapido</div>' +
-    '<div class="f-item">&#10004; Sin contratos largos &mdash; cancela cuando quieras</div>' +
-    '<div class="f-item">&#10004; A cambio: un testimonio breve sobre los resultados</div>' +
+    '<div class="f-item">&#10004; Precio fundador: $' + money(pfund) + '</div>' +
+    '<div class="f-item">&#10004; Ahorro inicial: $' + money(ahorro) + '</div>' +
+    '<div class="f-item">&#10004; 1er año de mantenimiento incluido</div>' +
+    '<div class="f-item">&#10004; Testimonio breve al finalizar</div>' +
     '</div></div></div></div>'
   ) : "";
   return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">' +
@@ -2425,6 +2503,7 @@ function getPlanLandHTML() {
     '<div class="price-note" style="margin-top:6px">Incluye soporte, actualizaciones, hosting y optimizacion continua</div>' +
     '</div></div>' +
     '</div></div><hr class="div">' +
+    founderSec +
     '<div class="container"><div class="section">' +
     '<div class="sec-label">Entregables</div>' +
     '<h2>Que incluye el plan?</h2>' +
@@ -2437,7 +2516,6 @@ function getPlanLandHTML() {
     '<p>Un proceso claro, sin complicaciones tecnicas de tu parte.</p>' +
     '<div class="proceso-steps">' + procCards + '</div>' +
     '</div></div><hr class="div">' +
-    founderSec +
     '<div class="cta-sec"><div class="container">' +
     '<h2>Revisemos qué web necesita tu negocio</h2>' +
     '<p>En 15 minutos definimos estructura, prioridades y el camino más simple para lanzarla bien.</p>' +
@@ -2453,14 +2531,32 @@ function getBrandingPlanLandHTML() {
   var nombre = v("p_nombre") || "";
   var empresa = v("p_empresa") || "";
   var sector = v("p_sector") || "";
+  var founderOn = founderActivo();
+  var fundPct = founderPctActivo();
+  var fundCupos = founderCuposActivo();
   var wa = v("p_wa") || "593999999999";
   var waVis = v("p_wa_vis") || "+593 99 999 9999";
   var web = v("p_web") || "https://sombrerorojo.net";
   var waMsg = encodeURIComponent("Hola" + (nombre ? " " + nombre : "") + ", me interesa el Plan " + p.nombre + " de Branding para mi empresa. ¿Podemos coordinar?");
+  var precioMostrar = precioLanding(p, founderOn);
+  var ahorro = p.precio - precioFundador(p);
   var incItems = p.incluye.map(function(item) { return '<div class="inc-item">' + item + '</div>'; }).join("");
   var hasBonusB = p.bonus && p.bonus.length > 0;
   var bonusSecB = hasBonusB ? '<div class="container"><div class="section"><div class="sec-label">Bonificaciones</div><h2>Bonus incluido en este plan</h2><div class="inc-grid">' + p.bonus.map(function(b){return '<div class="inc-item bonus-item">'+b+'</div>';}).join("") + '</div></div></div><hr class="div">' : '';
   var entregaNote = p.entrega ? '<div style="margin-top:10px;padding:10px 14px;background:#fbf7f0;border-radius:8px;font-size:12px;color:#003399;"><strong>&#8987; Entrega estimada:</strong> '+p.entrega+' desde aprobación del anticipo</div>' : '';
+  var founderSec = founderOn ? (
+    '<div class="container"><div class="section">' +
+    '<div class="founder-sec">' +
+    '<div class="founder-badge">&#9733; Oferta Especial &mdash; Precio Fundador</div>' +
+    '<h2>Impulsa tu marca con ' + fundPct + '% de ahorro inicial</h2>' +
+    '<p style="color:#666;margin-top:8px;font-size:14px">Condición para marcas que nos permitan mostrar el antes y después del proyecto.</p>' +
+    '<div class="f-grid">' +
+    '<div class="f-item">&#10004; Precio fundador: $' + money(precioFundador(p)) + '</div>' +
+    '<div class="f-item">&#10004; Ahorro: $' + money(ahorro) + '</div>' +
+    '<div class="f-item">&#10004; Caso visual autorizado para portafolio</div>' +
+    '<div class="f-item">&#10004; Testimonio breve al finalizar</div>' +
+    '</div><p style="color:#777;margin-top:12px;font-size:13px">Cupos disponibles: ' + fundCupos + '</p></div></div></div><hr class="div">'
+  ) : "";
   var procPasos = [
     ["Briefing", "Entendemos tu empresa, valores, público y competencia."],
     ["Propuestas", "Presentamos " + (planActivoBranding >= 2 ? "3" : "2") + " conceptos de logo con fundamento estratégico."],
@@ -2507,8 +2603,8 @@ function getBrandingPlanLandHTML() {
     '<div class="inversion-box">' +
     '<div class="inv-col">' +
     '<h3>Pago único — entrega en ' + p.entrega + '</h3>' +
-    '<div class="price-big">$' + money(p.precio) + '</div>' +
-    '<div class="price-note">50% anticipo para iniciar · 50% contra entrega de archivos</div>' +
+    '<div class="price-big">$' + money(precioMostrar) + '</div>' +
+    '<div class="price-note">' + (founderOn ? 'Precio fundador · regular $' + money(p.precio) : '50% anticipo para iniciar · 50% contra entrega de archivos') + '</div>' +
     entregaNote +
     '</div></div>' +
     '</div></div><hr class="div">' +
@@ -2517,6 +2613,7 @@ function getBrandingPlanLandHTML() {
     '<h2>¿Qué incluye el plan?</h2>' +
     '<div class="inc-grid">' + incItems + '</div>' +
     '</div></div><hr class="div">' +
+    founderSec +
     bonusSecB +
     '<div class="container"><div class="section">' +
     '<div class="sec-label">Proceso</div>' +
@@ -2538,10 +2635,16 @@ function getRedesPlanLandHTML() {
   var nombre = v("p_nombre") || "";
   var empresa = v("p_empresa") || "";
   var sector = v("p_sector") || "";
+  var founderOn = founderActivo();
+  var fundPct = founderPctActivo();
+  var fundCupos = founderCuposActivo();
   var wa = v("p_wa") || "593999999999";
   var waVis = v("p_wa_vis") || "+593 99 999 9999";
   var web = v("p_web") || "https://sombrerorojo.net";
   var waMsg = encodeURIComponent("Hola" + (nombre ? " " + nombre : "") + ", me interesa el Plan " + p.nombre + " de Redes para mi empresa. ¿Podemos coordinar?");
+  var precioMostrar = precioLanding(p, founderOn);
+  var ahorro = p.precio - precioFundador(p);
+  var inversionMin = founderOn ? precioFundador(p) + (p.precio * 2) : p.precio * 3;
   var incItems = p.incluye.map(function(item) { return '<div class="inc-item">' + item + '</div>'; }).join("");
   var hasBonusP = p.bonus && p.bonus.length > 0;
   var hasCarP = p.caracteristicas && p.caracteristicas.length > 0;
@@ -2552,6 +2655,19 @@ function getRedesPlanLandHTML() {
   var impSec = hasImpP ? '<div class="container"><div class="section"><div class="aviso-plan">' + p.importante.map(function(im){return '<div>&#9888; '+im+'</div>';}).join("") + '</div></div></div><hr class="div">' : '';
   var prodNote = hasProdP ? '<div style="margin-top:10px;padding:10px 14px;background:#fbf7f0;border-radius:8px;font-size:12px;color:#003399;"><strong>&#8987; Producción estimada:</strong> ' + p.produccion.join(' &middot; ') + '</div>' : '';
   var feePautaNote = p.fee_pauta ? '<div style="margin-top:8px;padding:10px 14px;background:#fff3cd;border-radius:8px;font-size:12px;color:#7d5a00;"><strong>&#9888; Fee de pauta:</strong> ' + p.fee_pauta + ' adicional al fee mensual. El presupuesto de Ads se factura por separado.</div>' : '';
+  var founderSec = founderOn ? (
+    '<div class="container"><div class="section">' +
+    '<div class="founder-sec">' +
+    '<div class="founder-badge">&#9733; Oferta Especial &mdash; Precio Fundador</div>' +
+    '<h2>Arranca tus redes con ' + fundPct + '% de ahorro en el primer mes</h2>' +
+    '<p style="color:#666;margin-top:8px;font-size:14px">Condición para empresas que inician con mínimo 3 meses de gestión.</p>' +
+    '<div class="f-grid">' +
+    '<div class="f-item">&#10004; Primer mes fundador: $' + money(precioFundador(p)) + '</div>' +
+    '<div class="f-item">&#10004; Ahorro inicial: $' + money(ahorro) + '</div>' +
+    '<div class="f-item">&#10004; Reporte mensual de resultados</div>' +
+    '<div class="f-item">&#10004; Permiso para mostrar contenido o métricas</div>' +
+    '</div><p style="color:#777;margin-top:12px;font-size:13px">Cupos disponibles: ' + fundCupos + '</p></div></div></div><hr class="div">'
+  ) : "";
   var procPasos = [
     ["Onboarding", "Conocemos tu negocio, público objetivo y estilo de marca."],
     ["Estrategia", "Definimos calendario editorial y tipo de contenido mensual."],
@@ -2600,13 +2716,15 @@ function getRedesPlanLandHTML() {
     '<div class="inversion-box">' +
     '<div class="inv-col">' +
     '<h3>Pago mensual anticipado</h3>' +
-    '<div class="price-big">$' + money(p.precio) + '<span style="font-size:16px;font-weight:400;color:#888">/mes</span></div>' +
-    '<div class="price-note">Inversión mínima 3 meses: $' + money(p.precio * 3) + '</div>' +
+    '<div class="price-big">$' + money(precioMostrar) + '<span style="font-size:16px;font-weight:400;color:#888">/mes</span></div>' +
+    '<div class="price-note">' + (founderOn ? 'Precio fundador del primer mes · regular $' + money(p.precio) + '/mes' : 'Inversión mínima 3 meses: $' + money(p.precio * 3)) + '</div>' +
+    (founderOn ? '<div class="price-note" style="margin-top:4px">Inversión mínima 3 meses con fundador: $' + money(inversionMin) + '</div>' : '') +
     feePautaNote +
     (p.jornadas > 0 ? '<div class="free-badge">&#10003; Incluye ' + p.jornadas + ' jornada' + (p.jornadas > 1 ? 's' : '') + ' de grabación mensual</div>' : '') +
     prodNote +
     '</div></div>' +
     '</div></div><hr class="div">' +
+    founderSec +
     '<div class="container"><div class="section">' +
     '<div class="sec-label">Entregables</div>' +
     '<h2>¿Qué incluye el plan?</h2>' +
