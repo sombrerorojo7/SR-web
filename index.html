@@ -1383,7 +1383,7 @@ function getProformaHTML() {
     '<div class="pbar no-print"><button class="bprint" onclick="window.print()">&#128424; Imprimir / Guardar PDF</button></div>' +
     '<div class="doc">' +
     '<div class="dh">' +
-    '<div class="brand"><img src=\"LOGO_EMBEDDED\" alt=\"Sombrero Rojo\" style=\"height:52px;width:auto;display:block;margin-bottom:4px\"><p style=\"font-size:11px;opacity:.6;margin-top:2px;\">Marketing Digital &middot; Cuenca, Ecuador</p></div>' +
+    '<div class="brand"><img src="' + LOGO_EMBEDDED + '" alt="Sombrero Rojo" style="height:52px;width:auto;display:block;margin-bottom:4px"><p style="font-size:11px;opacity:.6;margin-top:2px;">Marketing Digital &middot; Cuenca, Ecuador</p></div>' +
     '<div class="dmeta"><div class="badge">Propuesta Comercial</div><h2>N&deg; ' + ncot + '</h2><p>Fecha: ' + fechaFmt + '</p></div>' +
     '</div>' +
     '<div class="iband">' +
@@ -1433,7 +1433,7 @@ function getBrandingProformaHTML() {
   var ciudad=v('p_ciudad')||'Cuenca';
   var ncot=v('p_ncot')||'501';
   var fecha=v('p_fecha')||new Date().toLocaleDateString('es-EC');
-  var logo='LOGO_EMBEDDED';
+  var logo=LOGO_EMBEDDED;
   var items=p.incluye.map(function(i){return '<li>'+i+'</li>';}).join('');
   return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Propuesta Branding</title>'+
   '<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">'+
@@ -1501,7 +1501,7 @@ function getRedesProformaHTML() {
   var ciudad=v('p_ciudad')||'Cuenca';
   var ncot=v('p_ncot')||'501';
   var fecha=v('p_fecha')||new Date().toLocaleDateString('es-EC');
-  var logo='LOGO_EMBEDDED';
+  var logo=LOGO_EMBEDDED;
   var items=p.incluye.map(function(i){return '<li>'+i+'</li>';}).join('');
   var totalMin=p.precio*3;
   return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Propuesta Redes</title>'+
@@ -1570,7 +1570,7 @@ function getWABotProformaHTML() {
   var empresa=v('p_empresa')||'';
   var ncot=v('p_ncot')||'501';
   var fecha=v('p_fecha')||new Date().toLocaleDateString('es-EC');
-  var logo='LOGO_EMBEDDED';
+  var logo=LOGO_EMBEDDED;
   var items=p.incluye.map(function(i){return '<li>'+i+'</li>';}).join('');
   var bonusItems=p.bonus&&p.bonus.length?p.bonus.map(function(i){return '<li>'+i+'</li>';}).join(''):'';
   return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Propuesta WhatsApp Bot</title>'+
@@ -2689,7 +2689,7 @@ window.addEventListener("DOMContentLoaded", function() {
 // ═══════════════════════════════════════════════
 // PUBLICACIÓN AUTOMÁTICA
 // ═══════════════════════════════════════════════
-var MAKE_WEBHOOK_DEFAULT = "https://hook.us2.make.com/c2hqjiaijlt4uuswmvsvgwfelkh4ern6";
+var MAKE_WEBHOOK_DEFAULT = "";
 var GITHUB_OWNER = "sombrerorojo7";
 var GITHUB_REPO  = "SR-web";
 function guardarConfig() {
