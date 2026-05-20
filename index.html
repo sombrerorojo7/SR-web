@@ -452,15 +452,15 @@ document.addEventListener('click', function(e) {
       <div class="plan-selector" id="plan-selector-wrap">
         <div class="plan-option selected" id="popt-1" onclick="selPlan(1)">
           <span class="pname">Plan 1 — Captación</span>
-          <span class="pprice">$449 setup · $200/año · $60/trim</span>
+          <span class="pprice">$561.25 setup · $200/año · $60/trim</span>
         </div>
         <div class="plan-option" id="popt-2" onclick="selPlan(2)">
           <span class="pname">Plan 2 — Conversión <span class="pstar">★</span></span>
-          <span class="pprice">$749 setup · $300/año · $90/trim</span>
+          <span class="pprice">$936.25 setup · $300/año · $90/trim</span>
         </div>
         <div class="plan-option" id="popt-3" onclick="selPlan(3)">
           <span class="pname">Plan 3 — Automatización</span>
-          <span class="pprice">$1,399 setup · $500/año · $150/trim</span>
+          <span class="pprice">$1,748.75 setup · $500/año · $150/trim</span>
         </div>
       </div>
     </div>
@@ -490,7 +490,7 @@ document.addEventListener('click', function(e) {
       <h3>💰 Precio</h3>
       <div class="grid2">
         <div class="field-group"><label>Precio base ($)</label>
-          <input type="number" id="p_base" value="449" oninput="recalcular()"></div>
+          <input type="number" id="p_base" value="561.25" oninput="recalcular()"></div>
         <div class="field-group"><label>Descuento ($)</label>
           <input type="number" id="p_desc" value="0" min="0" oninput="recalcular()"></div>
       </div>
@@ -499,9 +499,9 @@ document.addEventListener('click', function(e) {
         <div class="founder-title">⭐ Precio Fundador</div>
         <div class="grid2">
           <div class="field-group"><label>Precio fundador ($)</label>
-            <input type="number" id="p_pfund" value="359" oninput="actualizarGenerador()"></div>
+            <input type="number" id="p_pfund" value="449" oninput="actualizarGenerador()"></div>
           <div class="field-group"><label>Ahorro ($)</label>
-            <input type="number" id="p_ahorro" value="90" oninput="actualizarGenerador()"></div>
+            <input type="number" id="p_ahorro" value="112.25" oninput="actualizarGenerador()"></div>
         </div>
         <div class="field-group"><label>Condición</label>
           <input type="text" id="p_cond_fund" placeholder="Solo primeros 5 clientes" oninput="actualizarGenerador()"></div>
@@ -596,7 +596,7 @@ document.addEventListener('click', function(e) {
 // ═══════════════════════════════════════════════
 var PLANES = {
   1: {
-    nombre: "Captación Digital", precio: 449, mant_a: 200, mant_t: 60,
+    nombre: "Captación Digital", precio: 561.25, precio_fundador: 449, mant_a: 200, mant_t: 60,
     desc_corto: "Presencia digital profesional que atrae nuevos clientes",
     hero_titulo: "Tu negocio merece aparecer donde tus clientes te buscan",
     hero_sub: "Un sitio web profesional, rapido y bien posicionado es la base de cualquier estrategia digital.",
@@ -631,7 +631,7 @@ var PLANES = {
     ]
   },
   2: {
-    nombre: "Conversión Web", precio: 749, mant_a: 300, mant_t: 90,
+    nombre: "Conversión Web", precio: 936.25, precio_fundador: 749, mant_a: 300, mant_t: 90,
     desc_corto: "Web orientada a convertir visitas en clientes reales",
     hero_titulo: "Tener visitas no es suficiente — tu web debe convertirlas en clientes",
     hero_sub: "Un sistema digital enfocado en que cada persona que te encuentre avance hacia una consulta o compra.",
@@ -666,7 +666,7 @@ var PLANES = {
     ]
   },
   3: {
-    nombre: "Automatización Digital", precio: 1399, mant_a: 500, mant_t: 150,
+    nombre: "Automatización Digital", precio: 1748.75, precio_fundador: 1399, mant_a: 500, mant_t: 150,
     desc_corto: "Ecosistema digital completo con automatización de procesos",
     hero_titulo: "Tu negocio trabajando solo — incluso cuando no estás",
     hero_sub: "Un ecosistema digital completo que atrae, responde, califica y da seguimiento a cada prospecto de forma automática.",
@@ -706,19 +706,19 @@ var PLANES = {
 // PLANES BRANDING + REDES
 // ═══════════════════════════════════════════════
 var PLANES_BRANDING = {
-1:{nombre:"Esencial",precio:249,tipo_precio:"unico",entrega:"10–12 días hábiles",
+1:{nombre:"Esencial",precio:311.25,precio_fundador:249,tipo_precio:"unico",entrega:"10–12 días hábiles",
 tag:"Ideal para negocios que necesitan imagen profesional desde cero",
 tagline:"Imagen profesional lista para usar en todos tus canales digitales e impresos.",
 desc_corto:"Imagen profesional lista para todos tus canales digitales e impresos",
 incluye:["2 propuestas de concepto de logo","Hasta 2 rondas de revisiones","Estudio de color corporativo + selección tipográfica","Versiones: color, blanco/negro, monocromático","Archivos: AI, EPS, PDF, PNG alta res., fondo transparente","Diseño de tarjeta de presentación (1 o 2 caras)"],
 bonus:["Logo optimizado para redes (cuadrado + circular)","Guía rápida de colores corporativos (PDF 1 pág.)"]},
-2:{nombre:"Profesional",precio:399,tipo_precio:"unico",entrega:"15–18 días hábiles",
+2:{nombre:"Profesional",precio:498.75,precio_fundador:399,tipo_precio:"unico",entrega:"15–18 días hábiles",
 tag:"Para empresas que quieren consistencia visual en todos sus materiales",
 tagline:"Identidad completa con guía de uso para aplicar tu marca en cualquier soporte.",
 desc_corto:"Identidad completa con guía de uso para cualquier soporte",
 incluye:["3 propuestas de concepto de logo","Hasta 3 rondas de revisiones","Análisis de competencia y posicionamiento de marca","Estudio de color + tipografía corporativa","Versiones: color, B/N, monocromático, horizontal y vertical","Archivos: AI, EPS, PDF, PNG, SVG","Papelería: hoja membretada + tarjeta de presentación","Guía de uso de marca (PDF 4 pág.): colores, tipografía, usos correctos/incorrectos"],
 bonus:["Kit redes: perfil + portada para Facebook e Instagram","Plantilla de historia y post para Instagram (1 de cada una)"]},
-3:{nombre:"Corporativo",precio:699,tipo_precio:"unico",entrega:"20–25 días hábiles",
+3:{nombre:"Corporativo",precio:873.75,precio_fundador:699,tipo_precio:"unico",entrega:"20–25 días hábiles",
 tag:"Para corporaciones que necesitan una identidad sólida, completa y escalable",
 tagline:"Identidad de alto nivel con manual de marca profesional y todos los materiales corporativos.",
 desc_corto:"Identidad de alto nivel con manual de marca profesional completo",
@@ -726,21 +726,21 @@ incluye:["3 propuestas de concepto de logo","Hasta 4 rondas de revisiones","Aná
 bonus:["Kit digital: perfil + portada + 3 plantillas de post para redes","Guía de implementación en señalética y uniformes (PDF)"]}
 };
 var PLANES_REDES = {
-1:{nombre:"Presencia",precio:299,tipo_precio:"mes",jornadas:0,
+1:{nombre:"Presencia",precio:373.75,precio_fundador:299,tipo_precio:"mes",jornadas:0,
 tag:"Básico · Contenido orgánico · Sin producción presencial",
 tagline:"Para empresas que necesitan imagen profesional y consistente en redes, sin visitas al local.",
 desc_corto:"Imagen profesional y consistente en redes, sin visitas al local",
 incluye:["Calendario de contenido mensual","8 piezas gráficas mensuales (imágenes estáticas)","2 carruseles educativos o informativos","Copy estratégico en cada publicación","Publicación en Facebook e Instagram","Optimización de perfil (primera vez, sin costo adicional)","Reporte mensual básico de métricas","1 reunión mensual de alineación (30 min, online)"],
 caracteristicas:["Sin visitas presenciales al cliente","Diseño alineado a identidad corporativa del cliente","Material basado en banco de imágenes + fotos que el cliente provea","Gestión de mensajes NO incluida"],
 produccion:["6–8 horas efectivas mensuales","Calendario: primeros 5 días del mes"]},
-2:{nombre:"Business Activo",precio:599,tipo_precio:"mes",jornadas:1,
+2:{nombre:"Business Activo",precio:748.75,precio_fundador:599,tipo_precio:"mes",jornadas:1,
 tag:"Intermedio · Contenido real + 1 jornada de grabación mensual",
 tagline:"Para empresas que quieren mostrar su equipo humano, instalaciones y generar confianza real en su mercado.",
 desc_corto:"Contenido real con tu equipo + 1 jornada de grabación mensual",
 incluye:["Calendario de contenido mensual","12 piezas mensuales (imágenes + fotos reales del cliente)","4 piezas con fotografía real del equipo o instalaciones","3–4 Reels simples grabados en jornada mensual","Copy estratégico orientado a autoridad y confianza","Publicación en Facebook e Instagram","1 jornada de grabación mensual (3–4 h en el local)","Edición básica de video (cortes, música, subtítulos)","Optimización de Perfil de Negocio en Google","Configuración de respuestas rápidas en WhatsApp Business","Reporte mensual con métricas + recomendaciones","1 reunión mensual de estrategia (45 min)"],
 bonus:["Guión mensual para 1 testimonio de cliente","Banco de imágenes del cliente (archivo organizado)","4 historias animadas al mes (1 semanal)"],
 produccion:["18–22 horas efectivas mensuales","Incluye 1 jornada presencial de 3–4 horas"]},
-3:{nombre:"Premium Captación",precio:1099,tipo_precio:"mes",jornadas:2,fee_pauta:"15% del presupuesto de pauta (mín. $60/mes)",
+3:{nombre:"Premium Captación",precio:1373.75,precio_fundador:1099,tipo_precio:"mes",jornadas:2,fee_pauta:"15% del presupuesto de pauta (mín. $60/mes)",
 tag:"Avanzado · Producción profesional + estrategia de leads B2B",
 tagline:"Para empresas que quieren liderar su industria y generar leads corporativos de forma constante.",
 desc_corto:"Producción profesional + estrategia de leads B2B",
@@ -750,21 +750,21 @@ produccion:["33–40 horas efectivas mensuales","2 jornadas presenciales al mes"
 importante:["Presupuesto de Ads facturado por separado","Fee de gestión de pauta: 15% del presupuesto de pauta (mín. $60/mes)","Solicitudes fuera del alcance se cotizan aparte"]}
 };
 var PLANES_WHATSAPP = {
-1:{nombre:"Respuesta Activa",precio:349,tipo_precio:"unico",
+1:{nombre:"Respuesta Activa",precio:436.25,precio_fundador:349,tipo_precio:"unico",
 tag:"Básico · Atención automática · Sin flujos avanzados",
 tagline:"Para negocios que quieren responder al instante y capturar datos básicos de sus contactos.",
 desc_corto:"Menú 24/7, captura de datos y respuesta automática fuera de horario",
 entrega:"5–7 días hábiles",
 incluye:["Configuración WhatsApp Business API vía ManyChat","Mensaje de bienvenida automático personalizado","Menú principal con hasta 4 opciones","Flujo de captura: nombre, correo y teléfono","Respuesta automática fuera de horario","Integración con Google Sheets (base de datos)","1 plantilla de mensaje para difusión","Capacitación básica (1 sesión · 45 min)"],
 bonus:["Sin visitas presenciales","Configurado sobre cuenta ManyChat del cliente","Gestión de conversaciones NO incluida","Ideal para negocios locales, servicios y consultorios"]},
-2:{nombre:"Captación Inteligente",precio:699,tipo_precio:"unico",
+2:{nombre:"Captación Inteligente",precio:873.75,precio_fundador:699,tipo_precio:"unico",
 tag:"Intermedio · Flujos completos + integración CRM",
 tagline:"Para empresas que quieren calificar prospectos, nutrir leads y vender mientras duermen.",
 desc_corto:"Calificación de leads, nutrición automática y notificación al asesor",
 entrega:"8–12 días hábiles",
 incluye:["Todo el Plan Respuesta Activa +","Flujo de calificación de prospectos (hasta 6 preguntas)","Secuencia de nutrición automática (3 mensajes / 72h)","Menú con hasta 8 opciones y submenús","Etiquetado automático de leads por perfil","CRM en Google Sheets avanzado","Notificación al asesor cuando llega lead calificado","2 plantillas aprobadas (difusión + seguimiento)","Botones CTA (agendar cita, solicitar cotización)","Capacitación completa (2 sesiones · 1h c/u)"],
 bonus:["Dashboard de leads en Google Sheets","1 mes de soporte técnico post-entrega","Manual de operación del bot (PDF)"]},
-3:{nombre:"Funnel Completo",precio:1299,tipo_precio:"unico",
+3:{nombre:"Funnel Completo",precio:1623.75,precio_fundador:1299,tipo_precio:"unico",
 tag:"Avanzado · Automatización total + integración multicanal",
 tagline:"Para empresas que quieren un sistema de ventas automatizado integrado con su sitio web y campañas.",
 desc_corto:"Funnel de ventas completo con integración Meta Ads, Calendly y Make.com",
@@ -829,7 +829,7 @@ function renderPlanSelector() {
   Object.keys(planes).forEach(function(k){
     var p=planes[k];
     var sel=parseInt(k)===activeIdx?'selected':'';
-    var precio=p.tipo_precio==='mes'?('$'+p.precio+'/mes'):('$'+p.precio+' setup');
+    var precio=p.tipo_precio==='mes'?('$'+money(p.precio)+'/mes'):('$'+money(p.precio)+' setup');
     if (p.fee_pauta) precio += ' + fee pauta ' + p.fee_pauta;
     html+='<div class="plan-option '+sel+'" id="popt-'+k+'" onclick="selPlan('+k+')">'+
       '<span class="pname">Plan '+k+' — '+p.nombre+'</span>'+
@@ -883,15 +883,17 @@ function selPlan(n) {
     document.getElementById("p_mant_a").value = p.mant_a;
     document.getElementById("p_mant_t").value = p.mant_t;
     document.getElementById("p_desc").value = 0;
-    recalcular();
+    document.getElementById("p_pfund").value = precioFundador(p);
+    document.getElementById("p_ahorro").value = Math.round((p.precio - precioFundador(p)) * 100) / 100;
   }
   actualizarGenerador();
 }
 function recalcular() {
   var base = parseFloat(document.getElementById("p_base").value) || 0;
   var desc = parseFloat(document.getElementById("p_desc").value) || 0;
-  document.getElementById("p_pfund").value = Math.max(0, base - desc);
-  document.getElementById("p_ahorro").value = desc > 0 ? desc : 0;
+  var pfund = desc > 0 ? Math.max(0, base - desc) : Math.round(base * 80) / 100;
+  document.getElementById("p_pfund").value = pfund;
+  document.getElementById("p_ahorro").value = Math.round((base - pfund) * 100) / 100;
   actualizarGenerador();
 }
 function toggleFounderL() {
@@ -907,11 +909,20 @@ function toggleFounderP() {
 // ═══════════════════════════════════════════════
 function v(id) {
   var el = document.getElementById(id);
-  return el ? el.value.trim() : "";
+  return el ? String(el.value).trim() : "";
 }
 function chk(id) {
   var el = document.getElementById(id);
   return el ? el.checked : false;
+}
+function money(n) {
+  return Number(n || 0).toLocaleString("en-US", { maximumFractionDigits: 2 });
+}
+function precioFundador(p) {
+  return p && p.precio_fundador ? p.precio_fundador : Math.round((p.precio * 0.8) * 100) / 100;
+}
+function precioLanding(p, founderOn) {
+  return founderOn ? precioFundador(p) : p.precio;
 }
 var _syncCamposCompartidos = false;
 function syncCampo(origenId, destinoId, fallbackId) {
@@ -1152,10 +1163,12 @@ function getLandingHTML() {
     var badge = n === 2 ? "&#9733; Mas elegido" : "Plan " + n;
     var items = p.incluye.slice(0, 6).map(function(item) { return "<li>" + item + "</li>"; }).join("");
     var waMsgPlan = encodeURIComponent("Hola, me interesa el Plan " + p.nombre + " de Web para mi empresa. ¿Podemos coordinar?");
+    var precioPlan = precioLanding(p, founderOn);
+    var precioNote = founderOn ? '<div style="font-size:11px;opacity:.72;margin-top:2px;text-decoration:line-through">$' + money(p.precio) + ' regular</div>' : '';
     planesHTML += '<div class="plan-card' + dest + '">' +
       '<div class="ph"><div class="pb">' + badge + '</div>' +
       '<h3>' + p.nombre + '</h3><div class="pdesc">' + p.desc_corto + '</div>' +
-      '<div class="ppr">$' + p.precio.toLocaleString() + '<span> setup único</span></div></div>' +
+      '<div class="ppr">$' + money(precioPlan) + '<span> setup único</span></div>' + precioNote + '</div>' +
       '<div class="pbody"><ul>' + items + '</ul></div>' +
       '<div class="pmant">Mant. $' + p.mant_a + '/año &middot; $' + p.mant_t + '/trim</div>' +
       '<a href="https://wa.me/' + wa + '?text=' + waMsgPlan + '" target="_blank" class="pcta">Quiero este plan &rarr;</a>' +
@@ -1221,7 +1234,7 @@ function getLandingHTML() {
     '<tr><td>Automatización WhatsApp</td><td class="cr">&mdash;</td><td class="cr">&mdash;</td><td class="ck">&#10003;</td></tr>' +
     '<tr><td>CRM de clientes</td><td class="cr">&mdash;</td><td class="cr">&mdash;</td><td class="ck">&#10003;</td></tr>' +
     '<tr><td>Email marketing auto</td><td class="cr">&mdash;</td><td class="cr">&mdash;</td><td class="ck">&#10003;</td></tr>' +
-    '<tr><td><strong>Setup único</strong></td><td><strong>$449</strong></td><td><strong>$749</strong></td><td><strong>$1,399</strong></td></tr>' +
+    '<tr><td><strong>Setup único</strong></td><td><strong>$' + money(precioLanding(PLANES[1], founderOn)) + '</strong></td><td><strong>$' + money(precioLanding(PLANES[2], founderOn)) + '</strong></td><td><strong>$' + money(precioLanding(PLANES[3], founderOn)) + '</strong></td></tr>' +
     '<tr><td>Mantenimiento</td><td>$200/año &middot; $60/trim</td><td>$300/año &middot; $90/trim</td><td>$500/año &middot; $150/trim</td></tr>' +
     '</tbody></table>' +
     '</div></div><hr class="div">' : '') +
@@ -1272,7 +1285,7 @@ function getMsgServicio() {
     msg+='*Branding Corporativo — Plan '+p.nombre+'*\n';
     if(empresa) msg+=empresa+'\n';
     msg+='Cotización N° '+ncot+'\n\n';
-    msg+='*Inversión: $'+p.precio+' (pago único)*\n';
+    msg+='*Inversión: $'+money(p.precio)+' (pago único)*\n';
     msg+='- Anticipo: 50% para iniciar\n';
     msg+='- Saldo: contra entrega de archivos\n';
     msg+='- Entrega estimada: '+p.entrega+'\n\n';
@@ -1280,7 +1293,7 @@ function getMsgServicio() {
     msg+='*Redes Sociales — Plan '+p.nombre+'*\n';
     if(empresa) msg+=empresa+'\n';
     msg+='Cotización N° '+ncot+'\n\n';
-    msg+='*Inversión: $'+p.precio+'/mes*\n';
+    msg+='*Inversión: $'+money(p.precio)+'/mes*\n';
     if (p.fee_pauta) msg+='- Fee de gestión de pauta: '+p.fee_pauta+'\n';
     msg+='- Contrato mínimo: 3 meses\n';
     msg+='- Pago mensual anticipado\n\n';
@@ -1288,7 +1301,7 @@ function getMsgServicio() {
     msg+='*Automatización WhatsApp — Plan '+p.nombre+'*\n';
     if(empresa) msg+=empresa+'\n';
     msg+='Cotización N° '+ncot+'\n\n';
-    msg+='*Inversión: $'+p.precio+' (setup único)*\n';
+    msg+='*Inversión: $'+money(p.precio)+' (setup único)*\n';
     msg+='- 50% para iniciar configuración\n';
     msg+='- 50% al entregar el sistema funcionando\n';
     msg+='- Entrega estimada: '+p.entrega+'\n';
@@ -1473,12 +1486,12 @@ function getBrandingProformaHTML() {
   '<div class="info-cell"><div class="label">Preparado por</div><div class="val">Sombrero Rojo</div><div class="sub">Marketing Digital &middot; sombrerorojo.net</div></div>'+
   '</div>'+
   '<div class="plan-hero"><div><div class="ph-name">Branding Corporativo &mdash; Plan '+p.nombre+'</div><div class="ph-desc">'+p.desc_corto+'</div></div>'+
-  '<div class="ph-price"><div class="amt">$'+p.precio+'</div><div class="lbl">Pago &uacute;nico</div></div></div>'+
+  '<div class="ph-price"><div class="amt">$'+money(p.precio)+'</div><div class="lbl">Pago &uacute;nico</div></div></div>'+
   '<div class="section"><h3>Que incluye este plan</h3><ul>'+items+'</ul></div>'+
   '<div class="section"><h3>Detalle de inversion</h3>'+
   '<table class="inv-table"><thead><tr><th>Concepto</th><th>Detalle</th><th>Valor</th></tr></thead><tbody>'+
-  '<tr><td>Branding '+p.nombre+'</td><td>'+p.desc_corto+'</td><td>$'+p.precio+'</td></tr>'+
-  '<tr class="total"><td colspan="2">Total</td><td>$'+p.precio+'</td></tr>'+
+  '<tr><td>Branding '+p.nombre+'</td><td>'+p.desc_corto+'</td><td>$'+money(p.precio)+'</td></tr>'+
+  '<tr class="total"><td colspan="2">Total</td><td>$'+money(p.precio)+'</td></tr>'+
   '</tbody></table></div>'+
   '<div class="terms">'+
   '<div class="term-item"><strong>Entrega estimada</strong>'+p.entrega+'</div>'+
@@ -1543,14 +1556,14 @@ function getRedesProformaHTML() {
   '<div class="info-cell"><div class="label">Preparado por</div><div class="val">Sombrero Rojo</div><div class="sub">Marketing Digital &middot; sombrerorojo.net</div></div>'+
   '</div>'+
   '<div class="plan-hero"><div><div class="ph-name">Gesti&oacute;n de Redes &mdash; Plan '+p.nombre+'</div><div class="ph-desc">'+p.desc_corto+'</div></div>'+
-  '<div class="ph-price"><div class="amt">$'+p.precio+'</div><div class="lbl">Por mes</div></div></div>'+
+  '<div class="ph-price"><div class="amt">$'+money(p.precio)+'</div><div class="lbl">Por mes</div></div></div>'+
   '<div class="section"><h3>Que incluye este plan</h3><ul>'+items+'</ul></div>'+
   '<div class="section"><h3>Detalle de inversion</h3>'+
   '<table class="inv-table"><thead><tr><th>Concepto</th><th>Detalle</th><th>Valor</th></tr></thead><tbody>'+
-  '<tr><td>Plan '+p.nombre+' mensual</td><td>Gesti&oacute;n completa de redes</td><td>$'+p.precio+'/mes</td></tr>'+
+  '<tr><td>Plan '+p.nombre+' mensual</td><td>Gesti&oacute;n completa de redes</td><td>$'+money(p.precio)+'/mes</td></tr>'+
   feeRow+
   '<tr><td>Contrato m&iacute;nimo</td><td>3 meses</td><td>$'+totalMin+'</td></tr>'+
-  '<tr class="total"><td colspan="2">Inversi&oacute;n mensual</td><td>$'+p.precio+'/mes</td></tr>'+
+  '<tr class="total"><td colspan="2">Inversi&oacute;n mensual</td><td>$'+money(p.precio)+'/mes</td></tr>'+
   '</tbody></table></div>'+
   '<div class="terms">'+
   '<div class="term-item"><strong>Contrato mínimo</strong>3 meses</div>'+
@@ -1614,14 +1627,14 @@ function getWABotProformaHTML() {
   '<div class="info-cell"><div class="label">Preparado por</div><div class="val">Sombrero Rojo</div><div class="sub">Marketing Digital &middot; sombrerorojo.net</div></div>'+
   '</div>'+
   '<div class="plan-hero"><div><div class="ph-name">WhatsApp Bot &mdash; Plan '+p.nombre+'</div><div class="ph-desc">'+p.desc_corto+'</div></div>'+
-  '<div class="ph-price"><div class="amt">$'+p.precio+'</div><div class="lbl">Setup &uacute;nico</div></div></div>'+
+  '<div class="ph-price"><div class="amt">$'+money(p.precio)+'</div><div class="lbl">Setup &uacute;nico</div></div></div>'+
   '<div class="section"><h3>Que incluye este plan</h3><ul>'+items+'</ul></div>'+
   (bonusItems?'<div class="section"><h3>Bonus incluido</h3><ul>'+bonusItems+'</ul></div>':'')+
   '<div class="section"><h3>Detalle de inversion</h3>'+
   '<div class="aviso">&#9888; La suscripci&oacute;n ManyChat Pro (~$15 USD/mes) es responsabilidad del cliente y <strong>NO</strong> est&aacute; incluida en este valor.</div>'+
   '<table class="inv-table"><thead><tr><th>Concepto</th><th>Detalle</th><th>Valor</th></tr></thead><tbody>'+
-  '<tr><td>Configuraci&oacute;n WhatsApp Bot</td><td>Plan '+p.nombre+' &mdash; '+p.desc_corto+'</td><td>$'+p.precio+'</td></tr>'+
-  '<tr class="total"><td colspan="2">Total setup</td><td>$'+p.precio+'</td></tr>'+
+  '<tr><td>Configuraci&oacute;n WhatsApp Bot</td><td>Plan '+p.nombre+' &mdash; '+p.desc_corto+'</td><td>$'+money(p.precio)+'</td></tr>'+
+  '<tr class="total"><td colspan="2">Total setup</td><td>$'+money(p.precio)+'</td></tr>'+
   '</tbody></table></div>'+
   '<div class="terms">'+
   '<div class="term-item"><strong>Entrega estimada</strong>'+p.entrega+'</div>'+
@@ -1643,6 +1656,7 @@ function getWABotLandingHTML() {
   var web      = v("l_web")      || "https://sombrerorojo.net";
   var cupos    = v("l_cupos")    || "5";
   var descPct  = parseInt(v("l_desc_pct") || "20", 10);
+  var founderOn = chk("l_founder_on");
   var promo    = v("l_promo")    || ("Solo para los primeros " + cupos + " clientes.");
   var waMsgCTA = encodeURIComponent("Hola, me interesa automatizar mi WhatsApp con ManyChat para mi empresa. ¿Podemos coordinar?");
   var logo     = LOGO_EMBEDDED;
@@ -1657,10 +1671,12 @@ function getWABotLandingHTML() {
     var hasBonus = p.bonus && p.bonus.length > 0;
     var bonusTitle = i===1 ? "Características" : "Bonus";
     var bonusItems = hasBonus ? p.bonus.map(function(x){return '<li class="star">'+x+'</li>';}).join("") : "";
+    var precioPlan = precioLanding(p, founderOn);
+    var precioNote = founderOn ? '<div style="font-size:11px;opacity:.72;margin-top:2px;text-decoration:line-through">$' + money(p.precio) + ' regular</div>' : '';
     pCards += '<div class="plan-card'+dest+'">'+badge+
       '<div class="ph"><h3>'+p.nombre+'</h3>'+
       (p.tag?'<div class="ptag">'+p.tag+'</div>':'')+
-      '<div class="ppr">$'+p.precio+' <span>setup &uacute;nico</span></div>'+
+      '<div class="ppr">$'+money(precioPlan)+' <span>setup &uacute;nico</span></div>'+precioNote+
       (p.tagline?'<div class="ptagline">'+p.tagline+'</div>':'')+
       '</div>'+
       '<div class="pb-body">'+
@@ -1686,7 +1702,7 @@ function getWABotLandingHTML() {
     ["Integración Calendly / Google Calendar","—","—","✓"],
     ["Integración Make.com","—","—","✓"],
     ["Pipeline CRM Kanban en Sheets","—","—","✓"],
-    ["Setup único","$349","$699","$1,299"],
+    ["Setup único","$"+money(precioLanding(planes[1], founderOn)),"$"+money(precioLanding(planes[2], founderOn)),"$"+money(precioLanding(planes[3], founderOn))],
     ["Mantenimiento mensual","Desde $60","Desde $60","Desde $120"]
   ];
   var compHTML = comparisonRows.map(function(r, idx){
@@ -1919,7 +1935,7 @@ function getWABotPlanLandHTML() {
     '<div class="inversion-box">' +
     '<div class="inv-col">' +
     '<h3>Setup &uacute;nico &mdash; entrega en ' + p.entrega + '</h3>' +
-    '<div class="price-big">$' + p.precio.toLocaleString() + '</div>' +
+    '<div class="price-big">$' + money(p.precio) + '</div>' +
     '<div class="price-note">50% anticipo para iniciar &middot; 50% al entregar el sistema funcionando</div>' +
     entregaNote +
     '<div class="aviso-wa">&#9888; Suscripci&oacute;n ManyChat Pro (~$15/mes) NO incluida. A cargo del cliente.</div>' +
@@ -1954,6 +1970,7 @@ function getBrandingLandingHTML() {
   var waVis    = v("l_wa_vis")   || "+593 99 999 9999";
   var web      = v("l_web")      || "https://sombrerorojo.net";
   var cupos    = v("l_cupos")    || "5";
+  var founderOn = chk("l_founder_on");
   var promo    = v("l_promo")    || ("Solo para los primeros " + cupos + " clientes.");
   var waMsgCTAB = encodeURIComponent("Hola, me interesa el servicio de Branding para mi empresa. ¿Podemos coordinar?");
   var logo     = LOGO_EMBEDDED;
@@ -1968,10 +1985,12 @@ function getBrandingLandingHTML() {
     var hasBonus = p.bonus && p.bonus.length > 0;
     var bonusItems = hasBonus ? p.bonus.map(function(x){return '<li class="star">'+x+'</li>';}).join("") : "";
     var entregaItem = p.entrega ? '<li>'+p.entrega+' desde aprobación del anticipo</li>' : '';
+    var precioPlan = precioLanding(p, founderOn);
+    var precioNote = founderOn ? '<div style="font-size:11px;opacity:.72;margin-top:2px;text-decoration:line-through">$' + money(p.precio) + ' regular</div>' : '';
     pCards += '<div class="plan-card'+dest+'">'+badge+
       '<div class="ph"><h3>'+p.nombre+'</h3>'+
       (p.tag?'<div class="ptag">'+p.tag+'</div>':'')+
-      '<div class="ppr">$'+p.precio+' <span>pago único</span></div>'+
+      '<div class="ppr">$'+money(precioPlan)+' <span>pago único</span></div>'+precioNote+
       (p.tagline?'<div class="ptagline">'+p.tagline+'</div>':'')+
       '</div>'+
       '<div class="pb-body">'+
@@ -2112,6 +2131,7 @@ function getRedesLandingHTML() {
   var waVis    = v("l_wa_vis")   || "+593 99 999 9999";
   var web      = v("l_web")      || "https://sombrerorojo.net";
   var cupos    = v("l_cupos")    || "5";
+  var founderOn = chk("l_founder_on");
   var promo    = v("l_promo")    || ("Solo para los primeros " + cupos + " clientes.");
   var waMsgCTAR = encodeURIComponent("Hola, me interesa el servicio de Redes para mi empresa. ¿Podemos coordinar?");
   var logo     = LOGO_EMBEDDED;
@@ -2129,10 +2149,12 @@ function getRedesLandingHTML() {
     var rightArr = hasBonus ? p.bonus : (hasCar ? p.caracteristicas : []);
     var rightItems = rightArr.map(function(x){return '<li class="star">'+x+'</li>';}).join("");
     var prodItems = p.produccion ? p.produccion.map(function(x){return '<li>'+x+'</li>';}).join("") : "";
+    var precioPlan = precioLanding(p, founderOn);
+    var precioNote = founderOn ? '<div style="font-size:11px;opacity:.72;margin-top:2px;text-decoration:line-through">$' + money(p.precio) + '/mes regular</div>' : '';
     pCards += '<div class="plan-card'+dest+'">'+badge+
       '<div class="ph"><h3>'+p.nombre+'</h3>'+
       (p.tag?'<div class="ptag">'+p.tag+'</div>':'')+
-      '<div class="ppr">$'+p.precio+' <span>/mes</span></div>'+
+      '<div class="ppr">$'+money(precioPlan)+' <span>/mes</span></div>'+precioNote+
       (p.fee_pauta?'<div class="fee-note">+ fee pauta: '+p.fee_pauta+'</div>':'')+
       (p.tagline?'<div class="ptagline">'+p.tagline+'</div>':'')+
       '</div>'+
@@ -2485,7 +2507,7 @@ function getBrandingPlanLandHTML() {
     '<div class="inversion-box">' +
     '<div class="inv-col">' +
     '<h3>Pago único — entrega en ' + p.entrega + '</h3>' +
-    '<div class="price-big">$' + p.precio.toLocaleString() + '</div>' +
+    '<div class="price-big">$' + money(p.precio) + '</div>' +
     '<div class="price-note">50% anticipo para iniciar · 50% contra entrega de archivos</div>' +
     entregaNote +
     '</div></div>' +
@@ -2578,8 +2600,8 @@ function getRedesPlanLandHTML() {
     '<div class="inversion-box">' +
     '<div class="inv-col">' +
     '<h3>Pago mensual anticipado</h3>' +
-    '<div class="price-big">$' + p.precio.toLocaleString() + '<span style="font-size:16px;font-weight:400;color:#888">/mes</span></div>' +
-    '<div class="price-note">Inversión mínima 3 meses: $' + (p.precio * 3).toLocaleString() + '</div>' +
+    '<div class="price-big">$' + money(p.precio) + '<span style="font-size:16px;font-weight:400;color:#888">/mes</span></div>' +
+    '<div class="price-note">Inversión mínima 3 meses: $' + money(p.precio * 3) + '</div>' +
     feePautaNote +
     (p.jornadas > 0 ? '<div class="free-badge">&#10003; Incluye ' + p.jornadas + ' jornada' + (p.jornadas > 1 ? 's' : '') + ' de grabación mensual</div>' : '') +
     prodNote +
@@ -2743,7 +2765,7 @@ async function publicarYRegistrar() {
   var ciudad  = v("p_ciudad")  || "";
   var sector  = v("p_sector")  || "";
   var wa      = v("p_whatsapp") || v("p_tel") || "";
-  var base_s  = v("p_base")    || "449";
+  var base_s  = v("p_base")    || "561.25";
   var desc_s  = v("p_desc")    || "0";
   var precio  = parseFloat(base_s) - parseFloat(desc_s);
   var planIdx = planActivo || 1;
