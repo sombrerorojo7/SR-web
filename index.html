@@ -173,9 +173,9 @@
   }
   .btn-publish:hover { opacity: .88; }
   .btn-publish:disabled { opacity: .5; cursor: not-allowed; }
-  #pub-status.ok  { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
-  #pub-status.err { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
-  #pub-status.inf { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+  #pub-status.ok, #pub-status-landing.ok  { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+  #pub-status.err, #pub-status-landing.err { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+  #pub-status.inf, #pub-status-landing.inf { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
   /* ─── Buscador de prospectos ─── */
   .btn-google { display:flex; align-items:center; gap:8px; width:100%; padding:9px 12px;
     background:#fff; border:1.5px solid #ddd; border-radius:7px; cursor:pointer;
@@ -407,6 +407,37 @@ document.addEventListener('click', function(e) {
       <button class="btn-action btn-secondary" onclick="abrirNuevaPestana('frame-landing')">🔗 Abrir en nueva pestaña</button>
       <button class="btn-action btn-outline" onclick="imprimirFrame('frame-landing')">🖨 Imprimir / PDF</button>
     </div>
+    <div class="seccion-group" id="sec-publicar-landing">
+      <h3>🚀 Publicación automática</h3>
+      <details id="config-pub-landing" style="margin-bottom:10px;">
+        <summary style="cursor:pointer;font-size:12px;color:var(--rojo);font-weight:600;padding:4px 0;">⚙️ Configuración</summary>
+        <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px;">
+          <div class="field-group">
+            <label>Token GitHub</label>
+            <input type="password" id="cfg_token_l" placeholder="ghp_xxxxxxxxxxxx"
+              oninput="guardarConfig()" autocomplete="off">
+          </div>
+          <div class="field-group">
+            <label>Webhook Make</label>
+            <input type="text" id="cfg_webhook_l" placeholder="https://hook.us2.make.com/..."
+              oninput="guardarConfig()">
+          </div>
+          <div class="field-group">
+            <label>Pestaña Google Sheets</label>
+            <input type="text" id="cfg_tab_l" placeholder="Proformas" oninput="guardarConfig()">
+          </div>
+          <div class="field-group">
+            <label>URL base GitHub Pages</label>
+            <input type="text" id="cfg_baseurl_l" placeholder="https://sombrerorojo7.github.io/SR-web/"
+              oninput="guardarConfig()">
+          </div>
+        </div>
+      </details>
+      <button class="btn-action btn-publish" onclick="publicarYRegistrar(this)" id="btn-publicar-landing">
+        🚀 Publicar Landing + Registrar
+      </button>
+      <div id="pub-status-landing" style="margin-top:8px;font-size:11px;display:none;padding:8px;border-radius:6px;"></div>
+    </div>
   </div>
   <div class="preview-area">
     <div class="preview-topbar">
@@ -573,7 +604,7 @@ document.addEventListener('click', function(e) {
           </div>
         </div>
       </details>
-      <button class="btn-action btn-publish" onclick="publicarYRegistrar()" id="btn-publicar">
+      <button class="btn-action btn-publish" onclick="publicarYRegistrar(this)" id="btn-publicar">
         🚀 Publicar + Registrar en Sheets
       </button>
       <div id="pub-status" style="margin-top:8px;font-size:11px;display:none;padding:8px;border-radius:6px;"></div>
@@ -2838,32 +2869,57 @@ window.addEventListener("DOMContentLoaded", function() {
 var MAKE_WEBHOOK_DEFAULT = "";
 var GITHUB_OWNER = "sombrerorojo7";
 var GITHUB_REPO  = "SR-web";
+function cfgEls(base) {
+  return [document.getElementById(base), document.getElementById(base + "_l")].filter(Boolean);
+}
+function cfgVal(base, fallback) {
+  var els = cfgEls(base);
+  if (document.activeElement && els.indexOf(document.activeElement) >= 0) return document.activeElement.value;
+  for (var i = 0; i < els.length; i++) {
+    if (els[i].value) return els[i].value;
+  }
+  return fallback || "";
+}
+function setCfgEls(base, value) {
+  cfgEls(base).forEach(function(el) { el.value = value; });
+}
 function guardarConfig() {
   var cfg = {
-    token:   document.getElementById("cfg_token")  ? document.getElementById("cfg_token").value  : "",
-    webhook: document.getElementById("cfg_webhook") ? document.getElementById("cfg_webhook").value : "",
-    tab:     document.getElementById("cfg_tab")     ? document.getElementById("cfg_tab").value     : "",
-    baseurl: document.getElementById("cfg_baseurl") ? document.getElementById("cfg_baseurl").value : ""
+    token:   cfgVal("cfg_token"),
+    webhook: cfgVal("cfg_webhook"),
+    tab:     cfgVal("cfg_tab"),
+    baseurl: cfgVal("cfg_baseurl")
   };
   localStorage.setItem("sr_pub_config", JSON.stringify(cfg));
+  cargarConfig();
 }
 function cargarConfig() {
   var cfg = JSON.parse(localStorage.getItem("sr_pub_config") || "{}");
-  if (document.getElementById("cfg_token"))   document.getElementById("cfg_token").value   = cfg.token   || "";
-  if (document.getElementById("cfg_webhook")) document.getElementById("cfg_webhook").value = cfg.webhook  || MAKE_WEBHOOK_DEFAULT;
-  if (document.getElementById("cfg_tab"))     document.getElementById("cfg_tab").value     = cfg.tab      || "Proformas";
-  if (document.getElementById("cfg_baseurl")) document.getElementById("cfg_baseurl").value = cfg.baseurl  || "https://sombrerorojo7.github.io/SR-web/";
+  setCfgEls("cfg_token", cfg.token || "");
+  setCfgEls("cfg_webhook", cfg.webhook || MAKE_WEBHOOK_DEFAULT);
+  setCfgEls("cfg_tab", cfg.tab || "Proformas");
+  setCfgEls("cfg_baseurl", cfg.baseurl || "https://sombrerorojo7.github.io/SR-web/");
+}
+function getPubStatusEl() {
+  var landingActiva = document.getElementById("panel-landing") && document.getElementById("panel-landing").classList.contains("active");
+  return document.getElementById(landingActiva ? "pub-status-landing" : "pub-status");
 }
 function pubStatus(msg, tipo) {
-  var el = document.getElementById("pub-status");
+  var el = getPubStatusEl();
   if (!el) return;
   el.style.display = "block";
   el.className = tipo || "inf";
   el.innerHTML = msg;
 }
 function pubStatusClear() {
-  var el = document.getElementById("pub-status");
-  if (el) { el.style.display = "none"; el.className = ""; el.innerHTML = ""; }
+  ["pub-status", "pub-status-landing"].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.style.display = "none"; el.className = ""; el.innerHTML = ""; }
+  });
+}
+function pubStatusHTML() {
+  var el = getPubStatusEl();
+  return el ? el.innerHTML : "";
 }
 function getCfg(key) {
   var cfg = JSON.parse(localStorage.getItem("sr_pub_config") || "{}");
@@ -2872,41 +2928,77 @@ function getCfg(key) {
   if (key === "baseurl") return (cfg.baseurl || "https://sombrerorojo7.github.io/SR-web/").replace(/\/$/, "") + "/";
   return cfg[key] || "";
 }
-async function publicarYRegistrar() {
+function getHTMLLandingActiva() {
+  return servicioActivo === "branding" ? getBrandingLandingHTML()
+       : servicioActivo === "redes" ? getRedesLandingHTML()
+       : servicioActivo === "whatsapp" ? getWABotLandingHTML()
+       : getLandingHTML();
+}
+function getContextoPublicacion() {
+  var landingActiva = document.getElementById("panel-landing") && document.getElementById("panel-landing").classList.contains("active");
+  var planObj = getPlanActivoObj();
+  if (landingActiva) {
+    var empresaL = v("l_negocio") || "cliente";
+    return {
+      html: getHTMLLandingActiva(),
+      folder: "landings",
+      label: "Landing completa",
+      tipo: "landing_completa",
+      ncot: "landing",
+      nombre: v("l_contacto") || "Cliente",
+      empresa: empresaL,
+      ciudad: "",
+      sector: v("l_sector") || "",
+      wa: "",
+      planSheet: "Landing completa — " + servicioActivo,
+      precio: "",
+      slugBase: servicioActivo + "-" + empresaL
+    };
+  }
+  var empresaG = v("p_empresa") || v("p_nombre") || "cliente";
+  var esLandingPlan = subtabActivo === "html";
+  return {
+    html: esLandingPlan ? getPlanLandServicio() : getProformaServicio(),
+    folder: esLandingPlan ? "landings-plan" : "propuestas",
+    label: esLandingPlan ? "Landing del plan" : "Propuesta",
+    tipo: esLandingPlan ? "landing_plan" : "proforma",
+    ncot: v("p_ncot") || "001",
+    nombre: v("p_nombre") || "Cliente",
+    empresa: empresaG,
+    ciudad: v("p_ciudad") || "",
+    sector: v("p_sector") || "",
+    wa: v("p_whatsapp") || v("p_tel") || "",
+    planSheet: "Plan " + planObj.nombre + " $" + planObj.precio,
+    precio: planObj.precio,
+    slugBase: (v("p_ncot") || "001") + "-" + empresaG
+  };
+}
+async function publicarYRegistrar(btn) {
   pubStatusClear();
-  var btn = document.getElementById("btn-publicar");
+  btn = btn || document.getElementById("btn-publicar");
   if (btn) btn.disabled = true;
-  // ─ Datos del formulario
-  var ncot    = v("p_ncot")    || "001";
-  var nombre  = v("p_nombre")  || "Cliente";
-  var empresa = v("p_empresa") || v("p_nombre") || "cliente";
-  var ciudad  = v("p_ciudad")  || "";
-  var sector  = v("p_sector")  || "";
-  var wa      = v("p_whatsapp") || v("p_tel") || "";
-  var base_s  = v("p_base")    || "561.25";
-  var desc_s  = v("p_desc")    || "0";
-  var precio  = parseFloat(base_s) - parseFloat(desc_s);
-  var planIdx = planActivo || 1;
-  var planNames = ["", "Plan 1 — Captación Digital", "Plan 2 — Conversión", "Plan 3 — Automatización"];
-  var planObj    = getPlanActivoObj();
-  var planSheet  = "Plan " + planObj.nombre + " $" + planObj.precio;
-  var precio     = planObj.precio;
+  var ctx = getContextoPublicacion();
+  var ncot = ctx.ncot;
+  var nombre = ctx.nombre;
+  var empresa = ctx.empresa;
+  var ciudad = ctx.ciudad;
+  var sector = ctx.sector;
+  var wa = ctx.wa;
+  var planSheet = ctx.planSheet;
+  var precio = ctx.precio;
   // ─ Configuración
   var token   = getCfg("token");
   var webhook = getCfg("webhook");
   var baseurl = getCfg("baseurl");
   // ─ Generar slug y ruta
-  var slugEmp  = slug(empresa);
-  var propSlug = "sr-" + ncot + "-" + slugEmp;
-  var propPath = "propuestas/" + propSlug + "/index.html";
-  var propURL  = baseurl + "propuestas/" + propSlug + "/";
-  // ─ Obtener HTML de la propuesta (la que ya genera el sistema)
-  var propHTML = "";
-  try { propHTML = servicioActivo==='branding'?getBrandingProformaHTML():servicioActivo==='redes'?getRedesProformaHTML():servicioActivo==='whatsapp'?getWABotProformaHTML():getProformaHTML(); } catch(e) { propHTML = "<html><body><h1>Propuesta</h1></body></html>"; }
+  var propSlug = "sr-" + slug(ctx.slugBase);
+  var propPath = ctx.folder + "/" + propSlug + "/index.html";
+  var propURL  = baseurl + ctx.folder + "/" + propSlug + "/";
+  var propHTML = ctx.html || "<html><body><h1>" + ctx.label + "</h1></body></html>";
   var fecha = new Date().toISOString().split("T")[0];
   // ═══ PASO 1: Publicar en GitHub Pages ═══
   if (token) {
-    pubStatus("⏳ Publicando propuesta en GitHub Pages…", "inf");
+    pubStatus("⏳ Publicando " + ctx.label.toLowerCase() + " en GitHub Pages…", "inf");
     try {
       // Check if file exists to get SHA for update
       var shaExistente = null;
@@ -2919,7 +3011,7 @@ async function publicarYRegistrar() {
         shaExistente = existing.sha;
       }
       var body = {
-        message: "Propuesta " + ncot + " — " + empresa,
+        message: ctx.label + " " + ncot + " — " + empresa,
         content: btoa(unescape(encodeURIComponent(propHTML))),
         branch:  "main"
       };
@@ -2940,7 +3032,7 @@ async function publicarYRegistrar() {
         var errData = await pushResp.json();
         throw new Error("GitHub: " + (errData.message || pushResp.status));
       }
-      pubStatus("✅ Propuesta publicada en GitHub Pages.<br>🔗 <a href='" + propURL + "' target='_blank'>" + propURL + "</a>", "ok");
+      pubStatus("✅ " + ctx.label + " publicada en GitHub Pages.<br>🔗 <a href='" + propURL + "' target='_blank'>" + propURL + "</a>", "ok");
       // Copy URL to clipboard
       if (navigator.clipboard) { try { await navigator.clipboard.writeText(propURL); } catch(e){} }
     } catch(e) {
@@ -2952,7 +3044,7 @@ async function publicarYRegistrar() {
   }
   // ═══ PASO 2: Registrar en Make → Google Sheets ═══
   if (webhook) {
-    pubStatus((document.getElementById("pub-status").innerHTML || "") + "<br>⏳ Registrando en Google Sheets…", "inf");
+    pubStatus(pubStatusHTML() + "<br>⏳ Registrando en Google Sheets…", "inf");
     try {
       var payload = {
         cotizacion:     ncot,
@@ -2962,6 +3054,7 @@ async function publicarYRegistrar() {
         sector:         sector,
         whatsapp:       wa,
         tipo_servicio:  servicioActivo,
+        tipo_documento: ctx.tipo,
         plan_elegido:   planSheet,
         precio:         precio,
         estado_pipeline:"Propuesta enviada",
@@ -2975,12 +3068,12 @@ async function publicarYRegistrar() {
         body: JSON.stringify(payload)
       });
       if (mkResp.ok) {
-        pubStatus("✅ Propuesta publicada y registrada en Google Sheets.<br>🔗 <a href='" + propURL + "' target='_blank'>" + propURL + "</a>", "ok");
+        pubStatus("✅ " + ctx.label + " publicada y registrada en Google Sheets.<br>🔗 <a href='" + propURL + "' target='_blank'>" + propURL + "</a>", "ok");
       } else {
         throw new Error("Make respondió " + mkResp.status);
       }
     } catch(e) {
-      pubStatus((document.getElementById("pub-status").innerHTML || "") + "<br>⚠️ Error Make: " + e.message, "err");
+      pubStatus(pubStatusHTML() + "<br>⚠️ Error Make: " + e.message, "err");
     }
   }
   // ═══ PASO 3: Abrir WhatsApp ═══
