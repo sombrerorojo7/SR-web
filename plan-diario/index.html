@@ -215,17 +215,34 @@
       text-transform: uppercase;
     }
 
-    textarea {
+    textarea, .url-input {
       width: 100%;
-      min-height: 86px;
       border: 1.5px solid var(--line);
       border-radius: 8px;
       padding: 8px;
       font: inherit;
       font-size: 12px;
-      resize: vertical;
       background: #fff;
       color: var(--ink);
+    }
+
+    textarea {
+      min-height: 86px;
+      resize: vertical;
+    }
+
+    .url-input {
+      min-height: 38px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 13px;
+    }
+
+    .link-loader {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      margin-top: 10px;
     }
 
     .objective-label {
@@ -379,6 +396,7 @@
       .tabs { grid-template-columns: repeat(3, 1fr); }
       .stat-row { grid-template-columns: repeat(2, 1fr); }
       .insight, .split, .automation-grid { grid-template-columns: 1fr; }
+      .link-loader { grid-template-columns: 1fr; }
       .week-grid { grid-template-columns: 1fr; }
       .day-col { border-radius: 9px; }
       .toolbar { align-items: stretch; }
@@ -482,8 +500,18 @@
         <div class="actions">
           <label class="file-label primary" for="csvInput">Importar CSV</label>
           <input id="csvInput" type="file" accept=".csv,text/csv" multiple>
+          <button class="secondary" type="button" id="loadUrlBtn">Actualizar desde link</button>
           <button class="secondary" type="button" id="exportPlanBtn">Exportar plan</button>
           <button class="ghost" type="button" id="clearDataBtn">Limpiar datos</button>
+        </div>
+      </div>
+
+      <div class="data-card" style="margin-bottom:10px">
+        <h3>Link del CSV en Drive o Sheets</h3>
+        <p class="helper">Pega un enlace público de CSV o una hoja de Google Sheets publicada/exportada como CSV.</p>
+        <div class="link-loader">
+          <input class="url-input" id="csvUrlInput" type="url" placeholder="https://docs.google.com/spreadsheets/d/.../export?format=csv...">
+          <button class="primary" type="button" id="saveUrlBtn">Guardar link</button>
         </div>
       </div>
 
@@ -492,7 +520,7 @@
           <h3>Cómo usarlo</h3>
           <ul>
             <li>Exporta tu hoja como CSV desde Google Sheets o Excel.</li>
-            <li>Importa uno o varios CSV cada semana o cada vez que actualices estados.</li>
+            <li>Puedes pegar un link público del CSV o importar uno o varios archivos manualmente.</li>
             <li>La app guarda los datos en este navegador del teléfono.</li>
             <li>Los prospectos no se suben a GitHub ni a ningún servidor desde esta app.</li>
           </ul>
@@ -504,6 +532,7 @@
             <li>Estado de contacto, Estado Pipeline y Fecha de último contacto.</li>
             <li>Próximo Contacto, Link WhatsApp, Link Propuesta y Confirmación si existe.</li>
             <li>También funciona si algunas columnas están vacías.</li>
+            <li>Si el enlace privado no carga, usa “Importar CSV” como respaldo.</li>
           </ul>
         </div>
       </div>
@@ -527,11 +556,11 @@
 
     function loadState() {
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (!saved) return { prospects: [], weeks: {}, activeWeek: weekStartISO(new Date()), importedAt: null };
+      if (!saved) return { prospects: [], weeks: {}, activeWeek: weekStartISO(new Date()), importedAt: null, csvUrl: "" };
       try {
-        return { prospects: [], weeks: {}, activeWeek: weekStartISO(new Date()), importedAt: null, ...JSON.parse(saved) };
+        return { prospects: [], weeks: {}, activeWeek: weekStartISO(new Date()), importedAt: null, csvUrl: "", ...JSON.parse(saved) };
       } catch {
-        return { prospects: [], weeks: {}, activeWeek: weekStartISO(new Date()), importedAt: null };
+        return { prospects: [], weeks: {}, activeWeek: weekStartISO(new Date()), importedAt: null, csvUrl: "" };
       }
     }
 
@@ -614,6 +643,64 @@
         });
         return normalizeProspect(item);
       });
+    }
+
+    function importCSVText(text) {
+      const rows = parseCSV(text);
+      state.prospects = rows.length > 1 ? rowsToObjects(rows) : [];
+      state.importedAt = new Date().toISOString();
+      render();
+    }
+
+    function normalizeCSVUrl(url) {
+      const value = normalizeText(url);
+      if (!value) return "";
+
+      const sheetMatch = value.match(/docs\.google\.com\/spreadsheets\/d\/([^/]+)/);
+      if (sheetMatch) {
+        const gidMatch = value.match(/[?&#]gid=(\d+)/);
+        const gid = gidMatch ? gidMatch[1] : "0";
+        return `https://docs.google.com/spreadsheets/d/${sheetMatch[1]}/export?format=csv&gid=${gid}`;
+      }
+
+      const driveMatch = value.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+      if (driveMatch) {
+        return `https://drive.google.com/uc?export=download&id=${driveMatch[1]}`;
+      }
+
+      const driveIdMatch = value.match(/[?&]id=([^&]+)/);
+      if (value.includes("drive.google.com") && driveIdMatch) {
+        return `https://drive.google.com/uc?export=download&id=${driveIdMatch[1]}`;
+      }
+
+      return value;
+    }
+
+    async function loadCSVFromUrl() {
+      const input = document.getElementById("csvUrlInput");
+      const status = document.getElementById("dataStatus");
+      const url = normalizeCSVUrl(input.value);
+
+      if (!url) {
+        status.textContent = "Pega primero el link del CSV.";
+        return;
+      }
+
+      state.csvUrl = input.value;
+      saveState();
+      status.textContent = "Cargando CSV desde el link...";
+
+      try {
+        const response = await fetch(url, { cache: "no-store" });
+        if (!response.ok) throw new Error(`Respuesta ${response.status}`);
+        const text = await response.text();
+        if (/<!doctype html|<html/i.test(text.slice(0, 500))) {
+          throw new Error("El enlace devolvió una página, no un CSV");
+        }
+        importCSVText(text);
+      } catch (error) {
+        status.textContent = `No se pudo leer ese link. Revisa que sea público/exportable como CSV o usa Importar CSV manual. Detalle: ${error.message}`;
+      }
     }
 
     function pick(raw, candidates) {
@@ -937,6 +1024,7 @@
 
     function renderDataStatus() {
       const status = document.getElementById("dataStatus");
+      document.getElementById("csvUrlInput").value = state.csvUrl || "";
       status.textContent = state.prospects.length
         ? `${state.prospects.length} prospectos cargados. Última importación: ${state.importedAt ? new Date(state.importedAt).toLocaleString("es-EC") : "sin fecha"}.`
         : "Todavía no hay CSV cargado.";
@@ -961,6 +1049,14 @@
       event.target.value = "";
     });
 
+    document.getElementById("saveUrlBtn").addEventListener("click", () => {
+      state.csvUrl = document.getElementById("csvUrlInput").value;
+      saveState();
+      document.getElementById("dataStatus").textContent = "Link guardado. Puedes tocar “Actualizar desde link” cuando quieras refrescar la hoja.";
+    });
+
+    document.getElementById("loadUrlBtn").addEventListener("click", loadCSVFromUrl);
+
     document.getElementById("prospectSearch").addEventListener("input", () => renderProspects());
     document.getElementById("showDueBtn").addEventListener("click", () => renderProspects("follow"));
     document.getElementById("showPendingBtn").addEventListener("click", () => renderProspects("pending"));
@@ -984,6 +1080,7 @@
       state.weeks = {};
       state.activeWeek = weekStartISO(new Date());
       state.importedAt = null;
+      state.csvUrl = "";
       render();
     });
 
