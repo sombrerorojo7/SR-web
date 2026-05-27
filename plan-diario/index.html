@@ -78,7 +78,7 @@
     }
     .niche-Industria { background: #dbeafe; color: #1e40af; }
     .niche-Quito-Industria { background: #ede9fe; color: #5b21b6; }
-    .niche-OdontologÃ­a { background: #dcfce7; color: #166534; }
+    .niche-Odontologa { background: #dcfce7; color: #166534; }
     .niche-Pediatras-Cuenca { background: #fef3c7; color: #92400e; }
     .wa-btn {
       display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;
@@ -190,21 +190,21 @@
 
 <div class="header">
   <div>
-    <div class="header-title">ð Plan Semanal Sombrero Rojo</div>
-    <div class="header-sub">Sistema de ProspecciÃ³n Digital â Cuenca, Ecuador</div>
+    <div class="header-title">📋 Plan Semanal Sombrero Rojo</div>
+    <div class="header-sub">Sistema de Prospección Digital — Cuenca, Ecuador</div>
   </div>
   <div style="display:flex; align-items:center; gap:12px;">
     <div class="sync-info" id="syncInfo">Sin datos</div>
-    <button class="sync-btn" id="syncBtn" onclick="syncAll()">ð Actualizar</button>
+    <button class="sync-btn" id="syncBtn" onclick="syncAll()">🔄 Actualizar</button>
   </div>
 </div>
 
 <div class="tabs">
-  <button class="tab-btn active" onclick="showTab('semana', this)">ð Semana</button>
-  <button class="tab-btn" onclick="showTab('prospectos', this)">ð¥ Prospectos</button>
-  <button class="tab-btn" onclick="showTab('servicios', this)">ð¼ Servicios</button>
-  <button class="tab-btn" onclick="showTab('automatizacion', this)">â¡ AutomatizaciÃ³n</button>
-  <button class="tab-btn" onclick="showTab('datos', this)">âï¸ Datos</button>
+  <button class="tab-btn active" onclick="showTab('semana', this)">📅 Semana</button>
+  <button class="tab-btn" onclick="showTab('prospectos', this)">👥 Prospectos</button>
+  <button class="tab-btn" onclick="showTab('servicios', this)">💼 Servicios</button>
+  <button class="tab-btn" onclick="showTab('automatizacion', this)">⚡ Automatización</button>
+  <button class="tab-btn" onclick="showTab('datos', this)">⚙️ Datos</button>
 </div>
 
 <!-- TAB: SEMANA -->
@@ -216,7 +216,7 @@
     <span id="weekLabel" style="font-size:0.8rem; color:var(--texto-suave);"></span>
   </div>
   <div class="week-grid" id="weekGrid">
-    <div class="no-data"><div class="icon">ð</div><p>Cargando plan semanalâ¦</p></div>
+    <div class="no-data"><div class="icon">📊</div><p>Cargando plan semanal…</p></div>
   </div>
 </div>
 
@@ -229,10 +229,10 @@
     </div>
     <div class="filter-row">
       <button class="filter-btn active" onclick="setFilter('todos', this)">Todos</button>
-      <button class="filter-btn" onclick="setFilter('hot', this)">ð¥ Calientes</button>
-      <button class="filter-btn" onclick="setFilter('follow', this)">â° Seguimiento</button>
-      <button class="filter-btn" onclick="setFilter('sent', this)">ð¤ Propuesta</button>
-      <button class="filter-btn" onclick="setFilter('pending', this)">â³ Pendiente</button>
+      <button class="filter-btn" onclick="setFilter('hot', this)">🔥 Calientes</button>
+      <button class="filter-btn" onclick="setFilter('follow', this)">⏰ Seguimiento</button>
+      <button class="filter-btn" onclick="setFilter('sent', this)">📤 Propuesta</button>
+      <button class="filter-btn" onclick="setFilter('pending', this)">⏳ Pendiente</button>
     </div>
   </div>
   <div id="prospectList"></div>
@@ -241,69 +241,69 @@
 <!-- TAB: SERVICIOS -->
 <div class="tab-content" id="tab-servicios">
   <h2 style="font-family:'Bebas Neue',sans-serif; color:var(--azul); font-size:1.3rem; margin-bottom:16px;">
-    CatÃ¡logo de Servicios
+    Catálogo de Servicios
   </h2>
   <div class="service-grid">
     <div class="service-card">
-      <div class="service-name">ð DiseÃ±o Web</div>
-      <div class="service-price">$449 â $1,399</div>
-      <div class="service-desc">Sitio web profesional con WordPress, diseÃ±o personalizado y optimizaciÃ³n SEO bÃ¡sica.</div>
+      <div class="service-name">🌐 Diseño Web</div>
+      <div class="service-price">$449 – $1,399</div>
+      <div class="service-desc">Sitio web profesional con WordPress, diseño personalizado y optimización SEO básica.</div>
     </div>
     <div class="service-card">
-      <div class="service-name">ð± GestiÃ³n de Redes</div>
-      <div class="service-price">$299 â $599/mes</div>
-      <div class="service-desc">Publicaciones semanales, diseÃ±o grÃ¡fico, anÃ¡lisis mensual e interacciÃ³n con seguidores.</div>
+      <div class="service-name">📱 Gestión de Redes</div>
+      <div class="service-price">$299 – $599/mes</div>
+      <div class="service-desc">Publicaciones semanales, diseño gráfico, análisis mensual e interacción con seguidores.</div>
     </div>
     <div class="service-card">
-      <div class="service-name">ð¨ Branding</div>
-      <div class="service-price">$249 â $399</div>
-      <div class="service-desc">Logo, paleta de colores, tipografÃ­a y manual de marca bÃ¡sico.</div>
+      <div class="service-name">🎨 Branding</div>
+      <div class="service-price">$249 – $399</div>
+      <div class="service-desc">Logo, paleta de colores, tipografía y manual de marca básico.</div>
     </div>
     <div class="service-card">
-      <div class="service-name">ð¤ Chatbot / Consultorio Digital</div>
-      <div class="service-price">$800 â $1,500 + $150/mes</div>
-      <div class="service-desc">AutomatizaciÃ³n de WhatsApp/Instagram con ManyChat o IA. Incluye embudo de captaciÃ³n.</div>
+      <div class="service-name">🤖 Chatbot / Consultorio Digital</div>
+      <div class="service-price">$800 – $1,500 + $150/mes</div>
+      <div class="service-desc">Automatización de WhatsApp/Instagram con ManyChat o IA. Incluye embudo de captación.</div>
     </div>
     <div class="service-card">
-      <div class="service-name">ð Publicidad Digital</div>
-      <div class="service-price">$200 â $500/mes</div>
-      <div class="service-desc">CampaÃ±as en Meta Ads o Google Ads, optimizaciÃ³n continua y reportes semanales.</div>
+      <div class="service-name">📈 Publicidad Digital</div>
+      <div class="service-price">$200 – $500/mes</div>
+      <div class="service-desc">Campañas en Meta Ads o Google Ads, optimización continua y reportes semanales.</div>
     </div>
     <div class="service-card">
-      <div class="service-name">ð¥ Consultorio Digital (MÃ©dicos)</div>
-      <div class="service-price">$800 â $1,200</div>
-      <div class="service-desc">Sitio web con KiviCare, agenda online, recordatorios automÃ¡ticos y perfil mÃ©dico.</div>
+      <div class="service-name">🏥 Consultorio Digital (Médicos)</div>
+      <div class="service-price">$800 – $1,200</div>
+      <div class="service-desc">Sitio web con KiviCare, agenda online, recordatorios automáticos y perfil médico.</div>
     </div>
   </div>
 </div>
 
-<!-- TAB: AUTOMATIZACIÃN -->
+<!-- TAB: AUTOMATIZACIÓN -->
 <div class="tab-content" id="tab-automatizacion">
   <h2 style="font-family:'Bebas Neue',sans-serif; color:var(--azul); font-size:1.3rem; margin-bottom:16px;">
-    Sistema de AutomatizaciÃ³n SR
+    Sistema de Automatización SR
   </h2>
   <div class="section-card">
-    <div class="section-title">ð Flujo activo de captaciÃ³n</div>
+    <div class="section-title">🔄 Flujo activo de captación</div>
     <p style="font-size:0.85rem; color:var(--texto-suave); line-height:1.6;">
-      Landing SR-web â Webhook Make.com â Google Sheet "Prospectos SR" â Plan Semanal (este planificador)
+      Landing SR-web → Webhook Make.com → Google Sheet "Prospectos SR" → Plan Semanal (este planificador)
     </p>
     <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:8px;">
       <a href="https://sombrerorojo7.github.io/SR-web/" target="_blank" class="btn btn-primary" style="text-decoration:none; font-size:0.78rem;">
-        ð Ir a la Landing SR
+        🚀 Ir a la Landing SR
       </a>
       <a href="https://docs.google.com/spreadsheets/d/1gIyuMzvGyHhjmBSqJlDI6r2QYoOCMLQcHTVpRYxhSxw/edit" target="_blank" class="btn btn-secondary" style="text-decoration:none; font-size:0.78rem;">
-        ð Abrir Google Sheet
+        📊 Abrir Google Sheet
       </a>
     </div>
   </div>
   <div class="section-card">
-    <div class="section-title">ð PestaÃ±as de prospecciÃ³n conectadas</div>
+    <div class="section-title">📋 Pestañas de prospección conectadas</div>
     <ul class="niche-list" id="nicheStatusList">
-      <li><span class="tab-name">Cargandoâ¦</span></li>
+      <li><span class="tab-name">Cargando…</span></li>
     </ul>
   </div>
   <div class="section-card">
-    <div class="section-title">ð EstadÃ­sticas de hoy</div>
+    <div class="section-title">📊 Estadísticas de hoy</div>
     <div id="statsGrid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap:10px; margin-top:8px;"></div>
   </div>
 </div>
@@ -311,29 +311,29 @@
 <!-- TAB: DATOS -->
 <div class="tab-content" id="tab-datos">
   <div class="section-card">
-    <div class="section-title">ð PestaÃ±as nicho auto-conectadas</div>
+    <div class="section-title">📌 Pestañas nicho auto-conectadas</div>
     <p style="font-size:0.82rem; color:var(--texto-suave); margin-bottom:12px;">
-      El planificador carga automÃ¡ticamente estas 4 pestaÃ±as desde el Google Sheet cada vez que presionas "Actualizar".
+      El planificador carga automáticamente estas 4 pestañas desde el Google Sheet cada vez que presionas "Actualizar".
     </p>
     <ul class="niche-list" id="nicheConfigList"></ul>
   </div>
 
   <div class="section-card">
-    <div class="section-title">ð URL adicional (opcional)</div>
+    <div class="section-title">🔗 URL adicional (opcional)</div>
     <p style="font-size:0.78rem; color:var(--texto-suave); margin-bottom:10px;">
-      Si quieres cargar una pestaÃ±a adicional o una URL CSV personalizada, ingrÃ©sala aquÃ­.
+      Si quieres cargar una pestaña adicional o una URL CSV personalizada, ingrésala aquí.
     </p>
     <label for="csvUrlInput">URL de Google Sheet o CSV directo</label>
     <input class="url-input" id="csvUrlInput" type="url" placeholder="https://docs.google.com/spreadsheets/d/...">
     <div class="btn-row">
-      <button class="btn btn-primary" id="saveUrlBtn" onclick="saveCustomUrl()">ð¾ Guardar link</button>
-      <button class="btn btn-secondary" id="loadUrlBtn" onclick="loadCustomUrl()">â¬ï¸ Cargar desde link</button>
-      <button class="btn btn-danger" onclick="clearAll()">ðï¸ Limpiar todo</button>
+      <button class="btn btn-primary" id="saveUrlBtn" onclick="saveCustomUrl()">💾 Guardar link</button>
+      <button class="btn btn-secondary" id="loadUrlBtn" onclick="loadCustomUrl()">⬇️ Cargar desde link</button>
+      <button class="btn btn-danger" onclick="clearAll()">🗑️ Limpiar todo</button>
     </div>
   </div>
 
   <div class="section-card">
-    <div class="section-title">â¹ï¸ Estado del sistema</div>
+    <div class="section-title">ℹ️ Estado del sistema</div>
     <div id="systemStatus" style="font-size:0.82rem; color:var(--texto-suave); line-height:1.8;"></div>
   </div>
 </div>
@@ -342,7 +342,7 @@
 <div class="loading-overlay" id="loadingOverlay" style="display:none;">
   <div class="loading-box">
     <div class="spinner"></div>
-    <div class="loading-text" id="loadingText">Cargando prospectosâ¦</div>
+    <div class="loading-text" id="loadingText">Cargando prospectos…</div>
   </div>
 </div>
 
@@ -351,14 +351,14 @@
 
 <script>
 // =====================================================
-// CONFIGURACIÃN â Sheet ID y pestaÃ±as nicho
+// CONFIGURACIÓN — Sheet ID y pestañas nicho
 // =====================================================
 const SHEET_ID = '1gIyuMzvGyHhjmBSqJlDI6r2QYoOCMLQcHTVpRYxhSxw';
 
 const NICHE_TABS = [
   { name: 'Industria',        gid: '258977582'  },
   { name: 'Quito-Industria',  gid: '204156211'  },
-  { name: 'OdontologÃ­a',      gid: '2075600573' },
+  { name: 'Odontología',      gid: '2075600573' },
   { name: 'Pediatras-Cuenca', gid: '2075600571' }
 ];
 
@@ -391,13 +391,13 @@ function saveState() {
 }
 
 // =====================================================
-// SYNC â carga todas las pestaÃ±as nicho automÃ¡ticamente
+// SYNC — carga todas las pestañas nicho automáticamente
 // =====================================================
 async function syncAll() {
   const btn = document.getElementById('syncBtn');
   btn.disabled = true;
-  btn.textContent = 'â³ Cargandoâ¦';
-  showLoading('Cargando datos de prospectosâ¦');
+  btn.textContent = '⏳ Cargando…';
+  showLoading('Cargando datos de prospectos…');
 
   const allProspects = [];
   const counts = {};
@@ -405,7 +405,7 @@ async function syncAll() {
   for (const tab of NICHE_TABS) {
     const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${tab.gid}`;
     try {
-      document.getElementById('loadingText').textContent = `Cargando pestaÃ±a: ${tab.name}â¦`;
+      document.getElementById('loadingText').textContent = `Cargando pestaña: ${tab.name}…`;
       const resp = await fetch(url, { cache: 'no-store' });
       if (!resp.ok) throw new Error('HTTP ' + resp.status);
       const text = await resp.text();
@@ -440,10 +440,10 @@ async function syncAll() {
   saveState();
 
   btn.disabled = false;
-  btn.textContent = 'ð Actualizar';
+  btn.textContent = '🔄 Actualizar';
   hideLoading();
   render();
-  showToast(`â ${allProspects.length} prospectos cargados de ${NICHE_TABS.length} pestaÃ±as`);
+  showToast(`✅ ${allProspects.length} prospectos cargados de ${NICHE_TABS.length} pestañas`);
 }
 
 // =====================================================
@@ -502,9 +502,9 @@ function normalizeProspect(raw, nicho) {
   const plan = get('Plan Sugerido', 'Plan', 'plan', 'Servicio', 'servicio');
   const estadoContacto = get('Estado de contacto', 'Estado contacto', 'estado_contacto', 'Estado');
   const pipeline = get('Estado Pipeline', 'Pipeline', 'pipeline', 'Etapa');
-  const ultimoContacto = get('Fecha de Ãºltimo contacto', 'Ultimo contacto', 'Ãltima fecha', 'Fecha contacto');
-  const proximoContacto = get('PrÃ³ximo Contacto', 'Proximo Contacto', 'PrÃ³ximo contacto', 'Fecha prÃ³ximo');
-  const whatsapp = get('WhatsApp', 'Link WhatsApp', 'TelÃ©fono', 'Telefono', 'Tel', 'tel');
+  const ultimoContacto = get('Fecha de último contacto', 'Ultimo contacto', 'Última fecha', 'Fecha contacto');
+  const proximoContacto = get('Próximo Contacto', 'Proximo Contacto', 'Próximo contacto', 'Fecha próximo');
+  const whatsapp = get('WhatsApp', 'Link WhatsApp', 'Teléfono', 'Telefono', 'Tel', 'tel');
   const mensajeBase = get('Mensaje para WhatsApp', 'Mensaje WA', 'Mensaje personalizado', 'Mensaje', 'mensaje');
   const nombreMensaje = get('Nombre para mensaje', 'Nombre mensaje', 'nombre_mensaje') || contacto.split(' ')[0];
 
@@ -524,9 +524,9 @@ function normalizeProspect(raw, nicho) {
 function statusBucket(p) {
   const e = (p.estadoContacto || '').toLowerCase();
   const pip = (p.pipeline || '').toLowerCase();
-  if (/cerr|gan|won|firmÃ³|aprobÃ³/i.test(e + pip)) return 'won';
+  if (/cerr|gan|won|firmó|aprobó/i.test(e + pip)) return 'won';
   if (/perd|lost|descart|no interesa/i.test(e + pip)) return 'lost';
-  if (/respond|interÃ©s|caliente|interesado/i.test(e + pip)) return 'hot';
+  if (/respond|interés|caliente|interesado/i.test(e + pip)) return 'hot';
   if (/seguim|follow|llamar|contactar|pendiente de respuesta/i.test(e + pip)) return 'follow';
   if (/enviada|propuesta|cotiz|sent/i.test(e + pip)) return 'sent';
   return 'pending';
@@ -554,18 +554,18 @@ function buildWeekPlan() {
   const today = new Date();
   const days = getWeekDates();
 
-  const DAY_NAMES = ['Lunes', 'Martes', 'MiÃ©rcoles', 'Jueves', 'Viernes'];
+  const DAY_NAMES = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
   const DAY_ACTIONS = [
     'Nuevos contactos de Industria',
     'Seguimiento a respondidos',
-    'OdontologÃ­a / Pediatras',
+    'Odontología / Pediatras',
     'Enviar propuestas pendientes',
-    'RevisiÃ³n semanal y cierre'
+    'Revisión semanal y cierre'
   ];
   const DAY_NICHES = [
     ['Industria', 'Quito-Industria'],
     null, // follow-up from any
-    ['OdontologÃ­a', 'Pediatras-Cuenca'],
+    ['Odontología', 'Pediatras-Cuenca'],
     null,
     null
   ];
@@ -581,19 +581,19 @@ function buildWeekPlan() {
     const isToday = date.toDateString() === today.toDateString();
     let assigned = [];
 
-    if (idx === 0) { // Lunes â Industria
+    if (idx === 0) { // Lunes — Industria
       const niche = DAY_NICHES[0];
       assigned = pending.filter(p => niche.includes(p.nicho)).slice(0, 5);
       if (assigned.length < 3) assigned = [...assigned, ...follow.filter(p => niche.includes(p.nicho)).slice(0, 3 - assigned.length)];
-    } else if (idx === 1) { // Martes â seguimiento calientes
+    } else if (idx === 1) { // Martes — seguimiento calientes
       assigned = [...hot.slice(0, 5), ...follow.slice(0, 3)].slice(0, 6);
-    } else if (idx === 2) { // MiÃ©rcoles â OdontologÃ­a / Pediatras
+    } else if (idx === 2) { // Miércoles — Odontología / Pediatras
       const niche = DAY_NICHES[2];
       assigned = pending.filter(p => niche.includes(p.nicho)).slice(0, 5);
       if (assigned.length < 3) assigned = [...assigned, ...follow.filter(p => niche.includes(p.nicho)).slice(0, 3 - assigned.length)];
-    } else if (idx === 3) { // Jueves â propuestas
+    } else if (idx === 3) { // Jueves — propuestas
       assigned = [...sent.slice(0, 4), ...follow.slice(0, 2)].slice(0, 5);
-    } else { // Viernes â revisiÃ³n
+    } else { // Viernes — revisión
       assigned = hot.slice(0, 3);
     }
 
@@ -625,16 +625,16 @@ function renderWeekPlan() {
 
   if (state.prospects.length === 0) {
     grid.innerHTML = `<div class="no-data" style="grid-column:1/-1">
-      <div class="icon">ð</div>
+      <div class="icon">📊</div>
       <p>No hay prospectos cargados.</p>
-      <p style="margin-top:8px; font-size:0.82rem;">Presiona <strong>ð Actualizar</strong> para cargar desde el Google Sheet.</p>
+      <p style="margin-top:8px; font-size:0.82rem;">Presiona <strong>🔄 Actualizar</strong> para cargar desde el Google Sheet.</p>
     </div>`;
     return;
   }
 
   grid.innerHTML = plan.map(day => `
     <div class="day-card ${day.isToday ? 'today' : ''}">
-      <div class="day-name">${day.isToday ? 'â¶ ' : ''}${day.dayName} ${day.date.toLocaleDateString('es-EC',{day:'2-digit',month:'2-digit'})}</div>
+      <div class="day-name">${day.isToday ? '▶ ' : ''}${day.dayName} ${day.date.toLocaleDateString('es-EC',{day:'2-digit',month:'2-digit'})}</div>
       <div class="day-action">${day.action}</div>
       ${day.prospects.length === 0 ? '<p style="font-size:0.78rem;color:#aaa;">Sin contactos asignados</p>' :
         day.prospects.map(p => {
@@ -645,8 +645,8 @@ function renderWeekPlan() {
               ${escHtml(p.empresa.substring(0,25))}
               <span class="niche-badge niche-${p.nicho.replace(/[^a-zA-Z-]/g,'')}">${p.nicho.substring(0,10)}</span>
             </div>
-            <div class="prospect-meta">${escHtml(p.nombreMensaje)} Â· ${escHtml(p.ciudad)}</div>
-            ${waLink ? `<a class="wa-btn" href="${waLink}" target="_blank" rel="noopener">ð² WA</a>` : ''}
+            <div class="prospect-meta">${escHtml(p.nombreMensaje)} · ${escHtml(p.ciudad)}</div>
+            ${waLink ? `<a class="wa-btn" href="${waLink}" target="_blank" rel="noopener">📲 WA</a>` : ''}
           </div>`;
         }).join('')
       }
@@ -664,8 +664,8 @@ function renderProspects(filter) {
   badge.textContent = prospects.length;
 
   if (prospects.length === 0) {
-    list.innerHTML = `<div class="no-data"><div class="icon">${state.prospects.length === 0 ? 'ð' : 'ð'}</div>
-      <p>${state.prospects.length === 0 ? 'Presiona ð Actualizar para cargar prospectos.' : 'Sin resultados para este filtro.'}</p></div>`;
+    list.innerHTML = `<div class="no-data"><div class="icon">${state.prospects.length === 0 ? '📊' : '🔍'}</div>
+      <p>${state.prospects.length === 0 ? 'Presiona 🔄 Actualizar para cargar prospectos.' : 'Sin resultados para este filtro.'}</p></div>`;
     return;
   }
 
@@ -681,16 +681,16 @@ function renderProspects(filter) {
           <span class="niche-badge niche-${p.nicho.replace(/[^a-zA-Z-]/g,'')}">${p.nicho}</span>
         </div>
         <div class="p-info">
-          <span>ð¤ ${escHtml(p.contacto || 'â')}</span>
-          <span>ð ${escHtml(p.ciudad || 'â')}</span>
-          <span>ð¼ ${escHtml(p.plan || 'â')}</span>
+          <span>👤 ${escHtml(p.contacto || '—')}</span>
+          <span>📍 ${escHtml(p.ciudad || '—')}</span>
+          <span>💼 ${escHtml(p.plan || '—')}</span>
         </div>
         <div class="p-info">
-          <span>ð ${escHtml(p.estadoContacto || p.pipeline || 'Sin estado')}</span>
-          ${p.proximoContacto ? `<span>ð PrÃ³ximo: ${escHtml(p.proximoContacto)}</span>` : ''}
+          <span>📊 ${escHtml(p.estadoContacto || p.pipeline || 'Sin estado')}</span>
+          ${p.proximoContacto ? `<span>📅 Próximo: ${escHtml(p.proximoContacto)}</span>` : ''}
         </div>
-        ${waMsg ? `<div class="p-msg">ð¬ ${escHtml(waMsg.substring(0, 100))}â¦</div>` : ''}
-        ${waLink ? `<a class="wa-btn" href="${waLink}" target="_blank" rel="noopener">ð² Enviar WhatsApp</a>` : ''}
+        ${waMsg ? `<div class="p-msg">💬 ${escHtml(waMsg.substring(0, 100))}…</div>` : ''}
+        ${waLink ? `<a class="wa-btn" href="${waLink}" target="_blank" rel="noopener">📲 Enviar WhatsApp</a>` : ''}
       </div>
     </div>`;
   }).join('');
@@ -704,11 +704,11 @@ function renderStats() {
 
   const items = [
     { label: 'Total', value: total, color: 'var(--azul)' },
-    { label: 'ð¥ Calientes', value: byStatus.hot, color: 'var(--rojo)' },
-    { label: 'â° Seguimiento', value: byStatus.follow, color: 'var(--naranja)' },
-    { label: 'ð¤ Con propuesta', value: byStatus.sent, color: 'var(--amarillo)' },
-    { label: 'â Cerrados', value: byStatus.won, color: 'var(--verde)' },
-    { label: 'â³ Pendientes', value: byStatus.pending, color: '#aaa' },
+    { label: '🔥 Calientes', value: byStatus.hot, color: 'var(--rojo)' },
+    { label: '⏰ Seguimiento', value: byStatus.follow, color: 'var(--naranja)' },
+    { label: '📤 Con propuesta', value: byStatus.sent, color: 'var(--amarillo)' },
+    { label: '✅ Cerrados', value: byStatus.won, color: 'var(--verde)' },
+    { label: '⏳ Pendientes', value: byStatus.pending, color: '#aaa' },
   ];
 
   grid.innerHTML = items.map(i => `
@@ -725,7 +725,7 @@ function renderNicheStatus() {
 
   const rows = NICHE_TABS.map(tab => {
     const count = state.nicheCounts[tab.name];
-    const status = count === undefined ? 'â' : count === -1 ? 'â Error' : `${count} prospectos`;
+    const status = count === undefined ? '—' : count === -1 ? '❌ Error' : `${count} prospectos`;
     const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${tab.gid}`;
     return { tab, count, status, url };
   });
@@ -744,7 +744,7 @@ function renderNicheStatus() {
     <li>
       <div>
         <div class="tab-name">${r.tab.name} <span class="niche-badge niche-${r.tab.name.replace(/[^a-zA-Z-]/g,'')}">${r.tab.name.substring(0,8)}</span></div>
-        <div class="tab-url">GID ${r.tab.gid} Â· ${r.tab.name}</div>
+        <div class="tab-url">GID ${r.tab.gid} · ${r.tab.name}</div>
       </div>
       <span class="tab-count">${r.status}</span>
     </li>
@@ -762,10 +762,10 @@ function updateSystemStatus() {
   const el = document.getElementById('systemStatus');
   const d = state.importedAt ? new Date(state.importedAt) : null;
   el.innerHTML = [
-    `ð Prospectos cargados: <strong>${state.prospects.length}</strong>`,
-    `ð Ãltima actualizaciÃ³n: <strong>${d ? d.toLocaleString('es-EC') : 'Nunca'}</strong>`,
-    `ð PestaÃ±as conectadas: <strong>${NICHE_TABS.length}</strong> (${NICHE_TABS.map(t=>t.name).join(', ')})`,
-    state.customCsvUrl ? `ð URL personalizada: <strong>${state.customCsvUrl.substring(0,50)}â¦</strong>` : ''
+    `📊 Prospectos cargados: <strong>${state.prospects.length}</strong>`,
+    `🕒 Última actualización: <strong>${d ? d.toLocaleString('es-EC') : 'Nunca'}</strong>`,
+    `📋 Pestañas conectadas: <strong>${NICHE_TABS.length}</strong> (${NICHE_TABS.map(t=>t.name).join(', ')})`,
+    state.customCsvUrl ? `🔗 URL personalizada: <strong>${state.customCsvUrl.substring(0,50)}…</strong>` : ''
   ].filter(Boolean).join('<br>');
 }
 
@@ -781,12 +781,12 @@ function generateWAMessage(p) {
   // Auto-generate based on niche
   const nombre = p.nombreMensaje || p.contacto?.split(' ')[0] || 'estimado/a';
   const templates = {
-    'Industria': `Hola ${nombre}, te contacto de Sombrero Rojo. Ayudamos a empresas industriales en Ecuador a generar mÃ¡s clientes con marketing digital e IA. Â¿Tienen presencia en redes o web? ð`,
-    'Quito-Industria': `Hola ${nombre}, soy Rommel de Sombrero Rojo en Cuenca. Trabajamos con empresas como la tuya para conseguir mÃ¡s clientes usando estrategias digitales con IA. Â¿Te interesa conocer cÃ³mo? ð²`,
-    'OdontologÃ­a': `Hola ${nombre}, soy Rommel de Sombrero Rojo. Ayudamos a consultorios dentales a conseguir mÃ¡s pacientes con su web y redes sociales. Â¿Tienen pÃ¡gina web actualmente? ð`,
-    'Pediatras-Cuenca': `Hola ${nombre}, te contacto de Sombrero Rojo. Trabajamos con pediatras en Cuenca para que sus pacientes los encuentren mÃ¡s fÃ¡cil en internet. Â¿Les interesa mejorar su presencia digital? ð¥`
+    'Industria': `Hola ${nombre}, te contacto de Sombrero Rojo. Ayudamos a empresas industriales en Ecuador a generar más clientes con marketing digital e IA. ¿Tienen presencia en redes o web? 🚀`,
+    'Quito-Industria': `Hola ${nombre}, soy Rommel de Sombrero Rojo en Cuenca. Trabajamos con empresas como la tuya para conseguir más clientes usando estrategias digitales con IA. ¿Te interesa conocer cómo? 📲`,
+    'Odontología': `Hola ${nombre}, soy Rommel de Sombrero Rojo. Ayudamos a consultorios dentales a conseguir más pacientes con su web y redes sociales. ¿Tienen página web actualmente? 😊`,
+    'Pediatras-Cuenca': `Hola ${nombre}, te contacto de Sombrero Rojo. Trabajamos con pediatras en Cuenca para que sus pacientes los encuentren más fácil en internet. ¿Les interesa mejorar su presencia digital? 🏥`
   };
-  return templates[p.nicho] || `Hola ${nombre}, soy Rommel de Sombrero Rojo. Me gustarÃ­a contarte cÃ³mo podemos ayudar a ${p.empresa || 'tu empresa'} a crecer en internet. Â¿Tienen unos minutos? ð`;
+  return templates[p.nicho] || `Hola ${nombre}, soy Rommel de Sombrero Rojo. Me gustaría contarte cómo podemos ayudar a ${p.empresa || 'tu empresa'} a crecer en internet. ¿Tienen unos minutos? 🚀`;
 }
 
 function buildWALink(phone, message) {
@@ -834,15 +834,15 @@ function saveCustomUrl() {
   const val = document.getElementById('csvUrlInput').value.trim();
   state.customCsvUrl = val;
   saveState();
-  showToast('â Link guardado');
+  showToast('✅ Link guardado');
 }
 
 async function loadCustomUrl() {
   const input = document.getElementById('csvUrlInput');
   const val = input.value.trim() || state.customCsvUrl;
-  if (!val) { showToast('â ï¸ Ingresa una URL primero', true); return; }
+  if (!val) { showToast('⚠️ Ingresa una URL primero', true); return; }
   const url = normalizeCSVUrl(val);
-  showLoading('Cargando desde URLâ¦');
+  showLoading('Cargando desde URL…');
   try {
     const resp = await fetch(url, { cache: 'no-store' });
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
@@ -854,25 +854,25 @@ async function loadCustomUrl() {
     state.importedAt = new Date().toISOString();
     saveState();
     render();
-    showToast(`â ${extra.length} prospectos cargados`);
+    showToast(`✅ ${extra.length} prospectos cargados`);
   } catch(e) {
-    showToast('â Error al cargar: ' + e.message, true);
+    showToast('❌ Error al cargar: ' + e.message, true);
   }
   hideLoading();
 }
 
 function clearAll() {
-  if (!confirm('Â¿Limpiar todos los prospectos cargados?')) return;
+  if (!confirm('¿Limpiar todos los prospectos cargados?')) return;
   state.prospects = [];
   state.importedAt = null;
   state.nicheCounts = {};
   saveState();
   render();
-  showToast('ðï¸ Datos limpiados');
+  showToast('🗑️ Datos limpiados');
 }
 
 function showLoading(text) {
-  document.getElementById('loadingText').textContent = text || 'Cargandoâ¦';
+  document.getElementById('loadingText').textContent = text || 'Cargando…';
   document.getElementById('loadingOverlay').style.display = 'flex';
 }
 
