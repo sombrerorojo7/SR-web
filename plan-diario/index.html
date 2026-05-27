@@ -6,1102 +6,914 @@
   <title>Plan Semanal SR</title>
   <style>
     :root {
-      color-scheme: light;
-      --blue: #003399;
-      --red: #c0392b;
-      --orange: #e67e22;
-      --green: #27ae60;
-      --cyan: #2980b9;
-      --purple: #8e44ad;
-      --amber: #d68910;
-      --page: #f4f5f7;
-      --surface: #fff;
-      --ink: #111827;
-      --muted: #667085;
-      --line: #e5e7eb;
-      --soft-red: #fff8f7;
-      --shadow: 0 12px 28px rgba(17, 24, 39, .08);
+      --azul: #003399;
+      --rojo: #ff0000;
+      --beige: #e0d6c6;
+      --beige-dark: #c8bfb0;
+      --blanco: #ffffff;
+      --gris: #f5f5f5;
+      --gris-medio: #e0e0e0;
+      --texto: #222;
+      --texto-suave: #666;
+      --verde: #27ae60;
+      --naranja: #e67e22;
+      --amarillo: #f39c12;
+      --morado: #8e44ad;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Gill Sans MT', 'Gill Sans', Calibri, sans-serif; background: var(--beige); color: var(--texto); min-height: 100vh; }
 
-    body {
-      min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--page);
-      color: var(--ink);
-      font-size: 14px;
-    }
-
-    header {
-      background: var(--blue);
-      color: #fff;
-      padding: 12px 16px;
+    /* Header */
+    .header {
+      background: var(--azul);
+      color: white;
+      padding: 12px 20px;
       display: flex;
-      align-items: center;
-      gap: 12px;
-      position: sticky;
-      top: 0;
-      z-index: 20;
-    }
-
-    .brand-mark {
-      width: 46px;
-      height: 46px;
-      border-radius: 13px;
-      display: grid;
-      place-items: center;
-      background: #fff;
-      color: var(--red);
-      font-size: 23px;
-      font-weight: 900;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, .16);
-      flex: 0 0 auto;
-    }
-
-    .brand-title { font-size: 18px; font-weight: 900; line-height: 1; }
-    header p { font-size: 11.5px; opacity: .75; margin-top: 4px; letter-spacing: .2px; }
-
-    .container {
-      width: min(100%, 980px);
-      margin: 0 auto;
-      padding: 14px;
-    }
-
-    .tabs {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 6px;
-      margin-bottom: 14px;
-    }
-
-    .tab, button, .file-label {
-      border: 0;
-      border-radius: 999px;
-      min-height: 36px;
-      padding: 8px 12px;
-      background: #fff;
-      color: #4b5563;
-      font: inherit;
-      font-size: 12.5px;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: inset 0 0 0 1.5px var(--line);
-      transition: transform .15s ease, box-shadow .15s ease, background .15s ease, color .15s ease;
-    }
-
-    .tab:hover, button:hover, .file-label:hover { transform: translateY(-1px); }
-    .tab.active, .primary { background: var(--red); color: #fff; box-shadow: inset 0 0 0 1.5px var(--red); }
-    .secondary { background: var(--blue); color: #fff; box-shadow: inset 0 0 0 1.5px var(--blue); }
-    .ghost { background: transparent; color: var(--muted); box-shadow: inset 0 0 0 1.5px var(--line); }
-
-    .panel { display: none; }
-    .panel.active { display: block; }
-
-    .toolbar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 12px;
-    }
-
-    .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-    input[type="file"] { display: none; }
-
-    .week-title h1 {
-      font-size: 22px;
-      line-height: 1.1;
-      letter-spacing: 0;
-      margin-bottom: 3px;
-    }
-
-    .week-title p, .helper {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    .stat-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-
-    .stat, .card, .day-col, .data-card {
-      background: var(--surface);
-      border: 1.5px solid var(--line);
-      border-radius: 10px;
-    }
-
-    .stat {
-      padding: 12px 10px;
-      text-align: center;
-    }
-
-    .stat-num { font-size: 24px; font-weight: 950; color: var(--red); }
-    .stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.25; }
-
-    .insight {
-      display: grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .card {
-      padding: 12px;
-      box-shadow: var(--shadow);
-    }
-
-    .card h2, .data-card h3 {
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      color: #374151;
-      margin-bottom: 8px;
-    }
-
-    .pulse {
-      border-left: 4px solid var(--red);
-      background: var(--soft-red);
-      box-shadow: none;
-    }
-
-    .pulse strong { color: var(--red); }
-    .pulse p { font-size: 13px; line-height: 1.6; color: #3f3f46; }
-
-    .week-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      flex-wrap: wrap;
       gap: 8px;
     }
+    .header-title { font-family: 'Bebas Neue', 'Arial Black', sans-serif; font-size: 1.5rem; letter-spacing: 1px; }
+    .header-sub { font-size: 0.8rem; opacity: 0.8; }
+    .sync-info { font-size: 0.75rem; opacity: 0.75; text-align: right; }
+    .sync-btn {
+      background: var(--rojo); color: white; border: none; border-radius: 6px;
+      padding: 6px 14px; cursor: pointer; font-size: 0.8rem; font-weight: bold;
+    }
+    .sync-btn:hover { background: #cc0000; }
+    .sync-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-    .day-col { overflow: hidden; }
-    .day-header {
-      padding: 8px;
-      font-size: 12.5px;
-      font-weight: 900;
-      text-align: center;
+    /* Tabs */
+    .tabs { display: flex; background: var(--azul); border-bottom: 3px solid var(--rojo); overflow-x: auto; }
+    .tab-btn {
+      padding: 10px 18px; background: transparent; border: none; color: rgba(255,255,255,0.7);
+      cursor: pointer; font-size: 0.85rem; white-space: nowrap; border-bottom: 3px solid transparent;
+      margin-bottom: -3px; transition: all 0.2s;
+    }
+    .tab-btn.active { color: white; border-bottom-color: var(--rojo); font-weight: bold; }
+    .tab-btn:hover:not(.active) { color: white; background: rgba(255,255,255,0.1); }
+
+    /* Tab content */
+    .tab-content { display: none; padding: 16px; max-width: 1000px; margin: 0 auto; }
+    .tab-content.active { display: block; }
+
+    /* Week plan */
+    .week-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-top: 12px; }
+    .day-card {
+      background: white; border-radius: 10px; padding: 14px;
+      box-shadow: 0 2px 6px rgba(0,0,50,0.1); border-top: 4px solid var(--azul);
+    }
+    .day-card.today { border-top-color: var(--rojo); }
+    .day-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--azul); margin-bottom: 6px; }
+    .day-card.today .day-name { color: var(--rojo); }
+    .day-action { font-size: 0.78rem; color: var(--texto-suave); margin-bottom: 10px; font-style: italic; }
+    .prospect-item { padding: 6px 0; border-bottom: 1px solid var(--gris-medio); }
+    .prospect-item:last-child { border-bottom: none; }
+    .prospect-name { font-size: 0.85rem; font-weight: bold; }
+    .prospect-meta { font-size: 0.72rem; color: var(--texto-suave); margin-top: 2px; }
+    .niche-badge {
+      display: inline-block; font-size: 0.65rem; padding: 1px 6px; border-radius: 10px;
+      margin-left: 4px; font-weight: bold; text-transform: uppercase;
+    }
+    .niche-Industria { background: #dbeafe; color: #1e40af; }
+    .niche-Quito-Industria { background: #ede9fe; color: #5b21b6; }
+    .niche-OdontologÃ­a { background: #dcfce7; color: #166534; }
+    .niche-Pediatras-Cuenca { background: #fef3c7; color: #92400e; }
+    .wa-btn {
+      display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;
+      background: #25d366; color: white; border: none; border-radius: 4px;
+      padding: 3px 8px; font-size: 0.7rem; cursor: pointer; text-decoration: none;
+    }
+    .wa-btn:hover { background: #1da851; }
+    .no-data { text-align: center; color: var(--texto-suave); padding: 32px 16px; }
+    .no-data .icon { font-size: 2.5rem; margin-bottom: 8px; }
+
+    /* Prospects table */
+    .prospects-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px; flex-wrap: wrap; gap: 8px;
+    }
+    .filter-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .filter-btn {
+      padding: 4px 12px; border-radius: 20px; border: 2px solid var(--gris-medio);
+      background: white; cursor: pointer; font-size: 0.78rem; transition: all 0.2s;
+    }
+    .filter-btn.active { border-color: var(--azul); background: var(--azul); color: white; }
+    .prospect-card {
+      background: white; border-radius: 8px; padding: 12px 14px; margin-bottom: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,50,0.08); display: flex; align-items: flex-start; gap: 12px;
+    }
+    .status-dot { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+    .dot-hot { background: var(--rojo); }
+    .dot-follow { background: var(--naranja); }
+    .dot-sent { background: var(--amarillo); }
+    .dot-pending { background: var(--gris-medio); }
+    .dot-won { background: var(--verde); }
+    .dot-lost { background: #aaa; }
+    .p-name { font-weight: bold; font-size: 0.9rem; }
+    .p-info { font-size: 0.78rem; color: var(--texto-suave); margin-top: 3px; }
+    .p-info span { margin-right: 10px; }
+    .p-next { font-size: 0.75rem; color: var(--azul); margin-top: 4px; }
+    .p-msg { font-size: 0.75rem; color: #555; margin-top: 4px; font-style: italic; max-width: 400px; }
+    .count-badge {
+      background: var(--azul); color: white; border-radius: 12px; padding: 2px 8px;
+      font-size: 0.75rem; font-weight: bold;
     }
 
-    .day-items {
-      padding: 8px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      min-height: 132px;
+    /* Data/Settings tab */
+    .section-card { background: white; border-radius: 10px; padding: 18px; margin-bottom: 16px; box-shadow: 0 2px 6px rgba(0,0,50,0.08); }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; color: var(--azul); margin-bottom: 12px; letter-spacing: 0.5px; }
+    .niche-list { list-style: none; }
+    .niche-list li {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 0; border-bottom: 1px solid var(--gris); font-size: 0.85rem;
     }
+    .niche-list li:last-child { border-bottom: none; }
+    .niche-list .tab-name { font-weight: bold; }
+    .niche-list .tab-url { font-size: 0.72rem; color: var(--texto-suave); margin-top: 2px; }
+    .niche-list .tab-count { background: var(--beige); padding: 2px 8px; border-radius: 10px; font-size: 0.75rem; }
 
-    .day-item {
-      font-size: 11.5px;
-      padding: 7px 8px;
-      border-radius: 7px;
-      line-height: 1.35;
-      color: #333;
-      background: #f9fafb;
-    }
-
-    .tag {
-      display: inline-block;
-      font-size: 9px;
-      font-weight: 900;
-      padding: 2px 5px;
-      border-radius: 5px;
-      margin-right: 4px;
-      margin-bottom: 3px;
-      text-transform: uppercase;
-    }
-
-    textarea, .url-input {
-      width: 100%;
-      border: 1.5px solid var(--line);
-      border-radius: 8px;
-      padding: 8px;
-      font: inherit;
-      font-size: 12px;
-      background: #fff;
-      color: var(--ink);
-    }
-
-    textarea {
-      min-height: 86px;
-      resize: vertical;
-    }
-
+    label { display: block; font-size: 0.82rem; font-weight: bold; margin-bottom: 4px; color: var(--texto); }
     .url-input {
-      min-height: 38px;
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 13px;
+      width: 100%; padding: 8px 10px; border: 2px solid var(--gris-medio); border-radius: 6px;
+      font-size: 0.82rem; transition: border-color 0.2s;
     }
-
-    .link-loader {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 8px;
-      margin-top: 10px;
+    .url-input:focus { border-color: var(--azul); outline: none; }
+    .btn-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+    .btn {
+      padding: 8px 16px; border: none; border-radius: 6px; cursor: pointer;
+      font-size: 0.82rem; font-weight: bold; transition: opacity 0.2s;
     }
+    .btn:hover { opacity: 0.85; }
+    .btn-primary { background: var(--azul); color: white; }
+    .btn-secondary { background: var(--gris-medio); color: var(--texto); }
+    .btn-danger { background: var(--rojo); color: white; }
 
-    .objective-label {
-      display: block;
-      padding: 0 8px 8px;
-      color: var(--muted);
-      font-size: 10.5px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .4px;
+    /* Servicios */
+    .service-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+    .service-card { background: white; border-radius: 8px; padding: 14px; box-shadow: 0 1px 4px rgba(0,0,50,0.08); }
+    .service-name { font-weight: bold; font-size: 0.9rem; color: var(--azul); margin-bottom: 4px; }
+    .service-price { font-size: 1.1rem; font-weight: bold; color: var(--rojo); }
+    .service-desc { font-size: 0.78rem; color: var(--texto-suave); margin-top: 6px; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
+      background: var(--azul); color: white; padding: 10px 20px; border-radius: 8px;
+      font-size: 0.85rem; transition: transform 0.3s; z-index: 9999; max-width: 90vw; text-align: center;
     }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast.error { background: var(--rojo); }
 
-    .objective-label span { display: block; margin-bottom: 5px; }
-
-    .list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    /* Loading */
+    .loading-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,51,0.4); z-index: 9998;
+      display: flex; align-items: center; justify-content: center;
     }
-
-    .row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 8px;
-      align-items: start;
-      padding: 10px;
-      border: 1.5px solid var(--line);
-      border-radius: 9px;
-      background: #fff;
+    .loading-box { background: white; border-radius: 12px; padding: 28px 36px; text-align: center; }
+    .spinner {
+      width: 36px; height: 36px; border: 4px solid var(--beige);
+      border-top-color: var(--azul); border-radius: 50%;
+      animation: spin 0.8s linear infinite; margin: 0 auto 12px;
     }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { font-size: 0.9rem; color: var(--texto-suave); }
 
-    .row h3 { font-size: 13px; line-height: 1.25; margin-bottom: 3px; }
-    .row p { font-size: 11.5px; color: var(--muted); line-height: 1.45; }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 22px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      font-size: 10.5px;
-      font-weight: 900;
-      white-space: nowrap;
-    }
-
-    .pill.red { color: var(--red); background: rgba(192, 57, 43, .12); }
-    .pill.blue { color: var(--cyan); background: rgba(41, 128, 185, .12); }
-    .pill.green { color: var(--green); background: rgba(39, 174, 96, .12); }
-    .pill.purple { color: var(--purple); background: rgba(142, 68, 173, .12); }
-    .pill.gray { color: #6b7280; background: #f3f4f6; }
-
-    .service-list { display: flex; flex-direction: column; gap: 10px; }
-
-    .service-card {
-      background: #fff;
-      border: 2px solid var(--line);
-      border-radius: 11px;
-      padding: 12px;
-    }
-
-    .service-head {
-      display: grid;
-      grid-template-columns: 34px 1fr auto;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .rank {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-size: 16px;
-      font-weight: 950;
-      background: rgba(192, 57, 43, .12);
-      color: var(--red);
-    }
-
-    .service-card h3 { font-size: 14px; line-height: 1.25; margin-bottom: 2px; }
-    .service-card p { font-size: 11.5px; color: var(--muted); line-height: 1.45; }
-
-    .bar {
-      height: 8px;
-      border-radius: 99px;
-      overflow: hidden;
-      background: #f0f0f0;
-      margin-top: 10px;
-    }
-
-    .fill { height: 100%; border-radius: 99px; background: var(--red); }
-
-    .automation-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    .data-card {
-      padding: 12px;
-    }
-
-    .data-card ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-      color: #414651;
-      font-size: 12px;
-      line-height: 1.45;
-    }
-
-    .data-card li::before {
-      content: "·";
-      color: var(--red);
-      font-weight: 950;
-      margin-right: 6px;
-    }
-
-    .empty {
-      border: 1.5px dashed #cbd5e1;
-      border-radius: 10px;
-      padding: 16px;
-      background: #fff;
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 13px;
-    }
-
-    .split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .search {
-      width: 100%;
-      border: 1.5px solid var(--line);
-      border-radius: 999px;
-      min-height: 38px;
-      padding: 8px 12px;
-      font: inherit;
-      font-size: 13px;
-      margin-bottom: 10px;
-      background: #fff;
-    }
-
-    @media (max-width: 760px) {
-      .container { padding: 12px; }
-      .tabs { grid-template-columns: repeat(3, 1fr); }
-      .stat-row { grid-template-columns: repeat(2, 1fr); }
-      .insight, .split, .automation-grid { grid-template-columns: 1fr; }
-      .link-loader { grid-template-columns: 1fr; }
-      .week-grid { grid-template-columns: 1fr; }
-      .day-col { border-radius: 9px; }
-      .toolbar { align-items: stretch; }
-      .actions { width: 100%; }
-      .actions > * { flex: 1 1 auto; text-align: center; }
+    @media (max-width: 600px) {
+      .week-grid { grid-template-columns: 1fr 1fr; }
+      .tab-btn { padding: 10px 12px; font-size: 0.78rem; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="brand-mark" aria-hidden="true">SR</div>
+
+<div class="header">
+  <div>
+    <div class="header-title">ð Plan Semanal Sombrero Rojo</div>
+    <div class="header-sub">Sistema de ProspecciÃ³n Digital â Cuenca, Ecuador</div>
+  </div>
+  <div style="display:flex; align-items:center; gap:12px;">
+    <div class="sync-info" id="syncInfo">Sin datos</div>
+    <button class="sync-btn" id="syncBtn" onclick="syncAll()">ð Actualizar</button>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('semana', this)">ð Semana</button>
+  <button class="tab-btn" onclick="showTab('prospectos', this)">ð¥ Prospectos</button>
+  <button class="tab-btn" onclick="showTab('servicios', this)">ð¼ Servicios</button>
+  <button class="tab-btn" onclick="showTab('automatizacion', this)">â¡ AutomatizaciÃ³n</button>
+  <button class="tab-btn" onclick="showTab('datos', this)">âï¸ Datos</button>
+</div>
+
+<!-- TAB: SEMANA -->
+<div class="tab-content active" id="tab-semana">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:4px;">
+    <h2 style="font-family:'Bebas Neue',sans-serif; color:var(--azul); font-size:1.3rem; letter-spacing:0.5px;">
+      Plan de la semana
+    </h2>
+    <span id="weekLabel" style="font-size:0.8rem; color:var(--texto-suave);"></span>
+  </div>
+  <div class="week-grid" id="weekGrid">
+    <div class="no-data"><div class="icon">ð</div><p>Cargando plan semanalâ¦</p></div>
+  </div>
+</div>
+
+<!-- TAB: PROSPECTOS -->
+<div class="tab-content" id="tab-prospectos">
+  <div class="prospects-header">
     <div>
-      <div class="brand-title">Plan Semanal SR</div>
-      <p>Prospección · Objetivos · Servicios · Automatización</p>
+      <span style="font-family:'Bebas Neue',sans-serif; font-size:1.2rem; color:var(--azul);">Todos los Prospectos</span>
+      <span class="count-badge" id="prospectCount" style="margin-left:8px;">0</span>
     </div>
-  </header>
+    <div class="filter-row">
+      <button class="filter-btn active" onclick="setFilter('todos', this)">Todos</button>
+      <button class="filter-btn" onclick="setFilter('hot', this)">ð¥ Calientes</button>
+      <button class="filter-btn" onclick="setFilter('follow', this)">â° Seguimiento</button>
+      <button class="filter-btn" onclick="setFilter('sent', this)">ð¤ Propuesta</button>
+      <button class="filter-btn" onclick="setFilter('pending', this)">â³ Pendiente</button>
+    </div>
+  </div>
+  <div id="prospectList"></div>
+</div>
 
-  <main class="container">
-    <nav class="tabs" aria-label="Secciones">
-      <button class="tab active" type="button" data-panel="semana">Semana</button>
-      <button class="tab" type="button" data-panel="prospectos">Prospectos</button>
-      <button class="tab" type="button" data-panel="servicios">Servicios</button>
-      <button class="tab" type="button" data-panel="auto">Automatización</button>
-      <button class="tab" type="button" data-panel="datos">Datos</button>
-    </nav>
+<!-- TAB: SERVICIOS -->
+<div class="tab-content" id="tab-servicios">
+  <h2 style="font-family:'Bebas Neue',sans-serif; color:var(--azul); font-size:1.3rem; margin-bottom:16px;">
+    CatÃ¡logo de Servicios
+  </h2>
+  <div class="service-grid">
+    <div class="service-card">
+      <div class="service-name">ð DiseÃ±o Web</div>
+      <div class="service-price">$449 â $1,399</div>
+      <div class="service-desc">Sitio web profesional con WordPress, diseÃ±o personalizado y optimizaciÃ³n SEO bÃ¡sica.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-name">ð± GestiÃ³n de Redes</div>
+      <div class="service-price">$299 â $599/mes</div>
+      <div class="service-desc">Publicaciones semanales, diseÃ±o grÃ¡fico, anÃ¡lisis mensual e interacciÃ³n con seguidores.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-name">ð¨ Branding</div>
+      <div class="service-price">$249 â $399</div>
+      <div class="service-desc">Logo, paleta de colores, tipografÃ­a y manual de marca bÃ¡sico.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-name">ð¤ Chatbot / Consultorio Digital</div>
+      <div class="service-price">$800 â $1,500 + $150/mes</div>
+      <div class="service-desc">AutomatizaciÃ³n de WhatsApp/Instagram con ManyChat o IA. Incluye embudo de captaciÃ³n.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-name">ð Publicidad Digital</div>
+      <div class="service-price">$200 â $500/mes</div>
+      <div class="service-desc">CampaÃ±as en Meta Ads o Google Ads, optimizaciÃ³n continua y reportes semanales.</div>
+    </div>
+    <div class="service-card">
+      <div class="service-name">ð¥ Consultorio Digital (MÃ©dicos)</div>
+      <div class="service-price">$800 â $1,200</div>
+      <div class="service-desc">Sitio web con KiviCare, agenda online, recordatorios automÃ¡ticos y perfil mÃ©dico.</div>
+    </div>
+  </div>
+</div>
 
-    <section id="semana" class="panel active">
-      <div class="toolbar">
-        <div class="week-title">
-          <h1 id="weekTitle">Semana actual</h1>
-          <p id="weekSubtitle">Plan de acción generado desde prospectos.</p>
-        </div>
-        <div class="actions">
-          <button class="primary" type="button" id="newWeekBtn">Nueva semana</button>
-          <button class="secondary" type="button" id="saveWeekBtn">Guardar objetivos</button>
-        </div>
-      </div>
+<!-- TAB: AUTOMATIZACIÃN -->
+<div class="tab-content" id="tab-automatizacion">
+  <h2 style="font-family:'Bebas Neue',sans-serif; color:var(--azul); font-size:1.3rem; margin-bottom:16px;">
+    Sistema de AutomatizaciÃ³n SR
+  </h2>
+  <div class="section-card">
+    <div class="section-title">ð Flujo activo de captaciÃ³n</div>
+    <p style="font-size:0.85rem; color:var(--texto-suave); line-height:1.6;">
+      Landing SR-web â Webhook Make.com â Google Sheet "Prospectos SR" â Plan Semanal (este planificador)
+    </p>
+    <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:8px;">
+      <a href="https://sombrerorojo7.github.io/SR-web/" target="_blank" class="btn btn-primary" style="text-decoration:none; font-size:0.78rem;">
+        ð Ir a la Landing SR
+      </a>
+      <a href="https://docs.google.com/spreadsheets/d/1gIyuMzvGyHhjmBSqJlDI6r2QYoOCMLQcHTVpRYxhSxw/edit" target="_blank" class="btn btn-secondary" style="text-decoration:none; font-size:0.78rem;">
+        ð Abrir Google Sheet
+      </a>
+    </div>
+  </div>
+  <div class="section-card">
+    <div class="section-title">ð PestaÃ±as de prospecciÃ³n conectadas</div>
+    <ul class="niche-list" id="nicheStatusList">
+      <li><span class="tab-name">Cargandoâ¦</span></li>
+    </ul>
+  </div>
+  <div class="section-card">
+    <div class="section-title">ð EstadÃ­sticas de hoy</div>
+    <div id="statsGrid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(140px,1fr)); gap:10px; margin-top:8px;"></div>
+  </div>
+</div>
 
-      <div class="stat-row">
-        <div class="stat"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Prospectos cargados</div></div>
-        <div class="stat"><div class="stat-num" id="statPending">0</div><div class="stat-label">Sin contactar</div></div>
-        <div class="stat"><div class="stat-num" id="statFollow">0</div><div class="stat-label">Para seguimiento</div></div>
-        <div class="stat"><div class="stat-num" id="statHot">0</div><div class="stat-label">Calientes / propuesta</div></div>
-      </div>
+<!-- TAB: DATOS -->
+<div class="tab-content" id="tab-datos">
+  <div class="section-card">
+    <div class="section-title">ð PestaÃ±as nicho auto-conectadas</div>
+    <p style="font-size:0.82rem; color:var(--texto-suave); margin-bottom:12px;">
+      El planificador carga automÃ¡ticamente estas 4 pestaÃ±as desde el Google Sheet cada vez que presionas "Actualizar".
+    </p>
+    <ul class="niche-list" id="nicheConfigList"></ul>
+  </div>
 
-      <div class="insight">
-        <div class="card pulse">
-          <h2>Enfoque de la semana</h2>
-          <p id="weeklyFocus">Carga un CSV para generar el foco semanal de prospección.</p>
-        </div>
-        <div class="card">
-          <h2>Servicio a empujar</h2>
-          <p class="helper" id="servicePush">Se calcula según plan sugerido, estados y señales de interés.</p>
-        </div>
-      </div>
+  <div class="section-card">
+    <div class="section-title">ð URL adicional (opcional)</div>
+    <p style="font-size:0.78rem; color:var(--texto-suave); margin-bottom:10px;">
+      Si quieres cargar una pestaÃ±a adicional o una URL CSV personalizada, ingrÃ©sala aquÃ­.
+    </p>
+    <label for="csvUrlInput">URL de Google Sheet o CSV directo</label>
+    <input class="url-input" id="csvUrlInput" type="url" placeholder="https://docs.google.com/spreadsheets/d/...">
+    <div class="btn-row">
+      <button class="btn btn-primary" id="saveUrlBtn" onclick="saveCustomUrl()">ð¾ Guardar link</button>
+      <button class="btn btn-secondary" id="loadUrlBtn" onclick="loadCustomUrl()">â¬ï¸ Cargar desde link</button>
+      <button class="btn btn-danger" onclick="clearAll()">ðï¸ Limpiar todo</button>
+    </div>
+  </div>
 
-      <div class="week-grid" id="weekGrid"></div>
-    </section>
+  <div class="section-card">
+    <div class="section-title">â¹ï¸ Estado del sistema</div>
+    <div id="systemStatus" style="font-size:0.82rem; color:var(--texto-suave); line-height:1.8;"></div>
+  </div>
+</div>
 
-    <section id="prospectos" class="panel">
-      <div class="toolbar">
-        <div class="week-title">
-          <h1>Prospectos activos</h1>
-          <p>Prioriza por estado, fecha de último contacto y próximo contacto.</p>
-        </div>
-        <div class="actions">
-          <button class="ghost" type="button" id="showDueBtn">Ver seguimientos</button>
-          <button class="ghost" type="button" id="showPendingBtn">Ver sin contactar</button>
-        </div>
-      </div>
-      <input class="search" id="prospectSearch" type="search" placeholder="Buscar por empresa, ciudad, campaña, plan o estado">
-      <div class="list" id="prospectList"></div>
-    </section>
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loadingOverlay" style="display:none;">
+  <div class="loading-box">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loadingText">Cargando prospectosâ¦</div>
+  </div>
+</div>
 
-    <section id="servicios" class="panel">
-      <div class="toolbar">
-        <div class="week-title">
-          <h1>Ranking de servicios</h1>
-          <p>Ordenado por demanda en la hoja, señales de interés y potencial de promoción.</p>
-        </div>
-      </div>
-      <div class="service-list" id="serviceList"></div>
-    </section>
+<!-- Toast -->
+<div class="toast" id="toast"></div>
 
-    <section id="auto" class="panel">
-      <div class="toolbar">
-        <div class="week-title">
-          <h1>Automatización semanal</h1>
-          <p>Lista viva basada en la hoja cargada y el avance comercial.</p>
-        </div>
-      </div>
-      <div class="automation-grid" id="automationGrid"></div>
-    </section>
+<script>
+// =====================================================
+// CONFIGURACIÃN â Sheet ID y pestaÃ±as nicho
+// =====================================================
+const SHEET_ID = '1gIyuMzvGyHhjmBSqJlDI6r2QYoOCMLQcHTVpRYxhSxw';
 
-    <section id="datos" class="panel">
-      <div class="toolbar">
-        <div class="week-title">
-          <h1>Datos de prospección</h1>
-          <p>Importa el CSV exportado desde “Prospectos SR · Sistema de captación”.</p>
-        </div>
-        <div class="actions">
-          <label class="file-label primary" for="csvInput">Importar CSV</label>
-          <input id="csvInput" type="file" accept=".csv,text/csv" multiple>
-          <button class="secondary" type="button" id="loadUrlBtn">Actualizar desde link</button>
-          <button class="secondary" type="button" id="exportPlanBtn">Exportar plan</button>
-          <button class="ghost" type="button" id="clearDataBtn">Limpiar datos</button>
-        </div>
-      </div>
+const NICHE_TABS = [
+  { name: 'Industria',        gid: '258977582'  },
+  { name: 'Quito-Industria',  gid: '204156211'  },
+  { name: 'OdontologÃ­a',      gid: '2075600573' },
+  { name: 'Pediatras-Cuenca', gid: '2075600571' }
+];
 
-      <div class="data-card" style="margin-bottom:10px">
-        <h3>Link del CSV en Drive o Sheets</h3>
-        <p class="helper">Pega un enlace público de CSV o una hoja de Google Sheets publicada/exportada como CSV.</p>
-        <div class="link-loader">
-          <input class="url-input" id="csvUrlInput" type="url" placeholder="https://docs.google.com/spreadsheets/d/.../export?format=csv...">
-          <button class="primary" type="button" id="saveUrlBtn">Guardar link</button>
-        </div>
-      </div>
+const STORAGE_KEY = 'sr-weekly-planner-v2';
 
-      <div class="split">
-        <div class="data-card">
-          <h3>Cómo usarlo</h3>
-          <ul>
-            <li>Exporta tu hoja como CSV desde Google Sheets o Excel.</li>
-            <li>Puedes pegar un link público del CSV o importar uno o varios archivos manualmente.</li>
-            <li>La app guarda los datos en este navegador del teléfono.</li>
-            <li>Los prospectos no se suben a GitHub ni a ningún servidor desde esta app.</li>
-          </ul>
-        </div>
-        <div class="data-card">
-          <h3>Columnas reconocidas</h3>
-          <ul>
-            <li>Nombre de la Empresa, Ciudad, Campaña y Plan Sugerido.</li>
-            <li>Estado de contacto, Estado Pipeline y Fecha de último contacto.</li>
-            <li>Próximo Contacto, Link WhatsApp, Link Propuesta y Confirmación si existe.</li>
-            <li>También funciona si algunas columnas están vacías.</li>
-            <li>Si el enlace privado no carga, usa “Importar CSV” como respaldo.</li>
-          </ul>
-        </div>
-      </div>
+// =====================================================
+// ESTADO
+// =====================================================
+let state = {
+  prospects: [],
+  importedAt: null,
+  customCsvUrl: '',
+  nicheCounts: {}
+};
 
-      <div class="empty" id="dataStatus" style="margin-top:10px">Todavía no hay CSV cargado.</div>
-    </section>
-  </main>
-
-  <script>
-    const STORAGE_KEY = "sr-weekly-planner-v2";
-    const DAY_NAMES = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
-    const DAY_COLORS = [
-      ["rgba(192,57,43,.1)", "#c0392b"],
-      ["rgba(41,128,185,.1)", "#2980b9"],
-      ["rgba(39,174,96,.1)", "#27ae60"],
-      ["rgba(142,68,173,.1)", "#8e44ad"],
-      ["rgba(243,156,18,.1)", "#d68910"]
-    ];
-
-    const state = loadState();
-
-    function loadState() {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (!saved) return { prospects: [], weeks: {}, activeWeek: weekStartISO(new Date()), importedAt: null, csvUrl: "" };
-      try {
-        return { prospects: [], weeks: {}, activeWeek: weekStartISO(new Date()), importedAt: null, csvUrl: "", ...JSON.parse(saved) };
-      } catch {
-        return { prospects: [], weeks: {}, activeWeek: weekStartISO(new Date()), importedAt: null, csvUrl: "" };
-      }
+function loadState() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      state = { ...state, ...parsed };
     }
+  } catch(e) { console.warn('Error loading state', e); }
+}
 
-    function saveState() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    }
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch(e) { console.warn('Error saving state', e); }
+}
 
-    function weekStartISO(date) {
-      const copy = new Date(date);
-      const day = copy.getDay() || 7;
-      copy.setDate(copy.getDate() - day + 1);
-      copy.setHours(0, 0, 0, 0);
-      return copy.toISOString().slice(0, 10);
-    }
+// =====================================================
+// SYNC â carga todas las pestaÃ±as nicho automÃ¡ticamente
+// =====================================================
+async function syncAll() {
+  const btn = document.getElementById('syncBtn');
+  btn.disabled = true;
+  btn.textContent = 'â³ Cargandoâ¦';
+  showLoading('Cargando datos de prospectosâ¦');
 
-    function formatDate(iso) {
-      if (!iso) return "sin fecha";
-      const [year, month, day] = iso.slice(0, 10).split("-");
-      if (!year || !month || !day) return iso;
-      return `${day}/${month}/${year}`;
-    }
+  const allProspects = [];
+  const counts = {};
 
-    function daysSince(value) {
-      if (!value) return null;
-      const normalized = value.includes("/") ? value.split("/").reverse().join("-") : value;
-      const date = new Date(normalized);
-      if (Number.isNaN(date.getTime())) return null;
-      const now = new Date();
-      return Math.floor((now - date) / 86400000);
-    }
-
-    function normalizeText(value) {
-      return String(value || "").trim();
-    }
-
-    function lowercase(value) {
-      return normalizeText(value).toLowerCase();
-    }
-
-    function parseCSV(text) {
-      const rows = [];
-      let row = [];
-      let cell = "";
-      let quoted = false;
-
-      for (let i = 0; i < text.length; i++) {
-        const char = text[i];
-        const next = text[i + 1];
-
-        if (char === '"' && quoted && next === '"') {
-          cell += '"';
-          i++;
-        } else if (char === '"') {
-          quoted = !quoted;
-        } else if (char === "," && !quoted) {
-          row.push(cell);
-          cell = "";
-        } else if ((char === "\n" || char === "\r") && !quoted) {
-          if (char === "\r" && next === "\n") i++;
-          row.push(cell);
-          if (row.some((item) => item.trim() !== "")) rows.push(row);
-          row = [];
-          cell = "";
-        } else {
-          cell += char;
-        }
-      }
-
-      row.push(cell);
-      if (row.some((item) => item.trim() !== "")) rows.push(row);
-      return rows;
-    }
-
-    function rowsToObjects(rows) {
-      const headers = rows[0].map((header) => normalizeText(header));
-      return rows.slice(1).map((row) => {
-        const item = {};
-        headers.forEach((header, index) => {
-          item[header] = normalizeText(row[index]);
-        });
-        return normalizeProspect(item);
-      });
-    }
-
-    function importCSVText(text) {
+  for (const tab of NICHE_TABS) {
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${tab.gid}`;
+    try {
+      document.getElementById('loadingText').textContent = `Cargando pestaÃ±a: ${tab.name}â¦`;
+      const resp = await fetch(url, { cache: 'no-store' });
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      const text = await resp.text();
       const rows = parseCSV(text);
-      state.prospects = rows.length > 1 ? rowsToObjects(rows) : [];
-      state.importedAt = new Date().toISOString();
-      render();
+      const tabProspects = rows
+        .map(row => normalizeProspect(row, tab.name))
+        .filter(p => p.empresa && p.empresa.trim() !== '');
+      allProspects.push(...tabProspects);
+      counts[tab.name] = tabProspects.length;
+    } catch(e) {
+      console.warn('Error loading', tab.name, e);
+      counts[tab.name] = -1; // error indicator
+    }
+  }
+
+  // If custom URL also set, load that too
+  if (state.customCsvUrl) {
+    try {
+      const url = normalizeCSVUrl(state.customCsvUrl);
+      const resp = await fetch(url, { cache: 'no-store' });
+      const text = await resp.text();
+      const rows = parseCSV(text);
+      const extra = rows.map(r => normalizeProspect(r, 'Custom')).filter(p => p.empresa);
+      allProspects.push(...extra);
+      counts['Custom'] = extra.length;
+    } catch(e) { console.warn('Custom URL error', e); }
+  }
+
+  state.prospects = allProspects;
+  state.importedAt = new Date().toISOString();
+  state.nicheCounts = counts;
+  saveState();
+
+  btn.disabled = false;
+  btn.textContent = 'ð Actualizar';
+  hideLoading();
+  render();
+  showToast(`â ${allProspects.length} prospectos cargados de ${NICHE_TABS.length} pestaÃ±as`);
+}
+
+// =====================================================
+// CSV PARSING
+// =====================================================
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  if (lines.length < 2) return [];
+  const headers = parseCSVLine(lines[0]);
+  const rows = [];
+  for (let i = 1; i < lines.length; i++) {
+    const values = parseCSVLine(lines[i]);
+    if (values.every(v => !v.trim())) continue;
+    const obj = {};
+    headers.forEach((h, idx) => { obj[h.trim()] = (values[idx] || '').trim(); });
+    rows.push(obj);
+  }
+  return rows;
+}
+
+function parseCSVLine(line) {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') {
+      if (inQuotes && line[i+1] === '"') { current += '"'; i++; }
+      else inQuotes = !inQuotes;
+    } else if (ch === ',' && !inQuotes) {
+      result.push(current);
+      current = '';
+    } else {
+      current += ch;
+    }
+  }
+  result.push(current);
+  return result;
+}
+
+// =====================================================
+// NORMALIZAR PROSPECTO
+// =====================================================
+function normalizeProspect(raw, nicho) {
+  const get = (...keys) => {
+    for (const k of keys) {
+      const val = raw[k] || raw[k.toLowerCase()] || raw[k.toUpperCase()];
+      if (val && val.trim()) return val.trim();
+    }
+    return '';
+  };
+
+  const empresa = get('Nombre de la Empresa', 'Empresa', 'empresa', 'EMPRESA', 'Nombre Empresa');
+  const contacto = get('Contacto Principal', 'Nombre Contacto', 'Contacto', 'contacto', 'Nombre');
+  const ciudad = get('Ciudad', 'ciudad', 'CIUDAD');
+  const plan = get('Plan Sugerido', 'Plan', 'plan', 'Servicio', 'servicio');
+  const estadoContacto = get('Estado de contacto', 'Estado contacto', 'estado_contacto', 'Estado');
+  const pipeline = get('Estado Pipeline', 'Pipeline', 'pipeline', 'Etapa');
+  const ultimoContacto = get('Fecha de Ãºltimo contacto', 'Ultimo contacto', 'Ãltima fecha', 'Fecha contacto');
+  const proximoContacto = get('PrÃ³ximo Contacto', 'Proximo Contacto', 'PrÃ³ximo contacto', 'Fecha prÃ³ximo');
+  const whatsapp = get('WhatsApp', 'Link WhatsApp', 'TelÃ©fono', 'Telefono', 'Tel', 'tel');
+  const mensajeBase = get('Mensaje para WhatsApp', 'Mensaje WA', 'Mensaje personalizado', 'Mensaje', 'mensaje');
+  const nombreMensaje = get('Nombre para mensaje', 'Nombre mensaje', 'nombre_mensaje') || contacto.split(' ')[0];
+
+  return {
+    empresa, contacto, ciudad, plan,
+    estadoContacto, pipeline,
+    ultimoContacto, proximoContacto,
+    whatsapp, mensajeBase, nombreMensaje,
+    nicho: nicho || 'General',
+    raw
+  };
+}
+
+// =====================================================
+// STATUS BUCKET
+// =====================================================
+function statusBucket(p) {
+  const e = (p.estadoContacto || '').toLowerCase();
+  const pip = (p.pipeline || '').toLowerCase();
+  if (/cerr|gan|won|firmÃ³|aprobÃ³/i.test(e + pip)) return 'won';
+  if (/perd|lost|descart|no interesa/i.test(e + pip)) return 'lost';
+  if (/respond|interÃ©s|caliente|interesado/i.test(e + pip)) return 'hot';
+  if (/seguim|follow|llamar|contactar|pendiente de respuesta/i.test(e + pip)) return 'follow';
+  if (/enviada|propuesta|cotiz|sent/i.test(e + pip)) return 'sent';
+  return 'pending';
+}
+
+// =====================================================
+// WEEK PLAN BUILDER
+// =====================================================
+function getWeekDates() {
+  const now = new Date();
+  const day = now.getDay(); // 0=Dom, 1=Lun...5=Vie, 6=Sab
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - (day === 0 ? 6 : day - 1));
+  const days = [];
+  for (let i = 0; i < 5; i++) {
+    const d = new Date(monday);
+    d.setDate(monday.getDate() + i);
+    days.push(d);
+  }
+  return days;
+}
+
+function buildWeekPlan() {
+  const prospects = state.prospects;
+  const today = new Date();
+  const days = getWeekDates();
+
+  const DAY_NAMES = ['Lunes', 'Martes', 'MiÃ©rcoles', 'Jueves', 'Viernes'];
+  const DAY_ACTIONS = [
+    'Nuevos contactos de Industria',
+    'Seguimiento a respondidos',
+    'OdontologÃ­a / Pediatras',
+    'Enviar propuestas pendientes',
+    'RevisiÃ³n semanal y cierre'
+  ];
+  const DAY_NICHES = [
+    ['Industria', 'Quito-Industria'],
+    null, // follow-up from any
+    ['OdontologÃ­a', 'Pediatras-Cuenca'],
+    null,
+    null
+  ];
+
+  // Categorize prospects by status
+  const hot = prospects.filter(p => statusBucket(p) === 'hot');
+  const follow = prospects.filter(p => statusBucket(p) === 'follow');
+  const pending = prospects.filter(p => statusBucket(p) === 'pending');
+  const sent = prospects.filter(p => statusBucket(p) === 'sent');
+
+  // Build day assignments
+  const plan = days.map((date, idx) => {
+    const isToday = date.toDateString() === today.toDateString();
+    let assigned = [];
+
+    if (idx === 0) { // Lunes â Industria
+      const niche = DAY_NICHES[0];
+      assigned = pending.filter(p => niche.includes(p.nicho)).slice(0, 5);
+      if (assigned.length < 3) assigned = [...assigned, ...follow.filter(p => niche.includes(p.nicho)).slice(0, 3 - assigned.length)];
+    } else if (idx === 1) { // Martes â seguimiento calientes
+      assigned = [...hot.slice(0, 5), ...follow.slice(0, 3)].slice(0, 6);
+    } else if (idx === 2) { // MiÃ©rcoles â OdontologÃ­a / Pediatras
+      const niche = DAY_NICHES[2];
+      assigned = pending.filter(p => niche.includes(p.nicho)).slice(0, 5);
+      if (assigned.length < 3) assigned = [...assigned, ...follow.filter(p => niche.includes(p.nicho)).slice(0, 3 - assigned.length)];
+    } else if (idx === 3) { // Jueves â propuestas
+      assigned = [...sent.slice(0, 4), ...follow.slice(0, 2)].slice(0, 5);
+    } else { // Viernes â revisiÃ³n
+      assigned = hot.slice(0, 3);
     }
 
-    function normalizeCSVUrl(url) {
-      const value = normalizeText(url);
-      if (!value) return "";
+    return { date, isToday, dayName: DAY_NAMES[idx], action: DAY_ACTIONS[idx], prospects: assigned };
+  });
 
-      const sheetMatch = value.match(/docs\.google\.com\/spreadsheets\/d\/([^/]+)/);
-      if (sheetMatch) {
-        const gidMatch = value.match(/[?&#]gid=(\d+)/);
-        const gid = gidMatch ? gidMatch[1] : "0";
-        return `https://docs.google.com/spreadsheets/d/${sheetMatch[1]}/export?format=csv&gid=${gid}`;
-      }
+  return plan;
+}
 
-      const driveMatch = value.match(/drive\.google\.com\/file\/d\/([^/]+)/);
-      if (driveMatch) {
-        return `https://drive.google.com/uc?export=download&id=${driveMatch[1]}`;
-      }
+// =====================================================
+// RENDER
+// =====================================================
+function render() {
+  renderWeekPlan();
+  renderProspects();
+  renderStats();
+  renderNicheStatus();
+  updateSyncInfo();
+  updateSystemStatus();
+}
 
-      const driveIdMatch = value.match(/[?&]id=([^&]+)/);
-      if (value.includes("drive.google.com") && driveIdMatch) {
-        return `https://drive.google.com/uc?export=download&id=${driveIdMatch[1]}`;
-      }
+function renderWeekPlan() {
+  const grid = document.getElementById('weekGrid');
+  const plan = buildWeekPlan();
+  const dates = getWeekDates();
 
-      return value;
-    }
+  document.getElementById('weekLabel').textContent =
+    `Semana del ${dates[0].toLocaleDateString('es-EC', {day:'2-digit',month:'short'})} al ${dates[4].toLocaleDateString('es-EC', {day:'2-digit',month:'short',year:'numeric'})}`;
 
-    async function loadCSVFromUrl() {
-      const input = document.getElementById("csvUrlInput");
-      const status = document.getElementById("dataStatus");
-      const url = normalizeCSVUrl(input.value);
+  if (state.prospects.length === 0) {
+    grid.innerHTML = `<div class="no-data" style="grid-column:1/-1">
+      <div class="icon">ð</div>
+      <p>No hay prospectos cargados.</p>
+      <p style="margin-top:8px; font-size:0.82rem;">Presiona <strong>ð Actualizar</strong> para cargar desde el Google Sheet.</p>
+    </div>`;
+    return;
+  }
 
-      if (!url) {
-        status.textContent = "Pega primero el link del CSV.";
-        return;
-      }
-
-      state.csvUrl = input.value;
-      saveState();
-      status.textContent = "Cargando CSV desde el link...";
-
-      try {
-        const response = await fetch(url, { cache: "no-store" });
-        if (!response.ok) throw new Error(`Respuesta ${response.status}`);
-        const text = await response.text();
-        if (/<!doctype html|<html/i.test(text.slice(0, 500))) {
-          throw new Error("El enlace devolvió una página, no un CSV");
-        }
-        importCSVText(text);
-      } catch (error) {
-        status.textContent = `No se pudo leer ese link. Revisa que sea público/exportable como CSV o usa Importar CSV manual. Detalle: ${error.message}`;
-      }
-    }
-
-    function pick(raw, candidates) {
-      const keys = Object.keys(raw);
-      const found = keys.find((key) => candidates.includes(key.toLowerCase()));
-      return found ? raw[found] : "";
-    }
-
-    function pickContains(raw, text) {
-      const key = Object.keys(raw).find((item) => item.toLowerCase().includes(text));
-      return key ? raw[key] : "";
-    }
-
-    function normalizeProspect(raw) {
-      const name = pick(raw, ["nombre de la empresa", "empresa", "nombre"]);
-      const city = pick(raw, ["ciudad"]);
-      const campaign = pick(raw, ["campaña", "configuración campaña"]);
-      const plan = pick(raw, ["plan sugerido", "servicio", "servicio sugerido"]);
-      const contactStatus = pick(raw, ["estado de contacto"]);
-      const pipelineStatus = pick(raw, ["estado pipeline"]);
-      const lastContact = pick(raw, ["fecha de último contacto", "fecha ultimo contacto"]);
-      const nextContact = pick(raw, ["próximo contacto", "proximo contacto"]);
-      const whatsapp = pick(raw, ["link whatsapp"]);
-      const proposal = pick(raw, ["link propuesta"]);
-      const confirmation = pickContains(raw, "confirm");
-      const messageName = pick(raw, ["nombre para mensaje"]);
-      const notes = pick(raw, ["observaciones", "notas"]);
-
-      return {
-        id: `${name}-${city}-${messageName}`.toLowerCase(),
-        name,
-        messageName,
-        city,
-        campaign,
-        plan,
-        contactStatus,
-        pipelineStatus,
-        lastContact,
-        nextContact,
-        whatsapp,
-        proposal,
-        confirmation,
-        notes,
-        service: serviceFromPlan(plan, campaign),
-      };
-    }
-
-    function statusBucket(prospect) {
-      const joined = lowercase(`${prospect.contactStatus} ${prospect.pipelineStatus} ${prospect.confirmation}`);
-      const age = daysSince(prospect.lastContact);
-      if (/cerrad|ganad|cliente|confirmad|aceptad/.test(joined)) return "won";
-      if (/perdid|descart|no interesado/.test(joined)) return "lost";
-      if (/interes|respond|propuesta|caliente|cotiz|reunion|reunión/.test(joined)) return "hot";
-      if (/enviad|contactad|seguimiento/.test(joined)) return age !== null && age >= 2 ? "follow" : "sent";
-      if (prospect.lastContact && age !== null && age >= 2) return "follow";
-      return "pending";
-    }
-
-    function serviceFromPlan(plan, campaign) {
-      const text = lowercase(`${plan} ${campaign}`);
-      if (/chatbot|consultorio|manychat|make/.test(text)) return "Chatbot / Consultorio Digital";
-      if (/web|landing|sitio/.test(text)) return "Desarrollo Web";
-      if (/redes|contenido|rrss|social/.test(text)) return "Gestión de Redes";
-      if (/branding|marca|logo/.test(text)) return "Branding";
-      return "Por definir";
-    }
-
-    function getStats() {
-      const prospects = state.prospects;
-      return {
-        total: prospects.length,
-        pending: prospects.filter((item) => statusBucket(item) === "pending").length,
-        follow: prospects.filter((item) => statusBucket(item) === "follow").length,
-        hot: prospects.filter((item) => ["hot", "won"].includes(statusBucket(item))).length,
-      };
-    }
-
-    function serviceRanking() {
-      const services = new Map();
-      state.prospects.forEach((prospect) => {
-        const service = prospect.service || "Por definir";
-        if (!services.has(service)) services.set(service, { service, total: 0, pending: 0, follow: 0, hot: 0, won: 0, score: 0, examples: [] });
-        const entry = services.get(service);
-        const bucket = statusBucket(prospect);
-        entry.total++;
-        entry[bucket] = (entry[bucket] || 0) + 1;
-        entry.score += bucket === "won" ? 10 : bucket === "hot" ? 7 : bucket === "follow" ? 4 : bucket === "sent" ? 2 : 1;
-        if (entry.examples.length < 3) entry.examples.push(prospect.name);
-      });
-      return [...services.values()].sort((a, b) => b.score - a.score || b.total - a.total);
-    }
-
-    function byCity(bucket) {
-      const cities = new Map();
-      state.prospects.filter((item) => !bucket || statusBucket(item) === bucket).forEach((item) => {
-        const city = item.city || "Sin ciudad";
-        cities.set(city, (cities.get(city) || 0) + 1);
-      });
-      return [...cities.entries()].sort((a, b) => b[1] - a[1]);
-    }
-
-    function firstNames(items, count = 3) {
-      const names = items.slice(0, count).map((item) => item.messageName || item.name).filter(Boolean);
-      return names.length ? names.join(", ") : "sin lista";
-    }
-
-    function buildWeekPlan() {
-      const pending = state.prospects.filter((item) => statusBucket(item) === "pending");
-      const follow = state.prospects.filter((item) => statusBucket(item) === "follow");
-      const hot = state.prospects.filter((item) => statusBucket(item) === "hot");
-      const topCity = byCity("pending")[0]?.[0] || "Cuenca";
-      const secondCity = byCity("pending")[1]?.[0] || "Quito/GYE";
-      const topService = serviceRanking()[0]?.service || "Desarrollo Web";
-
-      return [
-        [
-          item("WA", `Enviar 5–8 mensajes nuevos en ${topCity}: ${firstNames(pending.filter((p) => p.city === topCity), 4)}`, "red"),
-          item("SEG", `Revisar ${Math.min(follow.length, 5)} seguimientos atrasados`, "blue"),
-          item("OBJ", "Definir meta de cierres de la semana", "green"),
-        ],
-        [
-          item("WA", `Follow-up a enviados hace 48h: ${firstNames(follow, 4)}`, "red"),
-          item("CLI", "Bloque protegido de producción y entregas", "blue"),
-          item("SR", `Preparar propuesta base para ${topService}`, "green"),
-        ],
-        [
-          item("WA", `5 prospectos nuevos en ${secondCity}: ${firstNames(pending.filter((p) => p.city === secondCity), 4)}`, "red"),
-          item("RRSS", `Contenido SR enfocado en ${topService}`, "purple"),
-          item("DATA", "Actualizar estado pipeline y fecha de último contacto", "blue"),
-        ],
-        [
-          item("CIERRE", `Cerrar o reactivar leads calientes: ${firstNames(hot, 4)}`, "red"),
-          item("PROP", "Enviar propuesta a quien respondió o pidió información", "purple"),
-          item("AUTO", "Revisar próximos contactos vencidos", "green"),
-        ],
-        [
-          item("SEG", "Solo follow-up y cierres. Evitar abrir demasiados frentes nuevos", "red"),
-          item("STR", "Medir respuestas, servicios con mayor tracción y ciudades activas", "purple"),
-          item("PLAN", "Crear la próxima semana con nuevos objetivos", "green"),
-        ],
-      ];
-    }
-
-    function item(tag, text, color) {
-      return { tag, text, color };
-    }
-
-    function activeWeek() {
-      if (!state.weeks[state.activeWeek]) {
-        state.weeks[state.activeWeek] = { objectives: DAY_NAMES.map(() => ""), createdAt: new Date().toISOString() };
-      }
-      return state.weeks[state.activeWeek];
-    }
-
-    function render() {
-      renderTabs();
-      renderStats();
-      renderWeek();
-      renderProspects();
-      renderServices();
-      renderAutomation();
-      renderDataStatus();
-      saveState();
-    }
-
-    function renderTabs() {
-      document.querySelectorAll(".tab").forEach((tab) => {
-        tab.onclick = () => {
-          document.querySelectorAll(".panel").forEach((panel) => panel.classList.toggle("active", panel.id === tab.dataset.panel));
-          document.querySelectorAll(".tab").forEach((item) => item.classList.toggle("active", item === tab));
-        };
-      });
-    }
-
-    function renderStats() {
-      const stats = getStats();
-      document.getElementById("statTotal").textContent = stats.total;
-      document.getElementById("statPending").textContent = stats.pending;
-      document.getElementById("statFollow").textContent = stats.follow;
-      document.getElementById("statHot").textContent = stats.hot;
-      document.getElementById("weekTitle").textContent = `Semana del ${formatDate(state.activeWeek)}`;
-      document.getElementById("weekSubtitle").textContent = state.importedAt ? `CSV actualizado: ${formatDate(state.importedAt.slice(0, 10))}` : "Importa tu CSV para activar planificación automática.";
-
-      const topCity = byCity("pending")[0];
-      const topService = serviceRanking()[0];
-      document.getElementById("weeklyFocus").innerHTML = state.prospects.length
-        ? `Prioridad: <strong>${stats.follow} seguimientos</strong>, <strong>${stats.pending} nuevos por contactar</strong>${topCity ? ` y foco inicial en <strong>${topCity[0]}</strong>` : ""}.`
-        : "Carga un CSV para generar el foco semanal de prospección.";
-      document.getElementById("servicePush").textContent = topService
-        ? `${topService.service}: ${topService.total} prospectos, ${topService.hot || 0} calientes, score ${topService.score}.`
-        : "Se calcula según plan sugerido, estados y señales de interés.";
-    }
-
-    function renderWeek() {
-      const plan = buildWeekPlan();
-      const week = activeWeek();
-      const grid = document.getElementById("weekGrid");
-      grid.innerHTML = "";
-      DAY_NAMES.forEach((day, index) => {
-        const [bg, color] = DAY_COLORS[index];
-        const column = document.createElement("div");
-        column.className = "day-col";
-        column.innerHTML = `
-          <div class="day-header" style="background:${bg};color:${color}">${day}</div>
-          <div class="day-items">
-            ${plan[index].map((entry) => `
-              <div class="day-item">
-                <span class="tag" style="background:${tagBg(entry.color)};color:${tagColor(entry.color)}">${entry.tag}</span>${entry.text}
-              </div>
-            `).join("")}
-          </div>
-          <label class="objective-label">
-            <span>Objetivo propio</span>
-            <textarea data-objective="${index}" placeholder="Escribe tu objetivo del ${day.toLowerCase()}">${week.objectives[index] || ""}</textarea>
-          </label>
-        `;
-        grid.appendChild(column);
-      });
-      document.querySelectorAll("[data-objective]").forEach((field) => {
-        field.oninput = () => {
-          week.objectives[Number(field.dataset.objective)] = field.value;
-          saveState();
-        };
-      });
-    }
-
-    function tagBg(color) {
-      return {
-        red: "rgba(192,57,43,.15)",
-        blue: "rgba(41,128,185,.15)",
-        green: "rgba(39,174,96,.15)",
-        purple: "rgba(142,68,173,.15)"
-      }[color] || "#eee";
-    }
-
-    function tagColor(color) {
-      return { red: "#c0392b", blue: "#2980b9", green: "#27ae60", purple: "#8e44ad" }[color] || "#666";
-    }
-
-    function renderProspects(filter = null) {
-      const query = lowercase(document.getElementById("prospectSearch").value);
-      let prospects = state.prospects;
-      if (filter) prospects = prospects.filter((item) => statusBucket(item) === filter);
-      if (query) {
-        prospects = prospects.filter((item) => lowercase(`${item.name} ${item.city} ${item.campaign} ${item.plan} ${item.contactStatus} ${item.pipelineStatus}`).includes(query));
-      }
-      const priority = { hot: 1, follow: 2, pending: 3, sent: 4, won: 5, lost: 6 };
-      prospects = prospects.slice().sort((a, b) => (priority[statusBucket(a)] || 9) - (priority[statusBucket(b)] || 9));
-      const list = document.getElementById("prospectList");
-      list.innerHTML = prospects.length ? prospects.slice(0, 80).map(renderProspectRow).join("") : `<div class="empty">No hay prospectos para mostrar con este filtro.</div>`;
-    }
-
-    function renderProspectRow(item) {
-      const bucket = statusBucket(item);
-      const className = bucket === "hot" ? "purple" : bucket === "follow" ? "red" : bucket === "pending" ? "gray" : bucket === "won" ? "green" : "blue";
-      const age = daysSince(item.lastContact);
-      const ageText = age === null ? "sin último contacto" : `${age} día${age === 1 ? "" : "s"} desde contacto`;
-      return `
-        <article class="row">
-          <div>
-            <h3>${escapeHTML(item.name || "Sin nombre")}</h3>
-            <p>${escapeHTML(item.city || "Sin ciudad")} · ${escapeHTML(item.service || "Sin servicio")} · ${escapeHTML(item.contactStatus || item.pipelineStatus || "Sin estado")}</p>
-            <p>${ageText}${item.nextContact ? ` · próximo: ${escapeHTML(item.nextContact)}` : ""}</p>
-          </div>
-          <span class="pill ${className}">${labelForBucket(bucket)}</span>
-        </article>
-      `;
-    }
-
-    function labelForBucket(bucket) {
-      return { pending: "Sin contactar", follow: "Seguimiento", hot: "Caliente", sent: "Enviado", won: "Ganado", lost: "Descartado" }[bucket] || bucket;
-    }
-
-    function renderServices() {
-      const ranking = serviceRanking();
-      const max = Math.max(1, ...ranking.map((item) => item.score));
-      document.getElementById("serviceList").innerHTML = ranking.length ? ranking.map((entry, index) => `
-        <article class="service-card" style="border-color:${index === 0 ? "#c0392b" : "#e5e7eb"}">
-          <div class="service-head">
-            <div class="rank">${index + 1}</div>
-            <div>
-              <h3>${escapeHTML(entry.service)}</h3>
-              <p>${entry.total} prospectos · ${entry.follow || 0} seguimientos · ${entry.hot || 0} calientes · ${entry.won || 0} ganados</p>
-              <p>Ejemplos: ${escapeHTML(entry.examples.join(", ") || "sin ejemplos")}</p>
+  grid.innerHTML = plan.map(day => `
+    <div class="day-card ${day.isToday ? 'today' : ''}">
+      <div class="day-name">${day.isToday ? 'â¶ ' : ''}${day.dayName} ${day.date.toLocaleDateString('es-EC',{day:'2-digit',month:'2-digit'})}</div>
+      <div class="day-action">${day.action}</div>
+      ${day.prospects.length === 0 ? '<p style="font-size:0.78rem;color:#aaa;">Sin contactos asignados</p>' :
+        day.prospects.map(p => {
+          const waMsg = generateWAMessage(p);
+          const waLink = p.whatsapp ? buildWALink(p.whatsapp, waMsg) : '';
+          return `<div class="prospect-item">
+            <div class="prospect-name">
+              ${escHtml(p.empresa.substring(0,25))}
+              <span class="niche-badge niche-${p.nicho.replace(/[^a-zA-Z-]/g,'')}">${p.nicho.substring(0,10)}</span>
             </div>
-            <span class="pill ${index === 0 ? "red" : "gray"}">${entry.score}</span>
-          </div>
-          <div class="bar"><div class="fill" style="width:${Math.round((entry.score / max) * 100)}%"></div></div>
-        </article>
-      `).join("") : `<div class="empty">Importa el CSV para ver qué servicio conviene empujar esta semana.</div>`;
-    }
-
-    function renderAutomation() {
-      const stats = getStats();
-      const ranking = serviceRanking();
-      const topService = ranking[0]?.service || "servicio principal";
-      const cards = [
-        ["Esta semana", [
-          `Revisar ${stats.follow} prospectos con seguimiento vencido o pendiente.`,
-          `Actualizar fecha de último contacto después de cada WhatsApp.`,
-          `Marcar como caliente a quien respondió o pidió propuesta.`,
-        ], "ph1"],
-        ["Sistema de captación", [
-          "Exportar CSV actualizado cada viernes.",
-          "Crear próxima semana después de revisar métricas.",
-          "Mantener próximos contactos completos en la hoja.",
-        ], "ph2"],
-        ["Promoción", [
-          `Empujar ${topService} en contenido y mensajes.`,
-          "Convertir mejores respuestas en caso de estudio o propuesta rápida.",
-          "Detectar ciudades/nichos con más respuesta.",
-        ], "ph3"],
-      ];
-      document.getElementById("automationGrid").innerHTML = cards.map(([title, items, phase]) => `
-        <div class="data-card">
-          <h3><span class="pill ${phase === "ph1" ? "red" : phase === "ph2" ? "blue" : "green"}">${title}</span></h3>
-          <ul>${items.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>
-        </div>
-      `).join("");
-    }
-
-    function renderDataStatus() {
-      const status = document.getElementById("dataStatus");
-      document.getElementById("csvUrlInput").value = state.csvUrl || "";
-      status.textContent = state.prospects.length
-        ? `${state.prospects.length} prospectos cargados. Última importación: ${state.importedAt ? new Date(state.importedAt).toLocaleString("es-EC") : "sin fecha"}.`
-        : "Todavía no hay CSV cargado.";
-    }
-
-    function escapeHTML(value) {
-      return String(value || "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[char]));
-    }
-
-    document.getElementById("csvInput").addEventListener("change", async (event) => {
-      const files = [...event.target.files];
-      if (!files.length) return;
-      const imported = [];
-      for (const file of files) {
-        const text = await file.text();
-        const rows = parseCSV(text);
-        if (rows.length > 1) imported.push(...rowsToObjects(rows));
+            <div class="prospect-meta">${escHtml(p.nombreMensaje)} Â· ${escHtml(p.ciudad)}</div>
+            ${waLink ? `<a class="wa-btn" href="${waLink}" target="_blank" rel="noopener">ð² WA</a>` : ''}
+          </div>`;
+        }).join('')
       }
-      state.prospects = imported;
-      state.importedAt = new Date().toISOString();
-      render();
-      event.target.value = "";
-    });
+    </div>
+  `).join('');
+}
 
-    document.getElementById("saveUrlBtn").addEventListener("click", () => {
-      state.csvUrl = document.getElementById("csvUrlInput").value;
-      saveState();
-      document.getElementById("dataStatus").textContent = "Link guardado. Puedes tocar “Actualizar desde link” cuando quieras refrescar la hoja.";
-    });
+function renderProspects(filter) {
+  filter = filter || currentFilter || 'todos';
+  const list = document.getElementById('prospectList');
+  const badge = document.getElementById('prospectCount');
 
-    document.getElementById("loadUrlBtn").addEventListener("click", loadCSVFromUrl);
+  let prospects = state.prospects;
+  if (filter !== 'todos') prospects = prospects.filter(p => statusBucket(p) === filter);
+  badge.textContent = prospects.length;
 
-    document.getElementById("prospectSearch").addEventListener("input", () => renderProspects());
-    document.getElementById("showDueBtn").addEventListener("click", () => renderProspects("follow"));
-    document.getElementById("showPendingBtn").addEventListener("click", () => renderProspects("pending"));
+  if (prospects.length === 0) {
+    list.innerHTML = `<div class="no-data"><div class="icon">${state.prospects.length === 0 ? 'ð' : 'ð'}</div>
+      <p>${state.prospects.length === 0 ? 'Presiona ð Actualizar para cargar prospectos.' : 'Sin resultados para este filtro.'}</p></div>`;
+    return;
+  }
 
-    document.getElementById("newWeekBtn").addEventListener("click", () => {
-      const current = new Date(`${state.activeWeek}T00:00:00`);
-      current.setDate(current.getDate() + 7);
-      state.activeWeek = weekStartISO(current);
-      activeWeek();
-      render();
-    });
+  list.innerHTML = prospects.map(p => {
+    const bucket = statusBucket(p);
+    const waMsg = generateWAMessage(p);
+    const waLink = p.whatsapp ? buildWALink(p.whatsapp, waMsg) : '';
+    return `<div class="prospect-card">
+      <div class="status-dot dot-${bucket}"></div>
+      <div style="flex:1;">
+        <div class="p-name">
+          ${escHtml(p.empresa)}
+          <span class="niche-badge niche-${p.nicho.replace(/[^a-zA-Z-]/g,'')}">${p.nicho}</span>
+        </div>
+        <div class="p-info">
+          <span>ð¤ ${escHtml(p.contacto || 'â')}</span>
+          <span>ð ${escHtml(p.ciudad || 'â')}</span>
+          <span>ð¼ ${escHtml(p.plan || 'â')}</span>
+        </div>
+        <div class="p-info">
+          <span>ð ${escHtml(p.estadoContacto || p.pipeline || 'Sin estado')}</span>
+          ${p.proximoContacto ? `<span>ð PrÃ³ximo: ${escHtml(p.proximoContacto)}</span>` : ''}
+        </div>
+        ${waMsg ? `<div class="p-msg">ð¬ ${escHtml(waMsg.substring(0, 100))}â¦</div>` : ''}
+        ${waLink ? `<a class="wa-btn" href="${waLink}" target="_blank" rel="noopener">ð² Enviar WhatsApp</a>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
 
-    document.getElementById("saveWeekBtn").addEventListener("click", () => {
-      saveState();
-      document.getElementById("weekSubtitle").textContent = "Objetivos guardados en este navegador.";
-    });
+function renderStats() {
+  const grid = document.getElementById('statsGrid');
+  const total = state.prospects.length;
+  const byStatus = { hot:0, follow:0, sent:0, pending:0, won:0, lost:0 };
+  state.prospects.forEach(p => { const b = statusBucket(p); if (byStatus[b]!==undefined) byStatus[b]++; });
 
-    document.getElementById("clearDataBtn").addEventListener("click", () => {
-      if (!confirm("¿Limpiar prospectos y planes guardados en este navegador?")) return;
-      state.prospects = [];
-      state.weeks = {};
-      state.activeWeek = weekStartISO(new Date());
-      state.importedAt = null;
-      state.csvUrl = "";
-      render();
-    });
+  const items = [
+    { label: 'Total', value: total, color: 'var(--azul)' },
+    { label: 'ð¥ Calientes', value: byStatus.hot, color: 'var(--rojo)' },
+    { label: 'â° Seguimiento', value: byStatus.follow, color: 'var(--naranja)' },
+    { label: 'ð¤ Con propuesta', value: byStatus.sent, color: 'var(--amarillo)' },
+    { label: 'â Cerrados', value: byStatus.won, color: 'var(--verde)' },
+    { label: 'â³ Pendientes', value: byStatus.pending, color: '#aaa' },
+  ];
 
-    document.getElementById("exportPlanBtn").addEventListener("click", () => {
-      const plan = {
-        week: state.activeWeek,
-        generatedAt: new Date().toISOString(),
-        stats: getStats(),
-        services: serviceRanking(),
-        objectives: activeWeek().objectives,
-      };
-      const blob = new Blob([JSON.stringify(plan, null, 2)], { type: "application/json" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `plan-sr-${state.activeWeek}.json`;
-      link.click();
-      URL.revokeObjectURL(url);
-    });
+  grid.innerHTML = items.map(i => `
+    <div style="background:white; border-radius:8px; padding:12px; text-align:center; box-shadow:0 1px 4px rgba(0,0,50,0.08);">
+      <div style="font-size:1.5rem; font-weight:bold; color:${i.color};">${i.value}</div>
+      <div style="font-size:0.75rem; color:var(--texto-suave);">${i.label}</div>
+    </div>
+  `).join('');
+}
 
+function renderNicheStatus() {
+  const list = document.getElementById('nicheStatusList');
+  const configList = document.getElementById('nicheConfigList');
+
+  const rows = NICHE_TABS.map(tab => {
+    const count = state.nicheCounts[tab.name];
+    const status = count === undefined ? 'â' : count === -1 ? 'â Error' : `${count} prospectos`;
+    const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${tab.gid}`;
+    return { tab, count, status, url };
+  });
+
+  list.innerHTML = rows.map(r => `
+    <li>
+      <div>
+        <div class="tab-name">${r.tab.name}</div>
+        <div class="tab-url">GID: ${r.tab.gid}</div>
+      </div>
+      <span class="tab-count">${r.status}</span>
+    </li>
+  `).join('');
+
+  configList.innerHTML = rows.map(r => `
+    <li>
+      <div>
+        <div class="tab-name">${r.tab.name} <span class="niche-badge niche-${r.tab.name.replace(/[^a-zA-Z-]/g,'')}">${r.tab.name.substring(0,8)}</span></div>
+        <div class="tab-url">GID ${r.tab.gid} Â· ${r.tab.name}</div>
+      </div>
+      <span class="tab-count">${r.status}</span>
+    </li>
+  `).join('');
+}
+
+function updateSyncInfo() {
+  const el = document.getElementById('syncInfo');
+  if (!state.importedAt) { el.textContent = 'Sin datos'; return; }
+  const d = new Date(state.importedAt);
+  el.innerHTML = `${state.prospects.length} prospectos<br>${d.toLocaleDateString('es-EC',{day:'2-digit',month:'short'})} ${d.toLocaleTimeString('es-EC',{hour:'2-digit',minute:'2-digit'})}`;
+}
+
+function updateSystemStatus() {
+  const el = document.getElementById('systemStatus');
+  const d = state.importedAt ? new Date(state.importedAt) : null;
+  el.innerHTML = [
+    `ð Prospectos cargados: <strong>${state.prospects.length}</strong>`,
+    `ð Ãltima actualizaciÃ³n: <strong>${d ? d.toLocaleString('es-EC') : 'Nunca'}</strong>`,
+    `ð PestaÃ±as conectadas: <strong>${NICHE_TABS.length}</strong> (${NICHE_TABS.map(t=>t.name).join(', ')})`,
+    state.customCsvUrl ? `ð URL personalizada: <strong>${state.customCsvUrl.substring(0,50)}â¦</strong>` : ''
+  ].filter(Boolean).join('<br>');
+}
+
+// =====================================================
+// WA MESSAGE GENERATOR
+// =====================================================
+function generateWAMessage(p) {
+  if (p.mensajeBase && p.mensajeBase.trim()) {
+    return p.mensajeBase
+      .replace(/\{nombre\}/gi, p.nombreMensaje || p.contacto || '')
+      .replace(/\{empresa\}/gi, p.empresa || '');
+  }
+  // Auto-generate based on niche
+  const nombre = p.nombreMensaje || p.contacto?.split(' ')[0] || 'estimado/a';
+  const templates = {
+    'Industria': `Hola ${nombre}, te contacto de Sombrero Rojo. Ayudamos a empresas industriales en Ecuador a generar mÃ¡s clientes con marketing digital e IA. Â¿Tienen presencia en redes o web? ð`,
+    'Quito-Industria': `Hola ${nombre}, soy Rommel de Sombrero Rojo en Cuenca. Trabajamos con empresas como la tuya para conseguir mÃ¡s clientes usando estrategias digitales con IA. Â¿Te interesa conocer cÃ³mo? ð²`,
+    'OdontologÃ­a': `Hola ${nombre}, soy Rommel de Sombrero Rojo. Ayudamos a consultorios dentales a conseguir mÃ¡s pacientes con su web y redes sociales. Â¿Tienen pÃ¡gina web actualmente? ð`,
+    'Pediatras-Cuenca': `Hola ${nombre}, te contacto de Sombrero Rojo. Trabajamos con pediatras en Cuenca para que sus pacientes los encuentren mÃ¡s fÃ¡cil en internet. Â¿Les interesa mejorar su presencia digital? ð¥`
+  };
+  return templates[p.nicho] || `Hola ${nombre}, soy Rommel de Sombrero Rojo. Me gustarÃ­a contarte cÃ³mo podemos ayudar a ${p.empresa || 'tu empresa'} a crecer en internet. Â¿Tienen unos minutos? ð`;
+}
+
+function buildWALink(phone, message) {
+  let clean = phone.replace(/[^0-9+]/g, '');
+  if (clean.startsWith('0')) clean = '593' + clean.substring(1);
+  if (!clean.startsWith('+') && !clean.startsWith('593')) clean = '593' + clean;
+  clean = clean.replace(/^\+/, '');
+  return `https://wa.me/${clean}?text=${encodeURIComponent(message)}`;
+}
+
+// =====================================================
+// URL HELPERS
+// =====================================================
+function normalizeCSVUrl(value) {
+  if (!value) return '';
+  const sheetMatch = value.match(/docs\.google\.com\/spreadsheets\/d\/([^/]+)/);
+  if (sheetMatch) {
+    const gidMatch = value.match(/[?&#]gid=(\d+)/);
+    const gid = gidMatch ? gidMatch[1] : '0';
+    return `https://docs.google.com/spreadsheets/d/${sheetMatch[1]}/export?format=csv&gid=${gid}`;
+  }
+  return value; // assume already a CSV URL
+}
+
+// =====================================================
+// UI ACTIONS
+// =====================================================
+let currentFilter = 'todos';
+
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+function setFilter(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderProspects(filter);
+}
+
+function saveCustomUrl() {
+  const val = document.getElementById('csvUrlInput').value.trim();
+  state.customCsvUrl = val;
+  saveState();
+  showToast('â Link guardado');
+}
+
+async function loadCustomUrl() {
+  const input = document.getElementById('csvUrlInput');
+  const val = input.value.trim() || state.customCsvUrl;
+  if (!val) { showToast('â ï¸ Ingresa una URL primero', true); return; }
+  const url = normalizeCSVUrl(val);
+  showLoading('Cargando desde URLâ¦');
+  try {
+    const resp = await fetch(url, { cache: 'no-store' });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const text = await resp.text();
+    const rows = parseCSV(text);
+    const extra = rows.map(r => normalizeProspect(r, 'Custom')).filter(p => p.empresa);
+    state.prospects = [...state.prospects.filter(p => p.nicho !== 'Custom'), ...extra];
+    state.nicheCounts['Custom'] = extra.length;
+    state.importedAt = new Date().toISOString();
+    saveState();
     render();
-  </script>
+    showToast(`â ${extra.length} prospectos cargados`);
+  } catch(e) {
+    showToast('â Error al cargar: ' + e.message, true);
+  }
+  hideLoading();
+}
+
+function clearAll() {
+  if (!confirm('Â¿Limpiar todos los prospectos cargados?')) return;
+  state.prospects = [];
+  state.importedAt = null;
+  state.nicheCounts = {};
+  saveState();
+  render();
+  showToast('ðï¸ Datos limpiados');
+}
+
+function showLoading(text) {
+  document.getElementById('loadingText').textContent = text || 'Cargandoâ¦';
+  document.getElementById('loadingOverlay').style.display = 'flex';
+}
+
+function hideLoading() {
+  document.getElementById('loadingOverlay').style.display = 'none';
+}
+
+function showToast(msg, isError) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (isError ? ' error' : '');
+  setTimeout(() => { t.className = 'toast'; }, 3000);
+}
+
+function escHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// =====================================================
+// INIT
+// =====================================================
+document.addEventListener('DOMContentLoaded', async function() {
+  loadState();
+
+  // Restore custom URL input
+  if (state.customCsvUrl) {
+    document.getElementById('csvUrlInput').value = state.customCsvUrl;
+  }
+
+  // Render with cached data immediately
+  render();
+
+  // Auto-sync if data is stale (older than 4 hours) or empty
+  const shouldSync = !state.importedAt ||
+    (Date.now() - new Date(state.importedAt).getTime()) > 4 * 60 * 60 * 1000;
+
+  if (shouldSync) {
+    await syncAll();
+  }
+});
+</script>
 </body>
 </html>
