@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GNA Now — Digital Presence Report & Growth Proposals | Sombrero Rojo SR-504</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================
+     RESET & BASE
+  ============================================ */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue-deep:   #14284b;
+    --blue-mid:    #1a3a6e;
+    --blue-light:  #e8eef8;
+    --red:         #c91432;
+    --red-light:   #fdf0f2;
+    --beige:       #f2ede6;
+    --beige-dark:  #ddd5c8;
+    --white:       #ffffff;
+    --text:        #1a1a1a;
+    --text-soft:   #5a6170;
+    --border:      #dde3ed;
+    --bg:          #f7f8fa;
+  }
+
+  body {
+    font-family: 'Inter', Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    font-size: 13.5px;
+    line-height: 1.65;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @media print {
+    body { background: #fff; font-size: 12px; }
+    .no-print { display: none !important; }
+    .page-break { page-break-before: always; }
+    .wrapper { max-width: 100%; }
+  }
+
+  /* ============================================
+     WRAPPER
+  ============================================ */
+  .wrapper { max-width: 920px; margin: 0 auto; background: var(--white); box-shadow: 0 2px 24px rgba(0,0,0,0.08); }
+
+  /* ============================================
+     HEADER
+  ============================================ */
+  header {
+    background: var(--blue-deep);
+    padding: 20px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  header img { height: 46px; flex-shrink: 0; }
+  .header-right { text-align: right; }
+  .header-right .doc-title {
+    font-family: 'Bebas Neue', Impact, sans-serif;
+    font-size: 20px;
+    color: #fff;
+    letter-spacing: 1.5px;
+    line-height: 1.1;
+  }
+  .header-right .doc-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 3px;
+    letter-spacing: 0.3px;
+  }
+
+  /* ============================================
+     COVER
+  ============================================ */
+  .cover {
+    background: var(--beige);
+    padding: 32px 36px;
+    border-left: 5px solid var(--red);
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    right: -30px; top: -30px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(20,40,75,0.06);
+  }
+  .cover h1 {
+    font-family: 'Bebas Neue', Impact, sans-serif;
+    font-size: 38px;
+    color: var(--blue-deep);
+    letter-spacing: 1.5px;
+    line-height: 1.05;
+  }
+  .cover h1 em { color: var(--red); font-style: normal; }
+  .cover .tagline {
+    font-size: 14px;
+    color: var(--text-soft);
+    margin-top: 8px;
+    max-width: 520px;
+    line-height: 1.5;
+  }
+  .cover-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--beige-dark);
+  }
+  .cover-meta .meta-item { font-size: 12px; }
+  .cover-meta .meta-item strong { color: var(--blue-deep); display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 1px; }
+
+  /* ============================================
+     SECTION HEADER
+  ============================================ */
+  .sec-head {
+    background: var(--blue-deep);
+    padding: 11px 36px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .sec-num {
+    font-family: 'Bebas Neue', Impact, sans-serif;
+    font-size: 24px;
+    color: var(--red);
+    line-height: 1;
+    min-width: 28px;
+  }
+  .sec-head h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .sec-head .sec-badge {
+    margin-left: auto;
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    padding: 2px 10px;
+    border-radius: 10px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+
+  /* ============================================
+     CONTENT BLOCKS
+  ============================================ */
+  .content { padding: 28px 36px; }
+  .content + .content { padding-top: 0; }
+
+  /* intro panel */
+  .panel {
+    background: var(--blue-deep);
+    color: #fff;
+    padding: 20px 24px;
+    border-radius: 6px;
+    margin-bottom: 24px;
+  }
+  .panel p { font-size: 13.5px; line-height: 1.7; opacity: 0.9; }
+  .panel p + p { margin-top: 10px; }
+  .panel strong { color: var(--beige); opacity: 1; }
+
+  /* callout */
+  .callout {
+    background: var(--red-light);
+    border-left: 4px solid var(--red);
+    padding: 13px 18px;
+    border-radius: 0 5px 5px 0;
+    margin: 18px 0;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .callout strong { color: var(--red); }
+
+  /* opportunity */
+  .opportunity {
+    background: var(--beige);
+    border-left: 4px solid var(--blue-deep);
+    padding: 16px 20px;
+    border-radius: 0 5px 5px 0;
+    margin: 18px 0;
+  }
+  .opportunity h4 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin-bottom: 6px;
+  }
+  .opportunity p { font-size: 13px; color: #333; }
+
+  /* section sub-heading */
+  .sub-head {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin: 20px 0 10px;
+    letter-spacing: 0.3px;
+  }
+  .sub-head::after {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 2px;
+    background: var(--red);
+    margin-top: 4px;
+  }
+
+  /* ============================================
+     KPI ROW
+  ============================================ */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .kpi {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--blue-deep);
+    padding: 16px 14px;
+    text-align: center;
+    border-radius: 0 0 5px 5px;
+  }
+  .kpi.alert { border-top-color: var(--red); }
+  .kpi-val {
+    font-family: 'Bebas Neue', Impact, sans-serif;
+    font-size: 34px;
+    color: var(--red);
+    line-height: 1;
+  }
+  .kpi-label {
+    font-size: 11px;
+    color: var(--text-soft);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .kpi-sub { font-size: 10px; color: #aaa; margin-top: 2px; }
+
+  /* ============================================
+     TABLES
+  ============================================ */
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 12.5px; }
+  thead th {
+    background: var(--blue-deep);
+    color: #fff;
+    padding: 9px 13px;
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  tbody td { padding: 9px 13px; border-bottom: 1px solid #eef0f4; vertical-align: top; color: #333; }
+  tbody tr:nth-child(even) td { background: #fafbfc; }
+  tbody tr:last-child td { border-bottom: none; }
+  td strong { color: var(--blue-deep); }
+
+  /* badges */
+  .badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 10px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+  }
+  .b-red    { background: #ffe4e8; color: #a8001a; }
+  .b-orange { background: #fff0e0; color: #b55000; }
+  .b-yellow { background: #fffbe0; color: #906a00; }
+  .b-green  { background: #e6f4ec; color: #1a7c3e; }
+  .b-gray   { background: #f0f0f0; color: #555; }
+
+  /* ============================================
+     PLATFORM CARDS
+  ============================================ */
+  .platform-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+  .pcard { border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
+  .pcard-head {
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .ph-ig   { background: #f5eeff; color: #5b00a8; }
+  .ph-fb   { background: #e8f0ff; color: var(--blue-deep); }
+  .ph-x    { background: #edf8ff; color: #006fa0; }
+  .ph-li   { background: #e7f2fa; color: #004070; }
+  .pcard-body { padding: 14px 16px; }
+  .stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 12px;
+    color: var(--text-soft);
+  }
+  .stat-row:last-of-type { border: none; }
+  .sv { font-weight: 700; color: var(--blue-deep); }
+  .sv-alert { color: var(--red); }
+  .finding-list { list-style: none; margin-top: 10px; padding: 0; }
+  .finding-list li {
+    font-size: 11.5px;
+    padding: 3px 0 3px 16px;
+    position: relative;
+    color: #444;
+    border-bottom: 1px dotted #eee;
+  }
+  .finding-list li:last-child { border: none; }
+  .finding-list li::before {
+    content: '›';
+    position: absolute;
+    left: 2px;
+    color: var(--red);
+    font-weight: 700;
+    font-size: 14px;
+    top: 1px;
+  }
+
+  /* ============================================
+     SEO CHECKS
+  ============================================ */
+  .seo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 11px;
+    margin-bottom: 22px;
+  }
+  .seo-check {
+    background: #fafbfc;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--blue-deep);
+    padding: 13px 15px;
+    border-radius: 0 5px 5px 0;
+    font-size: 12px;
+  }
+  .seo-check.critical { border-left-color: var(--red); }
+  .seo-check.warning  { border-left-color: #d97706; }
+  .seo-check.good     { border-left-color: #2e7d32; }
+  .seo-check .icon { font-size: 15px; margin-bottom: 5px; display: block; }
+  .seo-check h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-soft);
+    margin-bottom: 4px;
+  }
+  .seo-check p { color: #333; }
+
+  /* ============================================
+     PROPOSALS DIVIDER
+  ============================================ */
+  .prop-divider {
+    background: linear-gradient(135deg, var(--blue-deep) 0%, #0d1e38 100%);
+    color: #fff;
+    padding: 32px 36px;
+    text-align: center;
+  }
+  .prop-divider h2 {
+    font-family: 'Bebas Neue', Impact, sans-serif;
+    font-size: 34px;
+    letter-spacing: 2px;
+  }
+  .prop-divider h2 em { color: var(--red); font-style: normal; }
+  .prop-divider p {
+    font-size: 13.5px;
+    opacity: 0.8;
+    margin-top: 8px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+  .prop-divider .demo-link {
+    display: inline-block;
+    margin-top: 14px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff;
+    padding: 7px 20px;
+    border-radius: 20px;
+    font-size: 12px;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+  }
+
+  /* ============================================
+     PROPOSAL HEADER BAND
+  ============================================ */
+  .prop-band {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 36px;
+    border-bottom: 2px solid var(--border);
+    background: var(--white);
+  }
+  .prop-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .pl-a { background: var(--blue-deep); color: #fff; }
+  .pl-b { background: var(--red); color: #fff; }
+  .prop-band h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--blue-deep);
+  }
+  .prop-band .prop-price { margin-left: auto; text-align: right; }
+  .prop-band .price-main {
+    font-family: 'Bebas Neue', Impact, sans-serif;
+    font-size: 30px;
+    color: var(--red);
+    line-height: 1;
+  }
+  .prop-band .price-note { font-size: 10.5px; color: var(--text-soft); }
+
+  /* ============================================
+     DELIVERABLES
+  ============================================ */
+  .del-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .del-block {
+    background: #fafbfc;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--blue-deep);
+    padding: 15px;
+    border-radius: 0 0 5px 5px;
+  }
+  .del-block h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--blue-deep);
+    margin-bottom: 9px;
+  }
+  .check-list { list-style: none; padding: 0; }
+  .check-list li {
+    font-size: 12px;
+    padding: 3px 0 3px 18px;
+    position: relative;
+    color: #333;
+    border-bottom: 1px dotted #eee;
+  }
+  .check-list li:last-child { border: none; }
+  .check-list li::before { content: '✓'; position: absolute; left: 0; color: #2e7d32; font-weight: 700; font-size: 11px; top: 4px; }
+
+  /* ============================================
+     TIMELINE
+  ============================================ */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 14px 0 20px;
+  }
+  .tw {
+    padding: 13px 14px;
+    border-right: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .tw:last-child { border-right: none; }
+  .tw h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin-bottom: 7px;
+  }
+  .tw ul { list-style: none; padding: 0; }
+  .tw ul li { font-size: 11px; color: #555; padding: 2px 0; border-bottom: 1px dotted #eee; }
+  .tw ul li:last-child { border: none; }
+
+  /* ============================================
+     MONTHLY PLAN
+  ============================================ */
+  .monthly-plan {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 11px;
+    margin-bottom: 20px;
+  }
+  .mb {
+    background: #fafbfc;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--red);
+    padding: 13px;
+    border-radius: 0 0 5px 5px;
+  }
+  .mb h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin-bottom: 2px;
+  }
+  .mb .phase { font-size: 10px; color: var(--text-soft); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 8px; }
+  .mb ul { list-style: none; padding: 0; }
+  .mb ul li { font-size: 11px; color: #444; padding: 3px 0; border-bottom: 1px dotted #eee; }
+  .mb ul li:last-child { border: none; }
+
+  /* ============================================
+     PRICING TABLES
+  ============================================ */
+  .price-table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 12.5px; }
+  .price-table th {
+    background: var(--blue-deep);
+    color: #fff;
+    padding: 10px 14px;
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .price-table td { padding: 10px 14px; border-bottom: 1px solid #eef0f4; }
+  .price-table tr:nth-child(even) td { background: #fafbfc; }
+  .price-table tr:last-child td { border-bottom: none; }
+  .pval {
+    font-family: 'Bebas Neue', Impact, sans-serif;
+    font-size: 18px;
+    color: var(--red);
+  }
+  .total-row td {
+    background: var(--beige) !important;
+    font-weight: 700;
+    border-top: 2px solid var(--blue-deep) !important;
+    border-bottom: none !important;
+  }
+  .total-row .pval {
+    font-size: 22px;
+    color: var(--blue-deep);
+  }
+
+  /* ============================================
+     WHY SR
+  ============================================ */
+  .why-sr {
+    background: var(--beige);
+    padding: 28px 36px;
+  }
+  .why-sr h2 {
+    font-family: 'Bebas Neue', Impact, sans-serif;
+    font-size: 28px;
+    color: var(--blue-deep);
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+  .why-sr h2 em { color: var(--red); font-style: normal; }
+  .why-sr p { font-size: 13px; color: #444; max-width: 640px; margin-bottom: 20px; line-height: 1.65; }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .why-item {
+    background: var(--white);
+    border: 1px solid var(--beige-dark);
+    border-top: 3px solid var(--blue-deep);
+    padding: 16px;
+    border-radius: 0 0 5px 5px;
+    text-align: center;
+  }
+  .why-item .wi-num {
+    font-family: 'Bebas Neue', Impact, sans-serif;
+    font-size: 36px;
+    color: var(--red);
+    line-height: 1;
+  }
+  .why-item h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blue-deep);
+    margin: 6px 0 4px;
+  }
+  .why-item p { font-size: 11.5px; color: var(--text-soft); margin: 0; }
+
+  /* ============================================
+     NEXT STEPS
+  ============================================ */
+  .next-steps {
+    background: var(--blue-deep);
+    color: #fff;
+    padding: 28px 36px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .ns-block { text-align: center; }
+  .ns-num {
+    font-family: 'Bebas Neue', Impact, sans-serif;
+    font-size: 52px;
+    color: var(--red);
+    line-height: 1;
+    display: block;
+  }
+  .ns-block h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 7px 0 5px;
+    color: var(--beige);
+  }
+  .ns-block p { font-size: 12px; opacity: 0.75; line-height: 1.5; }
+
+  /* ============================================
+     FOOTER
+  ============================================ */
+  footer {
+    background: #0d1e38;
+    color: #fff;
+    padding: 16px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11.5px;
+  }
+  footer .fc-left p { opacity: 0.6; margin: 2px 0; }
+  footer .fc-left strong { opacity: 1; font-size: 12px; font-family: 'Montserrat', sans-serif; }
+  footer .fc-right { text-align: right; }
+  footer .fc-right p { opacity: 0.6; margin: 2px 0; }
+  footer a { color: var(--beige); }
+
+  /* ============================================
+     DIVIDER
+  ============================================ */
+  hr.sec-div { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  /* ============================================
+     COMPARISON
+  ============================================ */
+  .comp-table td:first-child { font-weight: 600; color: var(--blue-deep); width: 28%; }
+  .comp-table .comp-highlight td {
+    background: var(--beige) !important;
+    font-weight: 600;
+    text-align: center;
+    color: var(--blue-deep);
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- =================== HEADER =================== -->
+  <header>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUAAAACECAYAAADhnvK8AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAIp1JREFUeNrsnQuMXFd5x787O+sHfuwkCgk2hIyBgloneA1UlCaRZ9OCFKjqtSiliCLv8giIothbikQl0HqrotKm1W4gTVGI6jVIiApVXjcIpLZkx00DFBoymyBSp6Adx4nzaMDr92M9c3rO3XNmz5w5555z7mN2Zvb7Rzezc9/3ju/v/r/vvABQKBQKhUKhUCgUCoVCoVAoFAqFQqFQKBQKhUKhUCgUCoVCoVAoFAqFQqFQKBQKhUKhUCgUCoVCoVAoFAqFQqFQKBQKhUKhUCgUCoVCoVAoFAqFQqFQKBQKhUKhUCgUCoVCoVAoFAqFQqFQKBTKogBvAer5rTBIPwr8a3XLSajiXUGtBuXwFqCoJuk0y6cRvB2o1aI83gJUu0UIKdKPYTrtoFNRswpzoMfpVA6CoIx3DIUAXNkQsaTMYuHioMOmFTotiL9paLmwysHH3OU+x3vHNE63EffxCAIRhQBMD2oi71Xk04D0YBYNziTpMYW7qfKH+jgHY08/1BRi7L4e9ACfqkE+MSCyl8gMnSYoDKv4CKMQgHbIMQd3E4eanPBfCQm4lhQwMiAyEB6iQKz0mOs7aFi8wK95TnHL7P7sAn0+ssDns5fHAXyEUasegBQgIiQVoBtM4DZWSuKc99PrYc5mtNudYQT8GOgm6DRNXZwpLTBNt5/g25c0y3fh44talQDkzo49FDv4Z7HHfhd2PbP0Ord1a5UUKexVxZzeUAT4GuIh7hDd10HA0mnUagVgeesbGBBYqeGu18FxCrzFwir5fdh1V7v03CcNzs8JfgoIR3nJcQkfWVTPA5ACryCApzq8RXrK/fT/qI53fzpY3esLP0l76DQPK5u/RSEAM4PeIIfebojI3y1S/AFcXC2/D7sP5S48772G+dNxd8jAScE6BuYCFRSquwBIoSeAN+z6Zr+6umrudKvbGTRALFE4T7dnBSPj0Hs5X9RqAWAc6LU6QFQ3AjAlTaALRHUVAHl4uy8u9JoBiI1XutW5UvdWSJADbLjAJKE0CtU2AFLwlegHC1lKae0THWDXO8My3gZUpyiz3mAo/A7DUu8ipTT3iw6wK1Q1zN+NtwbV8wCUSnQzEbrArgXgfl5FBoXqXQCWTv4807as6AI7XlG//yxCENXzITBkmOtZRQ7wpi4977mIZQUOwf34+KF6GYCZuUDfuoCkiyZFxS79d2V7+TEITlIIMhCW8DFE9SIA59LcmQyJK9QBJoBKR0s5dzZmizx1hXiF5ymHVUvcDc4zR8jb+6JQPQHAapoOrTkEXrU5wAC6B4oTHlEAAx/rPGGew3ASYYjqagCWTv4807as6AI7XlG//yxCENXzITBkmOtZRQ7wpi4977mIZQUOwf34+KF6GYCZuUDfuoCkiyZFxS79d2V7+TEITlIIMhCW8DFE9SIA59LcmQyJK9QBJoBKR0s5dzZmizx1hXiF5ymHVUvcDc4zR8jb+6JQPQHAapoOrTkEXrU5wAC6B4oTHlEAAx/rPGGew3ASYYjqagCWfv4807as6AI7XlG//yxCENXzITBkmOtZRQ7wpi4977mIZQUOwf34+KF6GYCZuUDfuoCkiyZFxS79d2V7+TEITlIIMhCW8DFE9SIA59LcmQyJK9QBJoBKR0s5dzZmizx1hXiF5ymHVUvcDc4zR8jb+6JQPQHAapoOrTkEXrU5wAC6B4oTHlEAAx/rPGGew3ASYYjqagCWTv4807as=" alt="Sombrero Rojo" onerror="this.style.display='none'">
+    <div class="header-right">
+      <div class="doc-title">Digital Presence Report &amp; Growth Proposals</div>
+      <div class="doc-sub">Confidential · SR-504 · Prepared by Sombrero Rojo for Greater National Advocates</div>
+    </div>
+  </header>
+
+  <!-- =================== COVER =================== -->
+  <div class="cover">
+    <h1>GNA Now — <em>Digital Diagnosis</em><br>&amp; Strategic Growth Proposals</h1>
+    <p class="tagline">An audit of GNA Now's current digital presence — social media and SEO — followed by two actionable proposals designed to close the gap between a powerful mission and the families who need to find it.</p>
+    <div class="cover-meta">
+      <div class="meta-item"><strong>For</strong>Greater National Advocates / GNA Now</div>
+      <div class="meta-item"><strong>Prepared by</strong>Sombrero Rojo Diseño &amp; Marketing</div>
+      <div class="meta-item"><strong>Date</strong>June 2026</div>
+      <div class="meta-item"><strong>Reference</strong>SR-504-D</div>
+      <div class="meta-item"><strong>Live Demo</strong><a href="https://gna-landing-demo.netlify.app" style="color:var(--blue-deep);">gna-landing-demo.netlify.app</a></div>
+    </div>
+  </div>
+
+  <!-- =================== SECTION 1: EXECUTIVE SUMMARY =================== -->
+  <div class="sec-head">
+    <span class="sec-num">01</span>
+    <h2>Executive Summary</h2>
+    <span class="sec-badge">Overview</span>
+  </div>
+  <div class="content">
+    <div class="panel">
+      <p>Greater National Advocates (GNA Now) has operated the nation's leading directory of Independent Patient Advocates since 2018 — connecting patients and families with professionals who work solely for them. The mission is compelling, the patient testimonials are powerful, and the need is real and growing.</p>
+      <p><strong>The opportunity:</strong> GNA Now's digital presence is not yet converting that trust and mission into consistent visibility, audience engagement, or guidance requests. This report documents specific findings from an initial review of GNA Now's social media channels and website, and presents two concrete proposals to address that gap.</p>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi alert">
+        <div class="kpi-val">343</div>
+        <div class="kpi-label">Instagram Followers</div>
+        <div class="kpi-sub">@greaternationaladvocates</div>
+      </div>
+      <div class="kpi alert">
+        <div class="kpi-val">2,915</div>
+        <div class="kpi-label">Facebook Followers</div>
+        <div class="kpi-sub">@GreaterNationalAdvocates</div>
+      </div>
+      <div class="kpi alert">
+        <div class="kpi-val">~13</div>
+        <div class="kpi-label">FB Active Engagers</div>
+        <div class="kpi-sub">"Talking about this" — est. &lt;0.5%</div>
+      </div>
+      <div class="kpi alert">
+        <div class="kpi-val">~40</div>
+        <div class="kpi-label">Total IG Posts</div>
+        <div class="kpi-sub">Across 7+ years of operation</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Initial finding:</strong> GNA Now has a life-changing impact on patients and families — and meaningful content assets including testimonials, blog articles, and advocacy expertise — but these are not yet being systematically distributed through social media or optimized for organic search. The upside is significant and largely untapped.
+    </div>
+  </div>
+
+  <hr class="sec-div">
+
+  <!-- =================== SECTION 2: SOCIAL MEDIA AUDIT =================== -->
+  <div class="sec-head">
+    <span class="sec-num">02</span>
+    <h2>Social Media Audit</h2>
+    <span class="sec-badge">Instagram · Facebook · X · LinkedIn</span>
+  </div>
+  <div class="content">
+
+    <div class="platform-grid">
+      <div class="pcard">
+        <div class="pcard-head ph-ig">📸 &nbsp;Instagram — @greaternationaladvocates</div>
+        <div class="pcard-body">
+          <div class="stat-row"><span>Followers</span><span class="sv sv-alert">343</span></div>
+          <div class="stat-row"><span>Following</span><span class="sv">225</span></div>
+          <div class="stat-row"><span>Total posts (all time)</span><span class="sv sv-alert">~40</span></div>
+          <div class="stat-row"><span>Avg. posts/year (7 yrs)</span><span class="sv sv-alert">less than 6</span></div>
+          <div class="stat-row"><span>Reels / Video</span><span class="sv sv-alert">Not observed</span></div>
+          <div class="stat-row"><span>Bio CTA</span><span class="sv sv-alert">Generic — no trackable link</span></div>
+          <ul class="finding-list">
+            <li>~40 total posts across 7+ years indicates inconsistent posting cadence</li>
+            <li>Bio copy is emotionally resonant but lacks a clear CTA or trackable URL</li>
+            <li>No Reels observed — the highest-reach format on Instagram in 2026</li>
+            <li>Follower-to-following ratio (343:225) suggests limited organic growth activity</li>
+            <li>Comparable nonprofits in healthcare typically show 5,000–15,000 followers with 3–5 posts/week</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <div class="pcard-head ph-fb">📘 &nbsp;Facebook — @GreaterNationalAdvocates</div>
+        <div class="pcard-body">
+          <div class="stat-row"><span>Page Followers</span><span class="sv">2,915</span></div>
+          <div class="stat-row"><span>Active ("talking about")</span><span class="sv sv-alert">~13 (est.)</span></div>
+          <div class="stat-row"><span>Estimated engagement rate</span><span class="sv sv-alert">below 0.5%</span></div>
+          <div class="stat-row"><span>Video content</span><span class="sv">Present (sporadic)</span></div>
+          <div class="stat-row"><span>Post frequency</span><span class="sv sv-alert">Irregular</span></div>
+          <ul class="finding-list">
+            <li>Strongest platform by followers — foundation exists and can be built upon</li>
+            <li>~13 actively engaging users on a 2,915-follower page suggests limited organic reach</li>
+            <li>Interview-style video content (Bradley Schwartz) demonstrates the right format — frequency is low</li>
+            <li>Testimonial and educational content mix is strategically sound; execution consistency is the gap</li>
+            <li>Industry estimates for nonprofits: 1–3% engagement rate; current estimate is well below that</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="platform-grid">
+      <div class="pcard">
+        <div class="pcard-head ph-x">𝕏 &nbsp;X (Twitter) — @GNAnow</div>
+        <div class="pcard-body">
+          <div class="stat-row"><span>Activity level</span><span class="sv sv-alert">Minimal</span></div>
+          <div class="stat-row"><span>Strategy observed</span><span class="sv sv-alert">None</span></div>
+          <ul class="finding-list">
+            <li>Primarily used to share blog links and Facebook group announcements</li>
+            <li>No visible engagement or growth activity</li>
+            <li>Low priority for initial strategy — not recommended as starting focus</li>
+          </ul>
+        </div>
+      </div>
+      <div class="pcard">
+        <div class="pcard-head ph-li">💼 &nbsp;LinkedIn — Greater National Advocates</div>
+        <div class="pcard-body">
+          <div class="stat-row"><span>Activity level</span><span class="sv sv-alert">Dormant</span></div>
+          <div class="stat-row"><span>Audience fit</span><span class="sv">High potential</span></div>
+          <ul class="finding-list">
+            <li>Profile exists with no regular posting activity observed</li>
+            <li>Strong B2B potential: employer benefits teams, hospital partnerships, advocate recruitment</li>
+            <li>Medium-term opportunity once core Instagram and Facebook strategy is running</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sub-head">Content Alignment: Mission vs. What's Published</h3>
+    <table>
+      <thead><tr><th>Content Area</th><th>Present in Website / Mission</th><th>Reflected in Social?</th><th>Assessment</th></tr></thead>
+      <tbody>
+        <tr><td>Patient testimonials</td><td>Strong — 6+ testimonials on homepage</td><td><span class="badge b-yellow">Occasional</span></td><td>High-converting content underutilized in social</td></tr>
+        <tr><td>5 advocacy specialties</td><td>Full section with detail</td><td><span class="badge b-red">Not observed</span></td><td>Specialty-specific posts not found in initial review</td></tr>
+        <tr><td>Free Advocacy Support Center</td><td>Prominently featured</td><td><span class="badge b-red">Not observed</span></td><td>This free service not found in social promotion</td></tr>
+        <tr><td>Nonprofit / 501(c)(3) trust signals</td><td>Present on website</td><td><span class="badge b-red">Not observed</span></td><td>Trust-building content absent from social channels</td></tr>
+        <tr><td>TeleAdvocacy (remote service)</td><td>Mentioned</td><td><span class="badge b-red">Not observed</span></td><td>National reach not communicated through social</td></tr>
+        <tr><td>Blog content (50+ articles)</td><td>Active, quality writing</td><td><span class="badge b-yellow">Occasional</span></td><td>Blog articles not systematically distributed via social</td></tr>
+      </tbody>
+    </table>
+
+    <div class="opportunity">
+      <h4>🔑 The Content Asset That's Not Being Activated</h4>
+      <p>GNA Now's most powerful content is already written — real patient testimonials from people whose lives were changed. Dennis B. (Illinois), Mindy D. (Nevada), John &amp; Rebecca V., Brad W. These stories are sitting on the homepage, largely invisible to social media audiences. Patient testimonials in healthcare consistently generate 3–5x the organic shares of educational content. This is the lowest-effort, highest-impact content opportunity available.</p>
+    </div>
+  </div>
+
+  <hr class="sec-div">
+
+  <!-- =================== SECTION 3: SEO AUDIT =================== -->
+  <div class="sec-head">
+    <span class="sec-num">03</span>
+    <h2>SEO Review — gnanow.org</h2>
+    <span class="sec-badge">Initial Assessment</span>
+  </div>
+  <div class="content">
+
+    <div class="callout" style="margin-bottom:20px;">
+      <strong>Note:</strong> This is an initial review based on publicly observable signals — page structure, indexed URLs, search result presence, and site behavior. A full technical audit would require access to Google Search Console and site backend.
+    </div>
+
+    <div class="seo-grid">
+      <div class="seo-check good"><span class="icon">✅</span><h5>Domain Maturity</h5><p>Active since 2018 — 7+ years of domain history, a positive authority signal for search engines.</p></div>
+      <div class="seo-check good"><span class="icon">✅</span><h5>HTTPS / SSL</h5><p>Secure connection confirmed — baseline requirement met.</p></div>
+      <div class="seo-check good"><span class="icon">✅</span><h5>Blog Content Volume</h5><p>50+ articles indexed covering patient advocacy topics — meaningful content inventory.</p></div>
+      <div class="seo-check good"><span class="icon">✅</span><h5>Advocate Directory</h5><p>Hundreds of individual advocate pages — substantial long-tail SEO asset if optimized.</p></div>
+      <div class="seo-check good"><span class="icon">✅</span><h5>Keyword Alignment</h5><p>Core terminology used correctly: "independent patient advocate," "patient advocacy directory."</p></div>
+      <div class="seo-check good"><span class="icon">✅</span><h5>Podcast Section</h5><p>Adds content depth and creates opportunities for inbound links from media coverage.</p></div>
+      <div class="seo-check critical"><span class="icon">🔴</span><h5>404 on /about-us</h5><p>URL /about-us/ appears to return a 404 error. Any inbound links to that path would not resolve. Actual page is at /about.html.</p></div>
+      <div class="seo-check critical"><span class="icon">🔴</span><h5>Structured Data</h5><p>Initial review suggests limited or no visible structured data (schema.org). Directory profiles could benefit significantly from Person / Organization markup for rich results.</p></div>
+      <div class="seo-check warning"><span class="icon">🟠</span><h5>URL Structure (.html)</h5><p>Static .html URL pattern reduces flexibility for future CMS migration and canonical management.</p></div>
+      <div class="seo-check warning"><span class="icon">🟠</span><h5>No Local SEO Pages</h5><p>No city- or state-specific landing pages found. High-intent local searches ("patient advocate Chicago") appear unserved.</p></div>
+      <div class="seo-check warning"><span class="icon">🟠</span><h5>Blog Without Keyword Targeting</h5><p>Guest blog content appears valuable but not keyword-targeted. Titles like "Mercereau Report #8" have minimal search demand.</p></div>
+      <div class="seo-check warning"><span class="icon">🟠</span><h5>Advocate Profile Depth</h5><p>Individual profiles may be thin on geo and specialty keywords — which would limit their ability to rank for local searches.</p></div>
+    </div>
+
+    <h3 class="sub-head">Keyword Landscape — Initial Observations</h3>
+    <table>
+      <thead><tr><th>Keyword</th><th>Est. Monthly Volume</th><th>GNA Now Visibility</th><th>Key Competitors</th></tr></thead>
+      <tbody>
+        <tr><td>"independent patient advocate"</td><td>1,000–3,000 (est.)</td><td><span class="badge b-yellow">Page 1–2 (variable)</span></td><td>NAHAC, APHA, CMS.gov, patientadvocate.org</td></tr>
+        <tr><td>"patient advocate directory"</td><td>500–1,500 (est.)</td><td><span class="badge b-yellow">Page 1–2 (variable)</span></td><td>NAHAC, APHA</td></tr>
+        <tr><td>"find a patient advocate [state]"</td><td>200–800/state (est.)</td><td><span class="badge b-red">Not observed</span></td><td>Minimal competition — potential opportunity</td></tr>
+        <tr><td>"help after hospital discharge"</td><td>1,000–5,000 (est.)</td><td><span class="badge b-red">Not observed</span></td><td>Hospital sites, general health content</td></tr>
+        <tr><td>"denied insurance appeal help"</td><td>500–2,000 (est.)</td><td><span class="badge b-red">Not observed</span></td><td>Legal firms, insurance platforms</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11px;color:var(--text-soft);margin-top:-14px;margin-bottom:20px;font-style:italic;">Volume estimates based on general keyword research — actual figures may vary. Verified data requires GSC access.</p>
+
+    <div class="opportunity">
+      <h4>💡 Largest Untapped Opportunity: Local SEO at Scale</h4>
+      <p>GNA Now has advocates in every U.S. state but no state- or city-specific landing pages. Searches like "patient advocate Chicago" or "independent patient advocate Texas" represent high-intent queries with relatively limited competition. Properly structured landing pages per state — with schema markup and local keyword integration — could significantly increase organic visibility over 6–12 months.</p>
+    </div>
+  </div>
+
+  <hr class="sec-div">
+
+  <!-- =================== SECTION 4: THE OPPORTUNITY =================== -->
+  <div class="sec-head">
+    <span class="sec-num">04</span>
+    <h2>The Opportunity — Three Scenarios</h2>
+    <span class="sec-badge">Growth Projections</span>
+  </div>
+  <div class="content">
+    <table>
+      <thead><tr><th>Area</th><th>Status Quo</th><th>Conservative Growth</th><th>Moderate Growth</th><th>High-Growth (w/ paid)</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Instagram</strong></td>
+          <td>343 followers, minimal posting</td>
+          <td>800–1,200 by Month 6</td>
+          <td>2,000–4,000 by Month 12</td>
+          <td>6,000–12,000 by Month 12</td>
+        </tr>
+        <tr>
+          <td><strong>Facebook Engagement</strong></td>
+          <td>~0.5% engagement rate</td>
+          <td>1.0–1.5% by Month 3</td>
+          <td>1.5–2.5% by Month 6</td>
+          <td>3–5% by Month 12</td>
+        </tr>
+        <tr>
+          <td><strong>Organic Search Reach</strong></td>
+          <td>Directory + blog with limited local reach</td>
+          <td>Some visibility on brand keywords</td>
+          <td>Gaining on local queries (state pages)</td>
+          <td>Significant visibility increase over 12 months</td>
+        </tr>
+        <tr>
+          <td><strong>Landing Page Conversions</strong></td>
+          <td>General homepage handles all traffic</td>
+          <td>Dedicated page with 1.5–2% conversion</td>
+          <td>2–3% conversion from targeted traffic</td>
+          <td>3–5% conversion with paid campaign alignment</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:11px;color:var(--text-soft);margin-top:-14px;font-style:italic;">All projections are estimates based on comparable nonprofit organizations and general industry benchmarks. Results depend on content quality, consistency, and audience response.</p>
+  </div>
+
+  <!-- =================== PROPOSALS DIVIDER =================== -->
+  <div class="prop-divider page-break">
+    <h2>TWO PATHS <em>FORWARD</em></h2>
+    <p>Based on the findings above, Sombrero Rojo presents two distinct proposals. GNA Now can choose either independently — or combine both for a full digital growth strategy. Each addresses a different entry point.</p>
+    <a href="https://gna-landing-demo.netlify.app" class="demo-link">🔗 Live Demo — gna-landing-demo.netlify.app</a>
+  </div>
+
+  <!-- =================== PROPOSAL A =================== -->
+  <div class="prop-band">
+    <span class="prop-label pl-a">Proposal A</span>
+    <h2>High-Conversion Landing Page</h2>
+    <div class="prop-price">
+      <div class="price-main">$3,500–$4,500</div>
+      <div class="price-note">one-time · USD</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="panel">
+      <p><strong>The idea:</strong> A single dedicated landing page — separate from the current gnanow.org — built and optimized to convert high-intent visitors into Advocacy Support Center requests. One clear message, one action, no competing CTAs.</p>
+      <p>This page does not replace gnanow.org. It works as a focused conversion entry point for high-intent visitors from paid campaigns, social media traffic, and search-driven users who need immediate guidance. The current site remains fully intact.</p>
+      <p><strong>Already built — ready to review:</strong> <a href="https://gna-landing-demo.netlify.app" style="color:var(--beige);">gna-landing-demo.netlify.app</a></p>
+    </div>
+
+    <h3 class="sub-head">The 4 Conversion Problems This Page Solves</h3>
+    <table>
+      <thead><tr><th>#</th><th>Issue Identified</th><th>How the Landing Page Addresses It</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Two competing CTAs ("free guidance" vs. "find advocate") with no clear primary path</td><td>Single primary CTA: "Start with Free Guidance" — one door for visitors in crisis</td></tr>
+        <tr><td>2</td><td>Messaging primarily addresses the patient; caregivers and family members are often the most motivated searchers</td><td>Hero copy addresses the caregiver's emotional state directly, with a secondary patient path</td></tr>
+        <tr><td>3</td><td>Free vs. paid service distinction not immediately clear — creates hesitation</td><td>2-step visual diagram: Step 1 = Free PAL guidance. Step 2 = Match with private advocate if needed</td></tr>
+        <tr><td>4</td><td>High-intent searches ("help after hospital discharge") have no dedicated landing destination</td><td>Section 2 lists 6 real situations — visitors self-identify before scrolling</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub-head">Full Deliverables</h3>
+    <div class="del-grid">
+      <div class="del-block">
+        <h5>01 — Strategy &amp; Copy</h5>
+        <ul class="check-list">
+          <li>Strategic wireframe (annotated, section by section)</li>
+          <li>Full English copywriting — headlines, body, CTAs</li>
+          <li>9-question FAQ (research-based objections)</li>
+          <li>Optional Spanish variant for bilingual reach (+$400)</li>
+        </ul>
+      </div>
+      <div class="del-block">
+        <h5>02 — Design &amp; Development</h5>
+        <ul class="check-list">
+          <li>Mobile-first responsive design (desktop + tablet + mobile)</li>
+          <li>Specialty cards, trust badges, independence comparison table</li>
+          <li>2-step solution diagram + frictionless contact form</li>
+          <li>WCAG 2.1 AA accessible markup</li>
+        </ul>
+      </div>
+      <div class="del-block">
+        <h5>03 — Technical Setup</h5>
+        <ul class="check-list">
+          <li>Google Analytics 4 integration</li>
+          <li>Form submission conversion event tracking</li>
+          <li>Meta Pixel installation (ready for future ads)</li>
+          <li>Core Web Vitals optimization (target: Good)</li>
+        </ul>
+      </div>
+      <div class="del-block">
+        <h5>04 — Launch &amp; Support</h5>
+        <ul class="check-list">
+          <li>2 rounds of revisions included</li>
+          <li>30-day post-launch support for fixes</li>
+          <li>Handoff documentation for content updates</li>
+          <li>DNS / hosting coordination included</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="sub-head">Timeline — 4 Weeks</h3>
+    <div class="timeline">
+      <div class="tw"><h5>Week 1</h5><ul><li>Discovery call (30 min)</li><li>Wireframe from research</li><li>Copy deck: headlines + CTAs + FAQ</li><li>Client review + approval</li></ul></div>
+      <div class="tw"><h5>Week 2</h5><ul><li>Full visual design (desk + mobile)</li><li>Specialty cards + comparison</li><li>Form fields + logic</li><li>Design review Round 1</li></ul></div>
+      <div class="tw"><h5>Week 3</h5><ul><li>Responsive HTML/CSS build</li><li>Form integration</li><li>GA4 + conversion tracking</li><li>Cross-browser / mobile QA</li></ul></div>
+      <div class="tw"><h5>Week 4</h5><ul><li>Final revisions (Round 2)</li><li>DNS / hosting setup</li><li>Live launch confirmation</li><li>30-day support begins</li></ul></div>
+    </div>
+
+    <table class="price-table">
+      <thead><tr><th>Scope</th><th>Investment</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Landing page — strategy + copy + design + development</td><td class="pval">$3,500</td><td>English version</td></tr>
+        <tr><td>Spanish-language variant (optional add-on)</td><td class="pval">+$400</td><td>Bilingual audience reach</td></tr>
+        <tr><td>GA4 + conversion tracking setup</td><td class="pval">Included</td><td></td></tr>
+        <tr><td>2 revision rounds + 30-day support</td><td class="pval">Included</td><td></td></tr>
+        <tr class="total-row"><td><strong>Total — English version</strong></td><td class="pval">$3,500–$4,500</td><td>Confirmed after discovery call</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="sec-div">
+
+  <!-- =================== PROPOSAL B =================== -->
+  <div class="prop-band page-break">
+    <span class="prop-label pl-b">Proposal B</span>
+    <h2>Social Media Management — Instagram &amp; Facebook</h2>
+    <div class="prop-price">
+      <div class="price-main">$599/mo</div>
+      <div class="price-note">monthly retainer · USD</div>
+    </div>
+  </div>
+  <div class="content">
+    <div class="panel">
+      <p><strong>The idea:</strong> Put GNA Now's most powerful assets — patient testimonials, advocacy expertise, real impact stories — at the center of a consistent weekly social strategy on Instagram and Facebook. Stop content sitting silent on the website and start reaching the caregivers, patients, and professionals who need to find GNA Now.</p>
+      <p>This is not about posting more. It is about posting <strong>the right content at the right frequency, built around the person searching for help at 11pm for their hospitalized parent</strong> — GNA Now's highest-value audience.</p>
+    </div>
+
+    <h3 class="sub-head">Content Strategy — What We Publish Each Month</h3>
+    <table>
+      <thead><tr><th>Content Type</th><th>Frequency</th><th>Purpose</th><th>Platform</th></tr></thead>
+      <tbody>
+        <tr><td>Patient testimonial posts</td><td>2×/week</td><td>Trust-building + organic shares — highest-converting format in healthcare</td><td>IG + FB</td></tr>
+        <tr><td>Advocacy specialty spotlights</td><td>1×/week</td><td>Education + discovery (what does each type of advocate do?)</td><td>IG + FB</td></tr>
+        <tr><td>Blog content repurposed for social</td><td>1×/week</td><td>Maximize existing content investment — drive site traffic</td><td>FB primary</td></tr>
+        <tr><td>Instagram Reels (short video)</td><td>2×/month</td><td>Reach new audiences — Reels are shown to non-followers by default</td><td>IG</td></tr>
+        <tr><td>"Did you know?" awareness posts</td><td>1×/week</td><td>Saves + shares — patient advocacy education for the uninformed</td><td>IG + FB</td></tr>
+        <tr><td>Free Support Center promotions</td><td>2×/month</td><td>Drive contacts to the free Advocacy Support Center — core conversion</td><td>IG + FB</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="sub-head">Month-by-Month Plan — First 4 Months</h3>
+    <div class="monthly-plan">
+      <div class="mb"><h5>Month 1</h5><div class="phase">Foundation</div><ul><li>Profile audit + bio optimization</li><li>Link-in-bio setup + tracking</li><li>Content calendar (30 days)</li><li>Testimonial series launch</li><li>Hashtag strategy defined</li></ul></div>
+      <div class="mb"><h5>Month 2</h5><div class="phase">Engagement Build</div><ul><li>First Reels published</li><li>Specialty spotlight series</li><li>Community engagement start</li><li>Blog-to-social repurposing</li><li>First performance report</li></ul></div>
+      <div class="mb"><h5>Month 3</h5><div class="phase">Growth Phase</div><ul><li>A/B: testimonial vs. education</li><li>Support Center promotion push</li><li>Advocate profile spotlights</li><li>Optimize posting times (data)</li><li>Mid-quarter review call</li></ul></div>
+      <div class="mb"><h5>Month 4</h5><div class="phase">Optimization</div><ul><li>Top formats scaled up</li><li>Reels frequency increased</li><li>Cross-platform repurposing</li><li>90-day growth report</li><li>Strategy for next quarter</li></ul></div>
+    </div>
+
+    <h3 class="sub-head">What We Deliver Every Month</h3>
+    <div class="del-grid">
+      <div class="del-block">
+        <h5>Content Creation</h5>
+        <ul class="check-list">
+          <li>16–20 designed posts/month (IG + FB)</li>
+          <li>2 Reels scripts + graphics per month</li>
+          <li>Copy written and approved before publishing</li>
+          <li>All content aligned with GNA brand and mission</li>
+        </ul>
+      </div>
+      <div class="del-block">
+        <h5>Community Management</h5>
+        <ul class="check-list">
+          <li>Daily monitoring (Mon–Fri) of comments and messages</li>
+          <li>Response templates for common patient questions</li>
+          <li>Sensitivity protocol for patient-related situations</li>
+          <li>Hashtag and audience engagement support</li>
+        </ul>
+      </div>
+      <div class="del-block">
+        <h5>Strategy &amp; Reporting</h5>
+        <ul class="check-list">
+          <li>Monthly content calendar (client approval required)</li>
+          <li>Monthly performance report with key metrics</li>
+          <li>Quarterly strategy review call (30 min)</li>
+          <li>Ongoing optimization based on platform data</li>
+        </ul>
+      </div>
+      <div class="del-block">
+        <h5>Month 1 Setup (Included)</h5>
+        <ul class="check-list">
+          <li>Profile and bio optimization (IG + FB)</li>
+          <li>Link-in-bio tool setup and UTM tracking</li>
+          <li>Content library built from existing materials</li>
+          <li>Audience persona + light competitor review</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="sub-head">Realistic Growth Estimates (Organic Only)</h3>
+    <table>
+      <thead><tr><th>Metric</th><th>Current (est.)</th><th>Month 3 (conservative)</th><th>Month 6 (moderate)</th><th>Month 12 (moderate)</th></tr></thead>
+      <tbody>
+        <tr><td>Instagram followers</td><td>343</td><td>700–1,100</td><td>1,300–2,200</td><td>3,000–6,000</td></tr>
+        <tr><td>Facebook engagement rate</td><td>&lt;0.5%</td><td>0.8–1.2%</td><td>1.2–2.0%</td><td>1.8–3.5%</td></tr>
+        <tr><td>Combined monthly post reach</td><td>&lt;2,000 (est.)</td><td>6,000–12,000</td><td>15,000–30,000</td><td>35,000–80,000</td></tr>
+        <tr><td>Website referral traffic from social</td><td>Minimal</td><td>+20–40%</td><td>+60–100%</td><td>+100–250%</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11px;color:var(--text-soft);margin-top:-14px;font-style:italic;">Conservative scenario assumes organic content only. Adding a modest amplification budget ($200–400/month) can significantly accelerate these estimates.</p>
+
+    <table class="price-table">
+      <thead><tr><th>Service</th><th>Investment</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Social media management — Instagram + Facebook (16–20 posts/month)</td><td class="pval">$599/mo</td><td>Starting Month 2</td></tr>
+        <tr><td>2 Reels per month (scripted + designed)</td><td class="pval">Included</td><td></td></tr>
+        <tr><td>Community management (Mon–Fri) + monthly report</td><td class="pval">Included</td><td></td></tr>
+        <tr><td>Month 1 one-time setup fee</td><td class="pval">$299</td><td>Profiles + content library</td></tr>
+        <tr class="total-row"><td><strong>Monthly retainer (from Month 2 onward)</strong></td><td class="pval">$599/mo</td><td>3-month minimum recommended</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="sec-div">
+
+  <!-- =================== COMPARISON =================== -->
+  <div class="sec-head">
+    <span class="sec-num">05</span>
+    <h2>Choosing Your Path — Side-by-Side</h2>
+  </div>
+  <div class="content">
+    <table class="comp-table">
+      <thead><tr><th>Factor</th><th>Proposal A — Landing Page</th><th>Proposal B — Social Media</th></tr></thead>
+      <tbody>
+        <tr><td>Investment</td><td>$3,500–$4,500 one-time</td><td>$299 setup + $599/month</td></tr>
+        <tr><td>Time to first results</td><td>4 weeks to launch</td><td>30–60 days (engagement builds)</td></tr>
+        <tr><td>Primary outcome</td><td>Convert existing traffic into guidance requests</td><td>Build audience + brand visibility</td></tr>
+        <tr><td>Best if you want to...</td><td>Maximize ROI from current or future ad spend</td><td>Grow organically and build long-term trust</td></tr>
+        <tr><td>SEO impact</td><td>Direct — dedicated page for high-intent keywords</td><td>Indirect — social signals build over time</td></tr>
+        <tr><td>Content creation required from GNA</td><td>Minimal — we build it</td><td>Testimonial approvals + brand assets</td></tr>
+        <tr><td>Standalone value?</td><td>Yes — works independently</td><td>Yes — works independently</td></tr>
+        <tr class="comp-highlight"><td colspan="3">Combined: Social media drives traffic → Landing page converts it. Full acquisition funnel. Combined impact is 3–5× greater than either alone.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="opportunity">
+      <h4>🚀 The Full Funnel (Both Proposals Together)</h4>
+      <p>Testimonial and advocacy posts on Instagram and Facebook drive qualified visitors → to a focused landing page → which converts them into Advocacy Support Center requests. This is the complete patient acquisition funnel GNA Now does not currently have. If budget allows, running both simultaneously from the start produces the clearest path to measurable growth.</p>
+    </div>
+  </div>
+
+  <!-- =================== WHY SOMBRERO ROJO =================== -->
+  <div class="why-sr">
+    <h2>Why <em>Sombrero Rojo</em></h2>
+    <p>We specialize in building digital systems for mission-driven service organizations — not just websites and social posts, but the full contact-to-client pipeline. We handle technical complexity (analytics, automations, integrations, hosting) so your team can focus on what matters: helping patients and families navigate the healthcare system.</p>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="wi-num">4 wks</div>
+        <h5>Fast Delivery</h5>
+        <p>From signed agreement to fully live — landing page in 4 weeks, social strategy in 30 days.</p>
+      </div>
+      <div class="why-item">
+        <div class="wi-num">AI</div>
+        <h5>AI-Powered Workflows</h5>
+        <p>We use AI tools to produce higher-quality content faster — and pass that efficiency to clients.</p>
+      </div>
+      <div class="why-item">
+        <div class="wi-num">100%</div>
+        <h5>Remote &amp; Nationwide</h5>
+        <p>Fully remote operation — we serve clients across the US and Latin America with no geographic limits.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- =================== NEXT STEPS =================== -->
+  <div class="next-steps">
+    <div class="ns-block">
+      <span class="ns-num">01</span>
+      <h5>Book a 30-Minute Call</h5>
+      <p>Review the findings together, confirm which proposal fits best, and align on timeline. No commitment required.</p>
+    </div>
+    <div class="ns-block">
+      <span class="ns-num">02</span>
+      <h5>Sign &amp; 50% Deposit</h5>
+      <p>Clean 1-page agreement. 50% upfront to start, 50% at delivery (landing page) or monthly in advance (social).</p>
+    </div>
+    <div class="ns-block">
+      <span class="ns-num">03</span>
+      <h5>Kickoff Within 48 Hours</h5>
+      <p>We gather brand assets, analytics access, and guidelines. Work begins immediately after kickoff.</p>
+    </div>
+  </div>
+
+  <!-- =================== FOOTER =================== -->
+  <footer>
+    <div class="fc-left">
+      <strong>Sombrero Rojo Diseño &amp; Marketing</strong>
+      <p>Marketing Digital Inteligente: Estrategias de IA para tu Negocio</p>
+      <p>sombrerorojo.net · Cuenca, Ecuador</p>
+    </div>
+    <div class="fc-right">
+      <p><a href="mailto:gerencia@sombrerorojo.net">gerencia@sombrerorojo.net</a></p>
+      <p>WhatsApp: +593 99 806 8900</p>
+      <p style="opacity:0.45;margin-top:4px;">Confidential · SR-504-D · June 2026</p>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
