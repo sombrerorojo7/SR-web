@@ -78,7 +78,7 @@
     }
     .niche-Industria { background: #dbeafe; color: #1e40af; }
     .niche-Quito-Industria { background: #ede9fe; color: #5b21b6; }
-    .niche-Odontologa { background: #dcfce7; color: #166534; }
+    .niche-Odontología { background: #dcfce7; color: #166534; }
     .niche-Pediatras-Cuenca { background: #fef3c7; color: #92400e; }
     .wa-btn {
       display: inline-flex; align-items: center; gap: 4px; margin-top: 4px;
@@ -357,9 +357,9 @@ const SHEET_ID = '1gIyuMzvGyHhjmBSqJlDI6r2QYoOCMLQcHTVpRYxhSxw';
 
 const NICHE_TABS = [
   { name: 'Industria',        gid: '258977582'  },
-  { name: 'Quito-Industria',  gid: '204156211'  },
+  { name: 'QuitoGYE',         gid: '204156211'  },
   { name: 'Odontología',      gid: '2075600573' },
-  { name: 'Pediatras - Cuenca', gid: '2075600572' }
+  { name: 'Pediatras-Cuenca', gid: '2075600572' }
 ];
 
 const STORAGE_KEY = 'sr-weekly-planner-v2';
@@ -526,9 +526,20 @@ function statusBucket(p) {
   const pip = (p.pipeline || '').toLowerCase();
   if (/cerr|gan|won|firmó|aprobó/i.test(e + pip)) return 'won';
   if (/perd|lost|descart|no interesa/i.test(e + pip)) return 'lost';
-  if (/respond|interés|caliente|interesado/i.test(e + pip)) return 'hot';
+  if (/respond|interés|caliente|interesado|demo/i.test(e + pip)) return 'hot';
   if (/seguim|follow|llamar|contactar|pendiente de respuesta/i.test(e + pip)) return 'follow';
   if (/enviada|propuesta|cotiz|sent/i.test(e + pip)) return 'sent';
+  // "Enviado" con fecha de último contacto ≥ 2 días → follow
+  if (/enviado/i.test(e)) {
+    const fecha = p.ultimoContacto || '';
+    const m = fecha.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+    if (m) {
+      const d = new Date(parseInt(m[3]), parseInt(m[2])-1, parseInt(m[1]));
+      const diffDays = (new Date() - d) / 86400000;
+      if (diffDays >= 2) return 'follow';
+    }
+    return 'sent'; // enviado reciente, esperar respuesta
+  }
   return 'pending';
 }
 
@@ -556,45 +567,50 @@ function buildWeekPlan() {
 
   const DAY_NAMES = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
   const DAY_ACTIONS = [
-    'Nuevos contactos de Industria',
-    'Seguimiento a respondidos',
-    'Odontología / Pediatras',
-    'Enviar propuestas pendientes',
-    'Revisión semanal y cierre'
-  ];
-  const DAY_NICHES = [
-    ['Industria', 'Quito-Industria'],
-    null, // follow-up from any
-    ['Odontología', 'Pediatras-Cuenca'],
-    null,
-    null
+    'Calientes → seguimientos → nuevos Industria',
+    'Follow-up 48h + calientes del día',
+    'Calientes → seguimientos → nuevo nicho semana',
+    'Solo calientes y propuestas — sin nuevos',
+    'Calientes sin cerrar + resumen semanal'
   ];
 
-  // Categorize prospects by status
-  const hot = prospects.filter(p => statusBucket(p) === 'hot');
+  // Prioridad: hot → follow → pending (nunca saltarse un caliente)
+  const hot    = prospects.filter(p => statusBucket(p) === 'hot');
   const follow = prospects.filter(p => statusBucket(p) === 'follow');
   const pending = prospects.filter(p => statusBucket(p) === 'pending');
-  const sent = prospects.filter(p => statusBucket(p) === 'sent');
+  const sent   = prospects.filter(p => statusBucket(p) === 'sent');
 
-  // Build day assignments
+  // Nichos fríos por día
+  const NICHE_LUN = ['Industria', 'QuitoGYE'];
+  const NICHE_MIE = ['Odontología', 'Pediatras-Cuenca', 'Fisioterapeutas', 'BienesRaices'];
+
   const plan = days.map((date, idx) => {
     const isToday = date.toDateString() === today.toDateString();
     let assigned = [];
 
-    if (idx === 0) { // Lunes — Industria
-      const niche = DAY_NICHES[0];
-      assigned = pending.filter(p => niche.includes(p.nicho)).slice(0, 5);
-      if (assigned.length < 3) assigned = [...assigned, ...follow.filter(p => niche.includes(p.nicho)).slice(0, 3 - assigned.length)];
-    } else if (idx === 1) { // Martes — seguimiento calientes
-      assigned = [...hot.slice(0, 5), ...follow.slice(0, 3)].slice(0, 6);
-    } else if (idx === 2) { // Miércoles — Odontología / Pediatras
-      const niche = DAY_NICHES[2];
-      assigned = pending.filter(p => niche.includes(p.nicho)).slice(0, 5);
-      if (assigned.length < 3) assigned = [...assigned, ...follow.filter(p => niche.includes(p.nicho)).slice(0, 3 - assigned.length)];
-    } else if (idx === 3) { // Jueves — propuestas
-      assigned = [...sent.slice(0, 4), ...follow.slice(0, 2)].slice(0, 5);
-    } else { // Viernes — revisión
-      assigned = hot.slice(0, 3);
+    if (idx === 0) {
+      // Lunes: hot + follow primero, luego fríos de Industria
+      const hotFollow = [...hot, ...follow].slice(0, 3);
+      const frios = pending.filter(p => NICHE_LUN.includes(p.nicho)).slice(0, 5 - hotFollow.length);
+      assigned = [...hotFollow, ...frios];
+
+    } else if (idx === 1) {
+      // Martes: follow-up 48h + hot del día
+      assigned = [...hot, ...follow].slice(0, 6);
+
+    } else if (idx === 2) {
+      // Miércoles: hot + follow primero, luego fríos del nicho de la semana
+      const hotFollow = [...hot, ...follow].slice(0, 3);
+      const frios = pending.filter(p => NICHE_MIE.includes(p.nicho)).slice(0, 5 - hotFollow.length);
+      assigned = [...hotFollow, ...frios];
+
+    } else if (idx === 3) {
+      // Jueves: solo hot y propuestas enviadas — cero nuevos
+      assigned = [...hot, ...sent].slice(0, 6);
+
+    } else {
+      // Viernes: hot que no cerraron + follow restante
+      assigned = [...hot, ...follow].slice(0, 5);
     }
 
     return { date, isToday, dayName: DAY_NAMES[idx], action: DAY_ACTIONS[idx], prospects: assigned };
