@@ -504,7 +504,7 @@ function normalizeProspect(raw, nicho) {
   const pipeline = get('Estado Pipeline', 'Pipeline', 'pipeline', 'Etapa');
   const ultimoContacto = get('Fecha de último contacto', 'Ultimo contacto', 'Última fecha', 'Fecha contacto');
   const proximoContacto = get('Próximo Contacto', 'Proximo Contacto', 'Próximo contacto', 'Fecha próximo');
-  const whatsapp = get('WhatsApp', 'Link WhatsApp', 'Teléfono', 'Telefono', 'Tel', 'tel');
+  const whatsapp = get('Número limpio', 'Numero limpio', 'WhatsApp', 'Teléfono/WhatsApp', 'Link WhatsApp', 'Teléfono', 'Telefono', 'Tel', 'tel');
   const mensajeBase = get('Mensaje para WhatsApp', 'Mensaje WA', 'Mensaje personalizado', 'Mensaje', 'mensaje');
   const nombreMensaje = get('Nombre para mensaje', 'Nombre mensaje', 'nombre_mensaje') || contacto.split(' ')[0];
 
