@@ -504,7 +504,7 @@ function normalizeProspect(raw, nicho) {
   const pipeline = get('Estado Pipeline', 'Pipeline', 'pipeline', 'Etapa');
   const ultimoContacto = get('Fecha de último contacto', 'Ultimo contacto', 'Última fecha', 'Fecha contacto');
   const proximoContacto = get('Próximo Contacto', 'Proximo Contacto', 'Próximo contacto', 'Fecha próximo');
-  const whatsapp = get('Número limpio', 'Numero limpio', 'WhatsApp', 'Teléfono/WhatsApp', 'Link WhatsApp', 'Teléfono', 'Telefono', 'Tel', 'tel');
+  const whatsapp = get('WhatsApp', 'Link WhatsApp', 'Teléfono', 'Telefono', 'Tel', 'tel');
   const mensajeBase = get('Mensaje para WhatsApp', 'Mensaje WA', 'Mensaje personalizado', 'Mensaje', 'mensaje');
   const nombreMensaje = get('Nombre para mensaje', 'Nombre mensaje', 'nombre_mensaje') || contacto.split(' ')[0];
 
@@ -797,12 +797,12 @@ function generateWAMessage(p) {
   // Auto-generate based on niche
   const nombre = p.nombreMensaje || p.contacto?.split(' ')[0] || 'estimado/a';
   const templates = {
-    'Industria': `Hola ${nombre}, te contacto de Sombrero Rojo. Ayudamos a empresas industriales en Ecuador a generar más clientes con marketing digital e IA. ¿Tienen presencia en redes o web? 🚀`,
-    'Quito-Industria': `Hola ${nombre}, soy Rommel de Sombrero Rojo en Cuenca. Trabajamos con empresas como la tuya para conseguir más clientes usando estrategias digitales con IA. ¿Te interesa conocer cómo? 📲`,
-    'Odontología': `Hola ${nombre}, soy Rommel de Sombrero Rojo. Ayudamos a consultorios dentales a conseguir más pacientes con su web y redes sociales. ¿Tienen página web actualmente? 😊`,
-    'Pediatras-Cuenca': `Hola ${nombre}, te contacto de Sombrero Rojo. Trabajamos con pediatras en Cuenca para que sus pacientes los encuentren más fácil en internet. ¿Les interesa mejorar su presencia digital? 🏥`
+    'Industria': `Hola ${nombre}, te contacto de Sombrero Rojo. Ayudamos a empresas industriales en Ecuador a generar más clientes con marketing digital e IA. ¹?Tienen presencia en redes o web? 🚘`,
+    'Quito-Industria': `Hola ${nombre}, soy Rommel de Sombrero Rojo en Cuenca. Trabajamos con empresas como la tuya para conseguir más clientes usando estrategias digitales con IA. ¹?Te interesa conocer cómo? 📲`,
+    'Odontología': `Hola ${nombre}, soy Rommel de Sombrero Rojo. Ayudamos a consultorios dentales a conseguir más pacientes con su web y redes sociales. ¹?Tienen página web actualmente? 😊`,
+    'Pediatras-Cuenca': `Hola ${nombre}, te contacto de Sombrero Rojo. Trabajamos con pediatras en Cuenca para que sus pacientes los encuentren más fácil en internet. ¹?Les interesa mejorar su presencia digital? 🏥`
   };
-  return templates[p.nicho] || `Hola ${nombre}, soy Rommel de Sombrero Rojo. Me gustaría contarte cómo podemos ayudar a ${p.empresa || 'tu empresa'} a crecer en internet. ¿Tienen unos minutos? 🚀`;
+  return templates[p.nicho] || `Hola ${nombre}, soy Rommel de Sombrero Rojo. Me gustaría contarte cómo podemos ayudar a ${p.empresa || 'tu empresa'} a crecer en internet. ¹?Tienen unos minutos? 🚘`;
 }
 
 function buildWALink(phone, message) {
@@ -828,6 +828,56 @@ function normalizeCSVUrl(value) {
 }
 
 // =====================================================
+// UTILITIES
+// =====================================================
+function escHtml(str) {
+  if (!str) return '';
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function showLoading(msg) {
+  document.getElementById('loadingOverlay').style.display = 'flex';
+  if (msg) document.getElementById('loadingText').textContent = msg;
+}
+function hideLoading() { document.getElementById('loadingOverlay').style.display = 'none'; }
+function showToast(msg, type) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.className = 'toast ' + (type || 'success');
+  toast.style.display = 'block';
+  setTimeout(() => { toast.style.display = 'none'; }, 4000);
+}
+
+// =====================================================
+// STATE PERSISTENCE
+// =====================================================
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      prospects: state.prospects,
+      importedAt: state.importedAt,
+      nicheCounts: state.nicheCounts,
+      customCsvUrl: state.customCsvUrl
+    }));
+  } catch(e) { console.warn('State save failed', e); }
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    const saved = JSON.parse(raw);
+    if (saved.prospects) state.prospects = saved.prospects;
+    if (saved.importedAt) state.importedAt = saved.importedAt;
+    if (saved.nicheCounts) state.nicheCounts = saved.nicheCounts;
+    if (saved.customCsvUrl) state.customCsvUrl = saved.customCsvUrl;
+    return true;
+  } catch(e) { return false; }
+}
+
+// =====================================================
+// INIT
+// ==================================================================================
 // UI ACTIONS
 // =====================================================
 let currentFilter = 'todos';
