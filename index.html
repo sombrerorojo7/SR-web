@@ -737,23 +737,23 @@ var PLANES = {
 // PLANES BRANDING + REDES
 // ═══════════════════════════════════════════════
 var PLANES_BRANDING = {
-1:{nombre:"Esencial",precio:311.25,precio_fundador:249,tipo_precio:"unico",entrega:"10–12 días hábiles",
+1:{nombre:"Esencial",precio:349,precio_fundador:249,tipo_precio:"unico",entrega:"10–12 días hábiles",
 tag:"Ideal para negocios que necesitan imagen profesional desde cero",
 tagline:"Imagen profesional lista para usar en todos tus canales digitales e impresos.",
 desc_corto:"Imagen profesional lista para todos tus canales digitales e impresos",
-incluye:["2 propuestas de concepto de logo","Hasta 2 rondas de revisiones","Estudio de color corporativo + selección tipográfica","Versiones: color, blanco/negro, monocromático","Archivos: AI, EPS, PDF, PNG alta res., fondo transparente","Hoja membretada digital lista para usar en Word"],
-bonus:["Creación de perfiles de empresa en redes sociales (Facebook, Instagram, TikTok)","Guía rápida de colores corporativos (PDF 1 pág.)"]},
-2:{nombre:"Profesional",precio:498.75,precio_fundador:399,tipo_precio:"unico",entrega:"15–18 días hábiles",
+incluye:["2 propuestas de concepto de logo","4 visualizaciones de aplicación de marca (2 por cada propuesta de logo)","Hasta 2 rondas de revisiones","Estudio de color corporativo + selección tipográfica","Versiones: color, blanco/negro, monocromático","Archivos: AI, EPS, PDF, PNG alta res., fondo transparente","Hoja membretada digital lista para usar en Word"],
+bonus:["Configuración visual de Facebook: foto de perfil y portada con la nueva identidad de marca","Guía rápida de colores corporativos (PDF 1 pág.)"]},
+2:{nombre:"Profesional",precio:575,precio_fundador:399,tipo_precio:"unico",entrega:"15–18 días hábiles",
 tag:"Para empresas que quieren consistencia visual en todos sus materiales",
 tagline:"Identidad completa con guía de uso para aplicar tu marca en cualquier soporte.",
 desc_corto:"Identidad completa con guía de uso para cualquier soporte",
-incluye:["3 propuestas de concepto de logo","Hasta 3 rondas de revisiones","Análisis de competencia y posicionamiento de marca","Estudio de color + tipografía corporativa","Versiones: color, B/N, monocromático, horizontal y vertical","Archivos: AI, EPS, PDF, PNG, SVG","Papelería: hoja membretada + tarjeta de presentación","Guía de uso de marca (PDF 4 pág.): colores, tipografía, usos correctos/incorrectos"],
+incluye:["3 propuestas de concepto de logo","6 visualizaciones de aplicación de marca (2 por cada propuesta de logo)","Hasta 3 rondas de revisiones","Análisis de competencia y posicionamiento de marca","Estudio de color + tipografía corporativa","Versiones: color, B/N, monocromático, horizontal y vertical","Archivos: AI, EPS, PDF, PNG, SVG","Diseño de papelería: hoja membretada + tarjeta de presentación","Guía de uso de marca (PDF 4 pág.): colores, tipografía, usos correctos/incorrectos"],
 bonus:["Kit redes: perfil + portada para Facebook e Instagram","Plantilla de historia y post para Instagram (1 de cada una)"]},
-3:{nombre:"Corporativo",precio:873.75,precio_fundador:699,tipo_precio:"unico",entrega:"20–25 días hábiles",
+3:{nombre:"Corporativo",precio:1050,precio_fundador:699,tipo_precio:"unico",entrega:"20–25 días hábiles",
 tag:"Para corporaciones que necesitan una identidad sólida, completa y escalable",
 tagline:"Identidad de alto nivel con manual de marca profesional y todos los materiales corporativos.",
 desc_corto:"Identidad de alto nivel con manual de marca profesional completo",
-incluye:["3 propuestas de concepto de logo","Hasta 4 rondas de revisiones","Análisis de mercado, naming y posicionamiento estratégico","Estudio de color + tipografía primaria y secundaria","Todas las versiones del logo en todos los formatos","Manual de Marca completo (PDF 10–15 pág.): Pantone/CMYK/RGB/HEX, tipografías, rejilla constructiva","Papelería: sobre + hoja membretada + carpeta + tarjeta","Diseño de packing (1 producto, formato simple)","Diseño de roll up (1 diseño, 80×200 cm)","Animación de logo (5 seg., MP4)"],
+incluye:["3 propuestas de concepto de logo","6 visualizaciones de aplicación de marca (2 por cada propuesta de logo)","Hasta 4 rondas de revisiones","Análisis de mercado, naming y posicionamiento estratégico","Estudio de color + tipografía primaria y secundaria","Todas las versiones del logo en todos los formatos","Manual de Marca completo (PDF 10–15 pág.): Pantone/CMYK/RGB/HEX, tipografías, rejilla constructiva","Diseño de papelería: sobre + hoja membretada + carpeta + tarjeta","Diseño de packing (1 producto, formato simple)","Diseño de roll up (1 diseño, 80×200 cm)","Animación de logo (5 seg., MP4)"],
 bonus:["Kit digital: perfil + portada + 3 plantillas de post para redes","Guía de implementación en señalética y uniformes (PDF)"]}
 };
 var PLANES_REDES = {
@@ -1079,6 +1079,21 @@ function descargarHTML(html, filename) {
 function slug(s) {
   return (s || "cliente").replace(/[^a-zA-Z0-9]/g, "_").toLowerCase().substring(0, 20);
 }
+function getFechasPropuesta() {
+  var valor = v("p_fecha");
+  var emision;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(valor)) {
+    var partes = valor.split("-").map(Number);
+    emision = new Date(partes[0], partes[1] - 1, partes[2], 12);
+  } else {
+    emision = new Date();
+    emision.setHours(12, 0, 0, 0);
+  }
+  var vencimiento = new Date(emision.getTime());
+  vencimiento.setDate(vencimiento.getDate() + 7);
+  var formato = new Intl.DateTimeFormat("es-EC", { day: "numeric", month: "long", year: "numeric" });
+  return { emision: formato.format(emision), vencimiento: formato.format(vencimiento) };
+}
 function copiarMensaje() {
   var msg = getMensajeWhatsAppActivo();
   if (navigator.clipboard) {
@@ -1381,6 +1396,7 @@ function getMsgServicio() {
   var nombre=v('p_nombre')||'';
   var empresa=v('p_empresa')||'';
   var ncot=v('p_ncot')||'501';
+  var fechasPropuesta=getFechasPropuesta();
   var msg='';
   msg+='*Sombrero Rojo Marketing Digital*\n';
   msg+='-----------------------------------\n\n';
@@ -1391,9 +1407,10 @@ function getMsgServicio() {
     if(empresa) msg+=empresa+'\n';
     msg+='Cotización N° '+ncot+'\n\n';
     msg+='*Inversión: $'+money(p.precio)+' (pago único)*\n';
-    msg+='- Anticipo: 50% para iniciar\n';
-    msg+='- Saldo: contra entrega de archivos\n';
+    msg+='- Anticipo: 70% para iniciar\n';
+    msg+='- Saldo: 30% contra entrega de archivos\n';
     msg+='- Entrega estimada: '+p.entrega+'\n\n';
+    msg+='- Válida hasta: '+fechasPropuesta.vencimiento+'\n\n';
   } else if(servicioActivo==='redes'){
     msg+='*Redes Sociales — Plan '+p.nombre+'*\n';
     if(empresa) msg+=empresa+'\n';
@@ -1407,8 +1424,8 @@ function getMsgServicio() {
     if(empresa) msg+=empresa+'\n';
     msg+='Cotización N° '+ncot+'\n\n';
     msg+='*Inversión: $'+money(p.precio)+' (setup único)*\n';
-    msg+='- 50% para iniciar configuración\n';
-    msg+='- 50% al entregar el sistema funcionando\n';
+    msg+='- 70% para iniciar configuración\n';
+    msg+='- 30% al entregar el sistema funcionando\n';
     msg+='- Entrega estimada: '+p.entrega+'\n';
     msg+='- Suscripción ManyChat: ~$15/mes (cliente)\n\n';
   }
@@ -1549,7 +1566,7 @@ function getBrandingProformaHTML() {
   var sector=v('p_sector')||'';
   var ciudad=v('p_ciudad')||'Cuenca';
   var ncot=v('p_ncot')||'501';
-  var fecha=v('p_fecha')||new Date().toLocaleDateString('es-EC');
+  var fechasPropuesta=getFechasPropuesta();
   var logo=LOGO_EMBEDDED;
   var items=p.incluye.map(function(i){return '<li>'+i+'</li>';}).join('');
   return '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Propuesta Branding</title>'+
@@ -1585,7 +1602,7 @@ function getBrandingProformaHTML() {
   '</style></head><body>'+
   '<div class="doc">'+
   '<div class="dh"><div class="brand"><img src="'+logo+'" alt="Sombrero Rojo"><p>Marketing Digital &middot; Cuenca, Ecuador</p></div>'+
-  '<div class="badge-wrap"><div class="badge">PROPUESTA BRANDING</div><div class="ncot">N&deg; '+ncot+'</div><div class="fecha">'+fecha+'</div></div></div>'+
+  '<div class="badge-wrap"><div class="badge">PROPUESTA BRANDING</div><div class="ncot">N&deg; '+ncot+'</div><div class="fecha">Fecha de emisión: '+fechasPropuesta.emision+'</div></div></div>'+
   '<div class="info-row">'+
   '<div class="info-cell"><div class="label">Preparado para</div><div class="val">'+nombre+'</div><div class="sub">'+empresa+'</div></div>'+
   '<div class="info-cell"><div class="label">Preparado por</div><div class="val">Sombrero Rojo</div><div class="sub">Marketing Digital &middot; sombrerorojo.net</div></div>'+
@@ -1600,8 +1617,8 @@ function getBrandingProformaHTML() {
   '</tbody></table></div>'+
   '<div class="terms">'+
   '<div class="term-item"><strong>Entrega estimada</strong>'+p.entrega+'</div>'+
-  '<div class="term-item"><strong>Forma de pago</strong>50% anticipo &middot; 50% contra entrega</div>'+
-  '<div class="term-item"><strong>Validez</strong>15 días</div>'+
+  '<div class="term-item"><strong>Forma de pago</strong>70% anticipo &middot; 30% contra entrega</div>'+
+  '<div class="term-item"><strong>Válida hasta</strong>'+fechasPropuesta.vencimiento+'</div>'+
   '<div class="term-item"><strong>Contacto</strong>sombrerorojo.net &middot; 099 806 8900</div>'+
   '</div>'+
   '<div class="footer">Sombrero Rojo Marketing Digital &middot; Cuenca, Ecuador &middot; sombrerorojo.net</div>'+
@@ -1743,7 +1760,7 @@ function getWABotProformaHTML() {
   '</tbody></table></div>'+
   '<div class="terms">'+
   '<div class="term-item"><strong>Entrega estimada</strong>'+p.entrega+'</div>'+
-  '<div class="term-item"><strong>Forma de pago</strong>50% anticipo &middot; 50% al entregar</div>'+
+  '<div class="term-item"><strong>Forma de pago</strong>70% anticipo &middot; 30% al entregar</div>'+
   '<div class="term-item"><strong>Plataforma</strong>ManyChat (cuenta del cliente)</div>'+
   '<div class="term-item"><strong>Contacto</strong>sombrerorojo.net &middot; 099 806 8900</div>'+
   '</div>'+
@@ -2041,7 +2058,7 @@ function getWABotPlanLandHTML() {
     '<div class="inv-col">' +
     '<h3>Setup &uacute;nico &mdash; entrega en ' + p.entrega + '</h3>' +
     '<div class="price-big">$' + money(p.precio) + '</div>' +
-    '<div class="price-note">50% anticipo para iniciar &middot; 50% al entregar el sistema funcionando</div>' +
+    '<div class="price-note">70% anticipo para iniciar &middot; 30% al entregar el sistema funcionando</div>' +
     entregaNote +
     '<div class="aviso-wa">&#9888; Suscripci&oacute;n ManyChat Pro (~$15/mes) NO incluida. A cargo del cliente.</div>' +
     '</div></div>' +
@@ -2075,9 +2092,9 @@ function getBrandingLandingHTML() {
   var waVis    = v("l_wa_vis")   || "+593 99 999 9999";
   var web      = v("l_web")      || "https://sombrerorojo.net";
   var cupos    = v("l_cupos")    || "5";
+  var fechasPropuesta = getFechasPropuesta();
   var founderOn = chk("l_founder_on");
   var descPct  = v("l_desc_pct") || "20";
-  var promo    = v("l_promo")    || ("Solo para los primeros " + cupos + " clientes.");
   var waMsgCTAB = encodeURIComponent("Hola, me interesa el servicio de Branding para mi empresa. ¿Podemos coordinar?");
   var logo     = LOGO_EMBEDDED;
   var planes   = PLANES_BRANDING;
@@ -2176,7 +2193,7 @@ function getBrandingLandingHTML() {
   '<div class="section" id="planes">'+
     '<div class="sec-label">Nuestros planes</div>'+
     '<h2>Elige el plan ideal para '+negocio+'</h2>'+
-    '<p style="color:#666;margin-bottom:4px;font-size:13px;">Anticipo del 50% para iniciar &middot; Saldo contra entrega de archivos finales &middot; Precios en USD</p>'+
+    '<p style="color:#666;margin-bottom:4px;font-size:13px;">Anticipo del 70% para iniciar &middot; Saldo contra entrega de archivos finales &middot; Precios en USD</p>'+
     '<div class="planes-grid">'+pCards+'</div>'+
   '</div><hr class="div">'+
   (founderOn ? '</div>' + founderLandingPrincipalHTML("branding", descPct, cupos) + '<hr class="div"><div class="container">' : '')+
@@ -2192,36 +2209,37 @@ function getBrandingLandingHTML() {
   '</div><hr class="div">'+
   '<div class="section">'+
     '<div class="aviso-anticipo">'+
-      '<strong>&#9888; SOBRE EL ANTICIPO Y PAGO:</strong> Todos los proyectos requieren el <strong>50% de anticipo</strong> para iniciar. El saldo se cancela <strong>antes de la entrega de archivos finales</strong>. Si el cliente cancela tras iniciar la bocetación, el anticipo no es reembolsable.'+
+      '<strong>&#9888; SOBRE EL ANTICIPO Y PAGO:</strong> Todos los proyectos requieren el <strong>70% de anticipo</strong> para iniciar. El saldo se cancela <strong>antes de la entrega de archivos finales</strong>. Si el cliente cancela tras iniciar la bocetación, el anticipo no es reembolsable.'+
     '</div>'+
     '<div class="sec-label">Servicios complementarios</div>'+
     '<h2>Servicios Adicionales a la Carta</h2>'+
     '<p style="color:#666;margin-bottom:4px;font-size:13px;">Para complementar cualquier plan o contratar de forma independiente</p>'+
     '<table class="addon-table">'+
       '<tr><td>Revisión adicional (fuera de las incluidas en el plan)</td><td>$35 c/u</td></tr>'+
-      '<tr><td>Packing adicional por producto</td><td>Desde $80</td></tr>'+
-      '<tr><td>Roll up adicional o variación</td><td>$60</td></tr>'+
+      '<tr><td>Packing (envase o empaque)</td><td>$100</td></tr>'+
       '<tr><td>Manual de marca extendido (más de 15 páginas)</td><td>$150</td></tr>'+
       '<tr><td>Kit inicio redes: 3 cuentas + 6 posts iniciales</td><td>$180</td></tr>'+
       '<tr><td>Animación de logo adicional o variación</td><td>$60</td></tr>'+
-      '<tr><td>Rediseño / actualización de logo existente</td><td>Desde $180</td></tr>'+
+      '<tr><td>Rediseño / actualización de logo existente</td><td>Desde $260</td></tr>'+
     '</table>'+
   '</div><hr class="div">'+
   '<div class="section">'+
     '<div class="sec-label">Legal &amp; condiciones</div>'+
     '<h2>Términos y Condiciones</h2>'+
     '<table class="tc-table">'+
-      '<tr><td>&#128179; Anticipo</td><td>Se requiere el 50% del valor total para iniciar. El saldo se cancela antes de la entrega de archivos finales.</td></tr>'+
-      '<tr><td>&#128260; Revisiones</td><td>Cada plan incluye un número definido de rondas. Las adicionales tienen un costo de $35 c/u y se coordinan por escrito.</td></tr>'+
-      '<tr><td>&#128193; Archivos</td><td>Los entregables son digitales según el plan. La impresión de materiales NO está incluida salvo acuerdo previo.</td></tr>'+
+      '<tr><td>&#128179; Anticipo</td><td>Se requiere el 70% del valor total para iniciar. El saldo se cancela antes de la entrega de archivos finales.</td></tr>'+
+      '<tr><td>&#128260; Revisiones</td><td>Cada ronda corresponde a una lista consolidada de ajustes sobre una propuesta presentada. Cambios de dirección creativa, nuevos conceptos o solicitudes posteriores a la aprobación se cotizan por separado. Las adicionales tienen un costo de $35 c/u.</td></tr>'+
+      '<tr><td>&#128193; Archivos</td><td>Los entregables son digitales según el plan. Las visualizaciones de aplicación de marca son conceptuales y no incluyen impresión, fabricación, instalación ni archivos técnicos de producción, salvo acuerdo previo.</td></tr>'+
       '<tr><td>&#8987; Plazos</td><td>Los tiempos inician desde la confirmación del anticipo y recepción del brief completo. Demoras en aprobaciones pueden extender los plazos.</td></tr>'+
-      '<tr><td>&copy; Derechos</td><td>Con el 100% del pago cancelado, el cliente recibe todos los derechos sobre el logo y materiales diseñados.</td></tr>'+
-      '<tr><td>&#10007; Cancelaciones</td><td>Si el cliente cancela tras iniciar la bocetación, el anticipo no es reembolsable. Se entrega el avance realizado.</td></tr>'+
+      '<tr><td>&copy; Derechos</td><td>Con el 100% del pago cancelado, el cliente recibe los derechos de uso comercial de los diseños finales entregados, conforme al alcance contratado. Las fuentes, fotografías, recursos de terceros y licencias externas se rigen por sus propias condiciones de uso.</td></tr>'+
+      '<tr><td>&#10007; Cancelaciones</td><td>Si el cliente cancela tras iniciar la bocetación, el anticipo no es reembolsable. Los avances compartidos son únicamente para revisión y no autorizan su uso, publicación o reproducción mientras el proyecto no esté totalmente pagado.</td></tr>'+
       '<tr><td>&#128203; Brief</td><td>Todo proyecto inicia con un formulario de brief. Cambios radicales a mitad del proceso pueden implicar costos adicionales.</td></tr>'+
+      '<tr><td>&#128273; Accesos</td><td>Para la configuración visual de Facebook, el cliente debe proporcionar acceso de administrador. No incluye gestión continua, pauta publicitaria ni contenido mensual.</td></tr>'+
+      '<tr><td>&reg; Naming</td><td>Cuando el plan incluya naming, no contempla búsqueda, registro ni garantía de disponibilidad de marca ante SENADI.</td></tr>'+
     '</table>'+
   '</div></div>'+
   '<div style="background:#003399;color:#fff;padding:52px 28px;text-align:center;">'+
-    '<h2 style="font-size:clamp(20px,3vw,30px);font-weight:800;margin-bottom:12px;">'+promo+'</h2>'+
+    '<h2 style="font-size:clamp(20px,3vw,30px);font-weight:800;margin-bottom:12px;">Precios válidos hasta '+fechasPropuesta.vencimiento+'</h2>'+
     '<p style="opacity:.8;margin-bottom:24px;">Hablemos hoy y empezamos esta semana.</p>'+
     '<a href="https://wa.me/'+wa+'?text='+waMsgCTAB+'" target="_blank" style="display:inline-block;background:#25D366;color:#fff;padding:14px 32px;border-radius:8px;font-weight:700;font-size:15px;text-decoration:none;margin-right:10px;">WhatsApp</a>'+
     '<a href="'+web+'" target="_blank" style="display:inline-block;background:transparent;border:2px solid rgba(255,255,255,.5);color:#fff;padding:12px 28px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;">Nuestro sitio</a>'+
@@ -2562,6 +2580,7 @@ function getBrandingPlanLandHTML() {
   var nombre = v("p_nombre") || "";
   var empresa = v("p_empresa") || "";
   var sector = v("p_sector") || "";
+  var fechasPropuesta = getFechasPropuesta();
   var founderOn = founderActivo();
   var fundPct = founderPctActivo();
   var fundCupos = founderCuposActivo();
@@ -2635,7 +2654,8 @@ function getBrandingPlanLandHTML() {
     '<div class="inv-col">' +
     '<h3>Pago único — entrega en ' + p.entrega + '</h3>' +
     '<div class="price-big">$' + money(precioMostrar) + '</div>' +
-    '<div class="price-note">' + (founderOn ? 'Precio fundador · regular $' + money(p.precio) : '50% anticipo para iniciar · 50% contra entrega de archivos') + '</div>' +
+    '<div class="price-note">' + (founderOn ? 'Precio fundador · regular $' + money(p.precio) : '70% anticipo para iniciar · 30% contra entrega de archivos') + '</div>' +
+    '<div style="margin-top:10px;padding:10px 14px;background:#fbf7f0;border-radius:8px;font-size:12px;color:#003399;"><strong>&#128197; Vigencia de la propuesta:</strong> hasta ' + fechasPropuesta.vencimiento + '</div>' +
     entregaNote +
     '</div></div>' +
     '</div></div><hr class="div">' +
