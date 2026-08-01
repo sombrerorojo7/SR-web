@@ -365,6 +365,10 @@ document.addEventListener('click', function(e) {
         <input type="text" id="l_negocio" placeholder="Ej: Consultorio Dental Dr. Pérez" oninput="actualizarLanding()"></div>
       <div class="field-group"><label>Nombre de contacto</label>
         <input type="text" id="l_contacto" placeholder="Ej: Dr. Roberto Pérez" oninput="actualizarLanding()"></div>
+      <div class="field-group"><label>WhatsApp cliente (intl. con +)</label>
+        <input type="text" id="l_whatsapp" placeholder="+506 8383 8500" oninput="actualizarLanding()"></div>
+      <div class="field-group"><label>Ciudad / país</label>
+        <input type="text" id="l_ciudad" placeholder="Ej: San José, Costa Rica" oninput="actualizarLanding()"></div>
       <div class="field-group"><label>Sector / industria</label>
         <input type="text" id="l_sector" placeholder="Ej: Odontología · Salud" oninput="actualizarLanding()"></div>
     </div>
@@ -514,8 +518,8 @@ document.addEventListener('click', function(e) {
         <input type="text" id="p_sector" placeholder="Ej: Odontología" oninput="actualizarGenerador()"></div>
       <div class="field-group"><label>Ciudad</label>
         <input type="text" id="p_ciudad" placeholder="Cuenca" oninput="actualizarGenerador()">
-      <div class="field-group"><label>WhatsApp cliente</label>
-        <input type="text" id="p_whatsapp" placeholder="0991234567" oninput="actualizarGenerador()"></div></div>
+      <div class="field-group"><label>WhatsApp cliente (intl. con +)</label>
+        <input type="text" id="p_whatsapp" placeholder="+506 8383 8500" oninput="actualizarGenerador()"></div></div>
     </div>
     <div class="seccion-group">
       <h3>💰 Precio</h3>
@@ -1037,6 +1041,8 @@ function syncDatosPaneles(origen) {
   if (origen === "generador") {
     syncCampo("p_empresa", "l_negocio", "p_nombre");
     syncCampo("p_nombre", "l_contacto");
+    syncCampo("p_whatsapp", "l_whatsapp");
+    syncCampo("p_ciudad", "l_ciudad");
     syncCampo("p_sector", "l_sector");
     syncCampo("p_wa", "l_wa");
     syncCampo("p_wa_vis", "l_wa_vis");
@@ -1044,6 +1050,8 @@ function syncDatosPaneles(origen) {
   } else if (origen === "landing") {
     syncCampo("l_negocio", "p_empresa");
     syncCampo("l_contacto", "p_nombre");
+    syncCampo("l_whatsapp", "p_whatsapp");
+    syncCampo("l_ciudad", "p_ciudad");
     syncCampo("l_sector", "p_sector");
     syncCampo("l_wa", "p_wa");
     syncCampo("l_wa_vis", "p_wa_vis");
@@ -1093,6 +1101,15 @@ function getFechasPropuesta() {
   vencimiento.setDate(vencimiento.getDate() + 7);
   var formato = new Intl.DateTimeFormat("es-EC", { day: "numeric", month: "long", year: "numeric" });
   return { emision: formato.format(emision), vencimiento: formato.format(vencimiento) };
+}
+function normalizarWhatsAppDestino(valor) {
+  var texto = (valor || "").trim();
+  if (!texto) return "";
+  var digitos = texto.replace(/\D/g, "");
+  if (texto.charAt(0) === "+") return digitos;
+  if (digitos.indexOf("00") === 0) return digitos.slice(2);
+  if (digitos.indexOf("593") === 0 || digitos.indexOf("1") === 0) return digitos;
+  return "593" + digitos.replace(/^0/, "");
 }
 function copiarMensaje() {
   var msg = getMensajeWhatsAppActivo();
@@ -2816,10 +2833,13 @@ function getProformaServicio() {
 }
 function actualizarWAServicio() {
   var msg = getMensajeWhatsAppActivo();
-  var wa  = v("p_wa") || "593999999999";
-  var waUrl = "https://wa.me/" + wa + "?text=" + encodeURIComponent(msg);
+  var wa  = normalizarWhatsAppDestino(v("p_whatsapp"));
+  var waUrl = wa ? "https://wa.me/" + wa + "?text=" + encodeURIComponent(msg) : "#";
   var link = document.getElementById("btn-wa-link");
-  if (link) link.href = waUrl;
+  if (link) {
+    link.href = waUrl;
+    link.textContent = wa ? "📱 Abrir en WhatsApp" : "📱 Ingresa el WhatsApp del cliente";
+  }
   var msgHTML = msg
     .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
     .split("\n").join("<br>")
@@ -2967,9 +2987,9 @@ function getContextoPublicacion() {
       ncot: "landing",
       nombre: v("l_contacto") || "Cliente",
       empresa: empresaL,
-      ciudad: "",
+      ciudad: v("l_ciudad") || "",
       sector: v("l_sector") || "",
-      wa: "",
+      wa: v("l_whatsapp") || v("p_whatsapp") || "",
       planSheet: "Landing completa — " + servicioActivo,
       precio: "",
       slugBase: servicioActivo + "-" + empresaL
@@ -3016,6 +3036,7 @@ async function publicarYRegistrar(btn) {
   var propURL  = baseurl + ctx.folder + "/" + propSlug + "/";
   var propHTML = ctx.html || "<html><body><h1>" + ctx.label + "</h1></body></html>";
   var fecha = new Date().toISOString().split("T")[0];
+  var publicacionExitosa = false;
   // ═══ PASO 1: Publicar en GitHub Pages ═══
   if (token) {
     pubStatus("⏳ Publicando " + ctx.label.toLowerCase() + " en GitHub Pages…", "inf");
@@ -3052,6 +3073,7 @@ async function publicarYRegistrar(btn) {
         var errData = await pushResp.json();
         throw new Error("GitHub: " + (errData.message || pushResp.status));
       }
+      publicacionExitosa = true;
       pubStatus("✅ " + ctx.label + " publicada en GitHub Pages.<br>🔗 <a href='" + propURL + "' target='_blank'>" + propURL + "</a>", "ok");
       // Copy URL to clipboard
       if (navigator.clipboard) { try { await navigator.clipboard.writeText(propURL); } catch(e){} }
@@ -3097,12 +3119,13 @@ async function publicarYRegistrar(btn) {
     }
   }
   // ═══ PASO 3: Abrir WhatsApp ═══
-  if (wa) {
-    var numLimpio = wa.replace(/\D/g, "");
-    if (!numLimpio.startsWith("593") && !numLimpio.startsWith("1")) numLimpio = "593" + numLimpio.replace(/^0/, "");
+  if (wa && publicacionExitosa) {
+    var numLimpio = normalizarWhatsAppDestino(wa);
     var msgWA = "Hola " + nombre + ", le comparto la propuesta preparada para " + empresa + ":\n\n" + propURL + "\n\nQuedo atento para revisar cualquier ajuste y definir los siguientes pasos.";
     var waURL = "https://wa.me/" + numLimpio + "?text=" + encodeURIComponent(msgWA);
     setTimeout(function() { window.open(waURL, "_blank"); }, 800);
+  } else if (wa && !publicacionExitosa) {
+    pubStatus(pubStatusHTML() + "<br>⚠️ No se abrió WhatsApp porque la propuesta no se publicó.", "err");
   }
   if (btn) btn.disabled = false;
 }
